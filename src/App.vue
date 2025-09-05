@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import { Toaster } from "vue3-hot-toast";
+import { configure } from 'vee-validate';
+import { localize } from '@vee-validate/i18n';
+import es from '@vee-validate/i18n/dist/locale/es.json';
+
+configure({
+  generateMessage: localize('es', es),
+});
 </script>
 
 <template>
