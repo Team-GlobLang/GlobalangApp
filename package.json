@@ -12,6 +12,8 @@
     "@capacitor/android": "^7.4.3",
     "@capacitor/cli": "^7.4.3",
     "@capacitor/core": "^7.4.3",
+    "@tanstack/vue-query": "^5.87.1",
+    "@trevoreyre/autocomplete-vue": "^3.0.3",
     "@vee-validate/i18n": "^4.15.1",
     "@vee-validate/rules": "^4.15.1",
     "axios": "^1.11.0",
