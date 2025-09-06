@@ -1,12 +1,33 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HelloWorld from '../components/HelloWorld.vue';
+import Login from '../feautures/Auth/Page/Login.vue';
+import Register from '../feautures/Auth/Page/Register.vue';
+import ForgetPassword from '../feautures/Auth/Page/ForgetPassword.vue';
+import StartPage from '../feautures/Auth/Page/StartPage.vue';
+
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: HelloWorld
-  }
+    component: StartPage
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component:  Login
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register
+  },
+  {
+    path: '/forgetPassword',
+    name: 'ForgetPassword',
+    component: ForgetPassword
+  },
+
+
   
 ];
 
