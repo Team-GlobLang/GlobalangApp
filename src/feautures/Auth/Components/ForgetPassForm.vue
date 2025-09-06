@@ -1,9 +1,9 @@
-<template lang="html">
+<template>
     <div class="">
         
     </div>
 </template>
-<script setup>
+<script setup lang="ts">
 
 </script>
 
