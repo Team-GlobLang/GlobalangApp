@@ -6,20 +6,18 @@
         :options="countries"
         label="Selecciona un idioma"
       />
-      <!-- Cambiar por v for cuando haga logica con db -->
-      <!-- Ajustar fondo para que abarque full el height sin importar el contenido-->
-      <Quiz_Card
-        user="Akion Cheng jimenez"
-        title="Español basico"
-        language="Tico"
-        :questionsNUmber="2"
+      <Request_Colaborator_Card
+        user="Akion Cheng Jimenez"
+        language="Español tico"
+        title="Profesor de idiomas"
+        category="Colaborador docente"
       />
 
-      <Quiz_Card
+      <Request_Colaborator_Card
         user="Keirin Obando Duarte"
-        title="Ingles avanzado"
-        language="Newyorkino"
-        :questionsNUmber="10"
+        language="Español tico"
+        title="Profesor de idiomas"
+        category="Colaborador docente"
       />
     </section>
   </Lyout>
@@ -27,7 +25,7 @@
 
 <script setup lang="ts">
 import Lyout from "../../../lyouts/Lyout.vue";
-import Quiz_Card from "../components/Quiz_Card.vue";
+import Request_Colaborator_Card from "../components/Request_Colaborator_Card.vue";
 import { ref } from "vue";
 import { FwbSelect } from "flowbite-vue";
 
@@ -39,4 +37,4 @@ const countries = [
 ];
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

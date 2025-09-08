@@ -1,6 +1,6 @@
 <template>
   <header class="bg-[#00A1FF] p-6 top-0 fixed w-full"></header>
-  <main class="py-20">
+  <main class="py-20 px-6">
     <slot></slot>
   </main>
   <footer class="bg-[#00A1FF] p-4 bottom-0 fixed w-full flex justify-between">

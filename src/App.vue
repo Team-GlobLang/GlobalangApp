@@ -3,12 +3,12 @@ import { Toaster } from "vue3-hot-toast";
 </script>
 
 <template>
-    <Toaster />
-    <router-view v-slot="{ Component }">
-      <Transition>
-        <component :is="Component" />
-      </Transition>
-    </router-view>
+  <Toaster />
+  <router-view v-slot="{ Component }">
+    <Transition>
+      <component :is="Component" />
+    </Transition>
+  </router-view>
 </template>
 
 <style lang="css">

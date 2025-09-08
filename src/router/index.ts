@@ -1,34 +1,47 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import Login from '../feautures/Auth/Page/Login.vue';
-import Register from '../feautures/Auth/Page/Register.vue';
-import ForgetPassword from '../feautures/Auth/Page/ForgetPassword.vue';
-import StartPage from '../feautures/Auth/Page/StartPage.vue';
-
-
+import { createRouter, createWebHistory } from "vue-router";
+import Login from "../feautures/Auth/Page/Login.vue";
+import Register from "../feautures/Auth/Page/Register.vue";
+import ForgetPassword from "../feautures/Auth/Page/ForgetPassword.vue";
+import StartPage from "../feautures/Auth/Page/StartPage.vue";
+import Home_Moderators from "../feautures/moderators/pages/Home_Moderators.vue";
+import Quizz_request from "../feautures/moderators/pages/Quizz_request.vue";
+import Request_Colaborator from "../feautures/moderators/pages/Request_Colaborator.vue";
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: StartPage
+    path: "/",
+    name: "Home",
+    component: StartPage,
   },
   {
-    path: '/login',
-    name: 'Login',
-    component:  Login
+    path: "/login",
+    name: "Login",
+    component: Login,
   },
   {
-    path: '/register',
-    name: 'Register',
-    component: Register
+    path: "/register",
+    name: "Register",
+    component: Register,
   },
   {
-    path: '/forgetPassword',
-    name: 'ForgetPassword',
-    component: ForgetPassword
+    path: "/forgetPassword",
+    name: "ForgetPassword",
+    component: ForgetPassword,
   },
-
-
-  
+  {
+    path: "/home/moderator",
+    name: "Home_Moderator",
+    component: Home_Moderators,
+  },
+  {
+    path: "/request/quiz/moderator",
+    name: "Request_Quizz_Moderator",
+    component: Quizz_request,
+  },
+  {
+    path: "/request/colaborator/moderator",
+    name: "Request_colaborator_Moderator",
+    component: Request_Colaborator,
+  },
 ];
 
 const router = createRouter({

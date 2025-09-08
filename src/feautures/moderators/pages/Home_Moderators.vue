@@ -1,6 +1,6 @@
 <template>
   <Lyout>
-    <section class="flex flex-col items-center justify-center gap-8">
+    <section class="flex flex-col w-full gap-8">
       <home_-user_-card
         name="Adrian Aguilar"
         role="Moderador de sistema"
