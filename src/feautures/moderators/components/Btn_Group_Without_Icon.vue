@@ -1,16 +1,14 @@
 <template>
-  <fwb-button-group>
-    <div class="w-full flex justify-between gap-4">
+  <fwb-button-group class="w-full">
+    <div class="flex w-full justify-between gap-10">
       <fwb-button
-        class="w-full flex items-center gap-4 justify-center border border-[#FF0000] rounded-md p-0.5"
+        :class="`w-full flex gap-4 justify-center border p-2 ${props.colorReject} text-white rounded-md p-0.5`"
       >
-        <i :class="`pi ${props.rejectIcon} text-[#FF0000]`"></i>
         <span>{{ props.rejectText }}</span>
       </fwb-button>
       <fwb-button
-        class="w-full flex items-center gap-4 justify-center bg-[#009951] rounded-md text-white p-0.5"
+        :class="`w-full flex gap-4 justify-center p-2 ${props.colorAccept} rounded-md text-white p-0.5`"
       >
-        <i :class="`pi ${props.acceptIcon}`"></i>
         <span>{{ props.acceptText }}</span>
       </fwb-button>
     </div>
@@ -22,13 +20,13 @@ const props = defineProps({
   acceptText: {
     type: String,
   },
-  acceptIcon: {
+  colorAccept: {
     type: String,
   },
   rejectText: {
     type: String,
   },
-  rejectIcon: {
+  colorReject: {
     type: String,
   },
 });
