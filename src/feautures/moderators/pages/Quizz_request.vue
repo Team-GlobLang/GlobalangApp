@@ -15,7 +15,7 @@
         :questionsNUmber="2"
       />
 
-      <Quiz_Card
+      <Request_Quiz_Card
         user="Keirin Obando Duarte"
         title="Ingles avanzado"
         language="Newyorkino"
@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import Lyout from "../../../lyouts/Lyout.vue";
-import Quiz_Card from "../components/Quiz_Card.vue";
+import Request_Quiz_Card from "../components/Request_Quiz_Card.vue";
 import { ref } from "vue";
 import { FwbSelect } from "flowbite-vue";
 

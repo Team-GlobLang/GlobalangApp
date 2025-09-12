@@ -8,7 +8,10 @@ import Quizz_request from "../feautures/moderators/pages/Quizz_request.vue";
 import Request_Colaborator from "../feautures/moderators/pages/Request_Colaborator.vue";
 import Colaborator_Request_View from "../feautures/moderators/pages/Colaborator_Request_View.vue";
 import Audio_Request_Moderator from "../feautures/moderators/pages/Audio_Request_Moderator.vue";
-
+import Phrase_Registered from "../feautures/moderators/pages/Phrase_Registered.vue";
+import Users_Registered from "../feautures/moderators/pages/Users_Registered.vue";
+import List_Quiz_Registered from "../feautures/moderators/pages/List_Quiz_Registered.vue";
+import Teacher_Colaborator_Registered from "../feautures/moderators/pages/Teacher_Colaborator_Registered.vue";
 const routes = [
   {
     path: "/",
@@ -54,6 +57,26 @@ const routes = [
     path: "/request/audio/moderator",
     name: "Request_colaborator_audio_Moderator",
     component: Audio_Request_Moderator,
+  },
+  {
+    path: "/phrases/registered",
+    name: "Phrases_Registered",
+    component: Phrase_Registered,
+  },
+  {
+    path: "/users/registered",
+    name: "Users_Registered",
+    component: Users_Registered,
+  },
+  {
+    path: "/quizzes/registered",
+    name: "quizzes_Registered",
+    component: List_Quiz_Registered,
+  },
+   {
+    path: "/teacher-colaborator/registered",
+    name: "teacher-colaborator_Registered",
+    component: Teacher_Colaborator_Registered,
   },
 ];
 
