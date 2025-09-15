@@ -1,6 +1,10 @@
 import axios from "axios";
 import axiosInstance from "../../../Core/AxiosConfig";
-import type { LoginForm, RegisterForm } from "../Interfaces";
+import type {
+  changePasswordInterface,
+  LoginForm,
+  RegisterForm,
+} from "../Interfaces";
 import type { RecoveryCode } from "../Interfaces/RecoveryCodeInterface";
 
 const singIn = async (Data: LoginForm) => {
@@ -76,4 +80,29 @@ const verifyRecoveryCode = async (data: RecoveryCode) => {
   }
 };
 
-export { singIn, singUp, requestRecoveryCode, verifyRecoveryCode };
+const changePassword = async (data: changePasswordInterface) => {
+  try {
+    const forgetToken = localStorage.getItem("forgetToken");
+    const response = await axiosInstance.patch("auth/reset-password", {
+      ...data,
+      forgetToken,
+    });
+    return response.data.message;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.response?.data || error.message);
+      throw new Error(error.response?.data.message);
+    } else {
+      console.error("Error desconocido:", error);
+      throw new Error("Error desconocido");
+    }
+  }
+};
+
+export {
+  singIn,
+  singUp,
+  requestRecoveryCode,
+  verifyRecoveryCode,
+  changePassword,
+};
