@@ -6,7 +6,6 @@ import type {
   RegisterForm,
 } from "../Interfaces";
 import type { RecoveryCode } from "../Interfaces/RecoveryCodeInterface";
-import { string } from "joi";
 
 const singIn = async (Data: LoginForm) => {
   try {
