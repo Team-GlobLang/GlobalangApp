@@ -4,6 +4,7 @@ import Register from "../feautures/Auth/Page/Register.vue";
 import ForgetPassword from "../feautures/Auth/Page/ForgetPassword.vue";
 import StartPage from "../feautures/Auth/Page/StartPage.vue";
 import ChangePassword from "../feautures/Auth/Page/ChangePassword.vue";
+import { canUserAcces } from "../feautures/Auth/Services/AuthServices";
 
 const routes = [
   {
@@ -39,6 +40,22 @@ const router = createRouter({
   scrollBehavior() {
     return { top: 0 };
   },
+});
+
+const publicPages = [
+  "/login",
+  "/register",
+  "/forgetPassword",
+  "/changePassword",
+];
+
+router.beforeEach(async (to) => {
+  if (publicPages.includes(to.path)) return true;
+
+  const canAccess = await canUserAcces(to.path);
+  if (!canAccess) return "/login";
+
+  return true;
 });
 
 export default router;

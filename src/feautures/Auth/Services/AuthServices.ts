@@ -6,6 +6,7 @@ import type {
   RegisterForm,
 } from "../Interfaces";
 import type { RecoveryCode } from "../Interfaces/RecoveryCodeInterface";
+import { string } from "joi";
 
 const singIn = async (Data: LoginForm) => {
   try {
@@ -102,10 +103,26 @@ const changePassword = async (data: changePasswordInterface) => {
   }
 };
 
+const canUserAcces = async (to: string) => {
+  try {
+    const response = await axiosInstance.post("auth/access-verify", { to });
+    return response.data.allowed;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.response?.data || error.message);
+      return false;
+    } else {
+      console.error("Error desconocido:", error);
+      return false;
+    }
+  }
+};
+
 export {
   singIn,
   singUp,
   requestRecoveryCode,
   verifyRecoveryCode,
   changePassword,
+  canUserAcces,
 };
