@@ -104,7 +104,7 @@ const changePassword = async (data: changePasswordInterface) => {
 
 const canUserAcces = async (to: string) => {
   try {
-    const response = await axiosInstance.post("auth/access-verify", { to });
+    const response = await axiosInstance.post("auth/grant-access-to", { to:to });
     return response.data.allowed;
   } catch (error) {
     if (axios.isAxiosError(error)) {
