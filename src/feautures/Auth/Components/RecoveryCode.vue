@@ -11,7 +11,7 @@
                 <span class="font-medium"> {{ emailError }} </span>
             </template>
         </FwbInput>
-        <FwbButton type="submit">Send Code</FwbButton>
+        <FwbButton type="submit" :disabled="isPending">Send Code</FwbButton>
     </form>
 
     <form @submit.prevent="validateCode" v-if="codeSend" class="flex-col flex gap-5 w-3/4">
@@ -23,8 +23,7 @@
             <span v-else>Resend code in {{ timer }}s</span>
         </button>
         <FwbInput v-model="code" label="Recovery code" placeholder="Enter your code"
-            :validation-status="codeError ? 'error' : undefined"
-              @focus="clearCode">
+            :validation-status="codeError ? 'error' : undefined" @focus="clearCode">
             <template #suffix>
                 <span class="pi pi-slack"></span>
             </template>
@@ -32,7 +31,7 @@
                 <span class="font-medium"> {{ codeError }} </span>
             </template>
         </FwbInput>
-        <FwbButton type="submit">
+        <FwbButton :disabled="codePending" type="submit">
             Enter code
         </FwbButton>
     </form>
@@ -41,10 +40,13 @@
 import { FwbInput, FwbButton } from 'flowbite-vue';
 import { useField, useForm } from 'vee-validate';
 import { ref } from 'vue';
-import toast from 'vue3-hot-toast';
+import { useRouter } from 'vue-router';
 import { rules } from '../../../Core/validators/rules';
 import type { RecoveryCode } from '../Interfaces/RecoveryCodeInterface';
+import { UseRequestCode } from '../Hooks/useRequestCode';
+import { UseValidateCode } from '../Hooks/useValidateCode';
 
+const router = useRouter();
 const { required, email: emailRule, min } = rules;
 [required, emailRule, min].forEach(fn => fn());
 
@@ -71,30 +73,40 @@ const startTimer = () => {
     }, 1000);
 };
 
+const { mutate, isPending } = UseRequestCode()
+const { mutate: verifyCode, isPending: codePending } = UseValidateCode()
+
 const sendCode = handleSubmit((values) => {
-    toast(values.email || "Null")
-    codeSend.value = true;
-    startTimer();
+    mutate(values.email || "", {
+        onSuccess: () => {
+            codeSend.value = true;
+            startTimer();
+        }
+    })
 })
 
 const clearCode = () => {
-  code.value = '';
+    code.value = '';
 };
 const resendCode = handleSubmit((values) => {
-
-    toast(values.email || "Null")
-    startTimer();
+    mutate(values.email || "", {
+        onSuccess: () => {
+            codeSend.value = true;
+            startTimer();
+        }
+    })
 })
 
+const validateCode = handleSubmit((values: RecoveryCode) => {
 
+    verifyCode(values, {
+        onSuccess: () => {
+            router.push({ name: "ChangePassword" })
+        }
+    })
 
-const validateCode = handleSubmit(() => {
-    if (!code.value) return;
-    toast(`Code entered: ${code.value}`);
 
 });
-
-
 
 
 </script>

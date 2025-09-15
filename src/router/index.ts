@@ -1,34 +1,36 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import Login from '../feautures/Auth/Page/Login.vue';
-import Register from '../feautures/Auth/Page/Register.vue';
-import ForgetPassword from '../feautures/Auth/Page/ForgetPassword.vue';
-import StartPage from '../feautures/Auth/Page/StartPage.vue';
-
+import { createRouter, createWebHistory } from "vue-router";
+import Login from "../feautures/Auth/Page/Login.vue";
+import Register from "../feautures/Auth/Page/Register.vue";
+import ForgetPassword from "../feautures/Auth/Page/ForgetPassword.vue";
+import StartPage from "../feautures/Auth/Page/StartPage.vue";
+import ChangePassword from "../feautures/Auth/Page/ChangePassword.vue";
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: StartPage
+    path: "/",
+    name: "Home",
+    component: StartPage,
   },
   {
-    path: '/login',
-    name: 'Login',
-    component:  Login
+    path: "/login",
+    name: "Login",
+    component: Login,
   },
   {
-    path: '/register',
-    name: 'Register',
-    component: Register
+    path: "/register",
+    name: "Register",
+    component: Register,
   },
   {
-    path: '/forgetPassword',
-    name: 'ForgetPassword',
-    component: ForgetPassword
+    path: "/forgetPassword",
+    name: "ForgetPassword",
+    component: ForgetPassword,
   },
-
-
-  
+  {
+    path: "/changePassword",
+    name: "ChangePassword",
+    component: ChangePassword,
+  },
 ];
 
 const router = createRouter({
