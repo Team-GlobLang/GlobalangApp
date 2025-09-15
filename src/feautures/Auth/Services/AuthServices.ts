@@ -11,12 +11,15 @@ const singIn = async (Data: LoginForm) => {
   try {
     const response = await axiosInstance.post("auth/login", Data);
     const token = response.data.token;
-
+    const deviceUuid = response.data.deviceUuid;
+    const refreshToken = response.data.refresh_token;
     if (!token) {
       throw new Error("Login failed: Please try again");
     }
 
     localStorage.setItem("accessToken", token);
+    localStorage.setItem("uuid", deviceUuid);
+    localStorage.setItem("refT", refreshToken);
 
     return response.data;
   } catch (error: unknown) {
