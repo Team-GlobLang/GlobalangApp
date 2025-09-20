@@ -27,12 +27,18 @@
     reject-text="Rechazar"
     color-accept="bg-[#00A1FF]"
     color-reject="bg-[#900B09]"
+    :id_item="props.id_item || ''"
+    @accept="onAccept"
+    @reject="onReject"
   />
 </template>
 
 <script setup lang="ts">
 import Btn_Group_Without_Icon from "../components/Btn_Group_Without_Icon.vue";
 const props = defineProps({
+  id_item: {
+    type: String,
+  },
   name: {
     type: String,
   },
@@ -49,6 +55,18 @@ const props = defineProps({
     type: String,
   },
 });
+const emit = defineEmits<{
+  accept: [itemId: string];
+  reject: [itemId: string];
+}>();
+
+const onAccept = (itemId: string) => {
+  emit("accept", itemId);
+};
+
+const onReject = (itemId: string) => {
+  emit("reject", itemId);
+};
 </script>
 
 <style scoped></style>

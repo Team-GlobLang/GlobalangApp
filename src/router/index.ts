@@ -49,9 +49,10 @@ const routes = [
     component: Request_Colaborator,
   },
   {
-    path: "/request/colaborator/view/moderator",
+    path: "/request/colaborator/view/moderator/:id",
     name: "Request_colaborator_View_Moderator",
     component: Colaborator_Request_View,
+    props: true,
   },
   {
     path: "/request/audio/moderator",
@@ -73,7 +74,7 @@ const routes = [
     name: "quizzes_Registered",
     component: List_Quiz_Registered,
   },
-   {
+  {
     path: "/teacher-colaborator/registered",
     name: "teacher-colaborator_Registered",
     component: Teacher_Colaborator_Registered,
