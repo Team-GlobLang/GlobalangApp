@@ -29,6 +29,7 @@
         requestNumber="2"
         icon="pi-users"
         bgColor="bg-[#FFDADA]"
+        @click="router.push({ name: 'Request_colaborator_Moderator' })"
       />
       <home_-stadistics_-card />
     </section>
@@ -40,6 +41,9 @@ import Home_User_Card from "../components/Home_User_Card.vue";
 import Home_Options_Request from "../components/Home_Options_Request.vue";
 import Lyout from "../../../lyouts/Lyout.vue";
 import Home_Stadistics_Card from "../components/Home_Stadistics_Card.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 </script>
 
 <style lang="css" scoped></style>
