@@ -43,6 +43,7 @@ const router = createRouter({
 });
 
 const publicPages = [
+  "/",
   "/login",
   "/register",
   "/forgetPassword",
