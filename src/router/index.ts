@@ -8,6 +8,7 @@ import TeacherPage from "../feautures/ShortAudio/Page/TeacherPage.vue";
 import AudioListenPage from "../feautures/ShortAudio/Page/AudioListenPage.vue";
 import ListPage from "../feautures/ShortAudio/Page/ListPage.vue";
 import FavoriteAudio from "../feautures/ShortAudio/Page/FavoriteAudio.vue";
+import ChangePassword from "../feautures/Auth/Page/ChangePassword.vue";
 const routes = [
   {
     path: "/",
@@ -30,29 +31,39 @@ const routes = [
     component: ForgetPassword,
   },
   {
-    path: "/short-audio/quiz",
-    name: "AudioRecorderPage",
-    component: AudioRecorderPage,
+    path: "/changePassword",
+    name: "ChangePassword",
+    component: ChangePassword,
   },
   {
-    path: "/short-audio/teacher",
-    name: "TeacherPage",
-    component: TeacherPage,
-  },
-  {
-    path: "/short-audio/listen",
-    name: "AudioListenPage",
-    component: AudioListenPage,
-  },
-  {
-    path: "/short-audio/audio-list",
-    name: "ListPage",
-    component: ListPage,
-  },
-  {
-    path: "/short-audio/favorite",
-    name: "FavoriteAudio",
-    component: FavoriteAudio,
+    path: "/short-audio",
+    children: [
+      {
+        path: "quiz", //!!Deberia ser phrase o short o words algo referente al contenido
+        name: "AudioRecorderPage",
+        component: AudioRecorderPage,
+      },
+      {
+        path: "teacher", //!! solicitud de profesor la realiza akion
+        name: "TeacherPage",
+        component: TeacherPage,
+      },
+      {
+        path: "listen", //! Esta pantalla pertenece a moderadores, el componente esta bien pero el boton revisado esta de mas. el doble marco se puede remover y utilizarlos en scroll
+        name: "AudioListenPage",
+        component: AudioListenPage,
+      },
+      {
+        path: "audio-list",
+        name: "ListPage",//! El nombre de la page se usa para router y demas, debe ser algo vinvulado al contenido ej. AudioList 
+        component: ListPage,
+      },
+      {
+        path: "favorite",
+        name: "FavoriteAudio", //! Este nombre y ruta estan bien, el contenido puede ser en ves de horizontal vertical. el horizontal es que se utilizara en pantalla de incio
+        component: FavoriteAudio,
+      },
+    ],
   },
 ];
 
@@ -63,5 +74,22 @@ const router = createRouter({
     return { top: 0 };
   },
 });
+
+//const publicPages = [
+//  "/",
+//  "/login",
+//  "/register",
+//  "/forgetPassword",
+//  "/changePassword",
+//];
+
+//router.beforeEach(async (to) => {
+//  if (publicPages.includes(to.path)) return true;
+//
+//  const canAccess = await canUserAcces(to.path);
+//  if (!canAccess) return "/login";
+//
+//  return true;
+//});
 
 export default router;
