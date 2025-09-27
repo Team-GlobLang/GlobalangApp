@@ -1,10 +1,32 @@
 <template>
-    <div class=" flex items-center justify-center flex-col w-full h-screen">
-        <BannerImg/>
-        <LoginForm/>
+    <div
+        class="w-full min-h-screen flex items-center justify-center relative bg-gradient-to-br from-blue-100 via-white to-blue-300 overflow-hidden">
+        <DecorativeBg />
+        <div
+            class="flex flex-col md:flex-row items-center justify-center w-full max-w-4xl px-4 py-10 gap-0 md:gap-0 bg-transparent relative z-10">
+            <div class="hidden md:flex flex-1 items-center justify-center h-full">
+                <img src="/Glob.png" alt="globIcon" class="h-80 w-auto object-contain" />
+            </div>
+            <div
+                class="flex flex-col items-center justify-center w-full md:w-2/3 max-w-md px-6 py-10 gap-8 bg-white rounded-xl shadow-lg">
+                <div class="md:hidden mb-4"><img src="/Glob.png" alt="globIcon" class="h-24 w-auto object-contain" />
+                </div>
+                <LoginForm />
+                <div class="w-full flex flex-col items-center mt-4">
+                    <div class="flex flex-row items-center justify-center gap-2 w-full">
+                        <span class="text-gray-600 text-sm">Don't have an account?</span>
+                        <RouterLink to="/register" class="text-blue-600 text-sm hover:underline">Go to Register
+                        </RouterLink>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script setup>
-import BannerImg from '../Components/BannerImg.vue';
+import { RouterLink } from 'vue-router';
+import DecorativeBg from '../../../components/ui/DecorativeBg.vue';
 import LoginForm from '../Components/LoginForm.vue';
+
+
 </script>
