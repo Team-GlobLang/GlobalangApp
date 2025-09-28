@@ -37,6 +37,7 @@ import type { LoginForm } from '../Interfaces/LoginInterface';
 import { useField, useForm } from 'vee-validate';
 import { rules } from '../../../Core/validators/rules';
 import { UseSingIn } from '../Hooks/useSingIn';
+import { useRouter } from 'vue-router';
 
 const showPassword = ref<boolean>(false)
 function changeShowPassword(show: boolean) {
@@ -59,8 +60,12 @@ const {
 
 const { mutate, isPending } = UseSingIn()
 
+const router = useRouter()
+
 const submitForm = handleSubmit((values) => {
-  mutate(values)
+  mutate(values, {
+    onSuccess: () => { router.push({ name: "Home" }) }
+  })
 });
 
 </script>

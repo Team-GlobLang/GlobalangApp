@@ -10,22 +10,20 @@
             <div class="flex-1 flex items-center justify-center">
                 <WorldMap v-model:country="country" />
             </div>
-            <div v-if="user.role == 'BASIC'">
-                <ColabsRedirections/>
+            <div>
+                <ColabsRedirections />
             </div>
         </div>
     </div>
 </template>
 <script setup lang="ts">
-import { inject, ref } from 'vue';
+import { ref } from 'vue';
 import LanguageSelector from '../Components/LanguageSelector.vue';
 import WorldMap from '../Components/WorldMap.vue';
 import MyInfo from '../Components/MyInfo.vue';
 import ColabsRedirections from '../Components/ColabsRedirections.vue';
-import type { User } from '../../../Stores/user';
 
 const country = ref('');
 
-const user = inject<User>('user')!;
 
 </script>

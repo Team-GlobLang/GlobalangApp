@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import { ref, provide } from "vue";
 import { Toaster } from "vue3-hot-toast";
+import type { User } from "./Stores/user";
+const user = ref<User | null>(null)
+
+provide('user', user)
 </script>
 
 <template>
