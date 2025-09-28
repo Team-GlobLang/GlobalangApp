@@ -6,20 +6,26 @@ import type {
   RegisterForm,
 } from "../Interfaces";
 import type { RecoveryCode } from "../Interfaces/RecoveryCodeInterface";
+import { userStore } from "../../../Stores/user";
 
 const singIn = async (Data: LoginForm) => {
   try {
     const response = await axiosInstance.post("auth/login", Data);
     const token = response.data.token;
-    const deviceUuid = response.data.deviceUuid;
-    const refreshToken = response.data.refresh_token;
     if (!token) {
       throw new Error("Login failed: Please try again");
     }
-
     localStorage.setItem("accessToken", token);
+
+    const deviceUuid = response.data.deviceUuid;
     localStorage.setItem("uuid", deviceUuid);
+
+    const refreshToken = response.data.refresh_token;
     localStorage.setItem("refT", refreshToken);
+
+    const user = response.data.user;
+
+    userStore.setUser(user);
 
     return response.data;
   } catch (error: unknown) {
@@ -104,7 +110,9 @@ const changePassword = async (data: changePasswordInterface) => {
 
 const canUserAcces = async (to: string) => {
   try {
-    const response = await axiosInstance.post("auth/grant-access-to", { to:to });
+    const response = await axiosInstance.post("auth/grant-access-to", {
+      to: to,
+    });
     return response.data.allowed;
   } catch (error) {
     if (axios.isAxiosError(error)) {
