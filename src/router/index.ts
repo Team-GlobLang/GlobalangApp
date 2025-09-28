@@ -9,11 +9,19 @@ import AudioListenPage from "../feautures/ShortAudio/Page/AudioListenPage.vue";
 import ListPage from "../feautures/ShortAudio/Page/ListPage.vue";
 import FavoriteAudio from "../feautures/ShortAudio/Page/FavoriteAudio.vue";
 import ChangePassword from "../feautures/Auth/Page/ChangePassword.vue";
+import HomePage from "../feautures/Home/Page/HomePage.vue";
+import JoinAsMasterColab from "../feautures/Colaborators/Page/JoinAsMasterColab.vue";
+import JoinAsCasualColab from "../feautures/Colaborators/Page/JoinAsCasualColab.vue";
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "start",
     component: StartPage,
+  },
+  {
+    path: "/home",
+    name: "Home",
+    component: HomePage,
   },
   {
     path: "/login",
@@ -55,13 +63,28 @@ const routes = [
       },
       {
         path: "audio-list",
-        name: "ListPage",//! El nombre de la page se usa para router y demas, debe ser algo vinvulado al contenido ej. AudioList 
+        name: "ListPage", //! El nombre de la page se usa para router y demas, debe ser algo vinvulado al contenido ej. AudioList
         component: ListPage,
       },
       {
         path: "favorite",
         name: "FavoriteAudio", //! Este nombre y ruta estan bien, el contenido puede ser en ves de horizontal vertical. el horizontal es que se utilizara en pantalla de incio
         component: FavoriteAudio,
+      },
+    ],
+  },
+  {
+    path: "/coloaborators",
+    children: [
+      {
+        path: "join-master",
+        name: "MasterRequest",
+        component: JoinAsMasterColab,
+      },
+      {
+        path: "join-casual",
+        name: "CasualRequest",
+        component: JoinAsCasualColab,
       },
     ],
   },

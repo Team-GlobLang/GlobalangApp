@@ -1,5 +1,6 @@
-
-export const countries=[
+export const countries = [
+  { name: "Ivory Coast", code: "CI", alpha3: "CIV", languages: ["French"] },
+  { name: "Republic of Serbia", code: "RS", alpha3: "SRB", languages: ["Serbian"] },
   { "name": "Afghanistan", "code": "AF", "alpha3": "AFG", "languages": ["Pashto", "Dari"] },
   { "name": "Åland Islands", "code": "AX", "alpha3": "ALA", "languages": ["Swedish"] },
   { "name": "Albania", "code": "AL", "alpha3": "ALB", "languages": ["Albanian"] },
