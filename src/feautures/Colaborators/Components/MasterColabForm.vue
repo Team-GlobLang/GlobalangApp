@@ -55,7 +55,7 @@
 import { FwbButton, FwbInput, FwbTextarea } from 'flowbite-vue';
 import { ref } from 'vue';
 import { rules } from '../../../Core/validators/rules';
-import type { MasterRequestData } from '../Interfaces/send-mstert-request.interface';
+import type { MasterRequestData } from '../Interfaces/send-master-request.interface';
 import { useField, useForm } from 'vee-validate';
 import FileSelector from './Microcomponents/FileSelector.vue';
 import { UseSendMasterRequest } from '../Hooks/UseSendMasterRequest';

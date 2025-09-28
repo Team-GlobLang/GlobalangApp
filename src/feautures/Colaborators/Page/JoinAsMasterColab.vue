@@ -1,5 +1,4 @@
 <template>
-
     <div class=" w-full flex flex-col gap-2 justify-center items-center">
         <div class=" w-full p-2">
             <BreadCrumb :items="breadcrumbItems" />
@@ -17,7 +16,7 @@ import MasterColabForm from '../Components/MasterColabForm.vue';
 
 
 const breadcrumbItems = [
-    { label: "Home", route: "/", isHome: true },
+    { label: "Home", route: "/home", isHome: true },
     { label: "Become an instructor" }
 ];
 
