@@ -12,11 +12,14 @@ import ChangePassword from "../feautures/Auth/Page/ChangePassword.vue";
 import HomePage from "../feautures/Home/Page/HomePage.vue";
 import JoinAsMasterColab from "../feautures/Colaborators/Page/JoinAsMasterColab.vue";
 import JoinAsCasualColab from "../feautures/Colaborators/Page/JoinAsCasualColab.vue";
+import NavBarLayout from "../layouts/NavBarLayout.vue";
+
 const routes = [
   {
     path: "/",
     name: "start",
     component: StartPage,
+    meta: { showBottomBar: false },
   },
   {
     path: "/home",
@@ -27,24 +30,29 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+    meta: { showBottomBar: false },
   },
   {
     path: "/register",
     name: "Register",
     component: Register,
+    meta: { showBottomBar: false },
   },
   {
     path: "/forgetPassword",
     name: "ForgetPassword",
     component: ForgetPassword,
+    meta: { showBottomBar: false },
   },
   {
     path: "/changePassword",
     name: "ChangePassword",
     component: ChangePassword,
+    meta: { showBottomBar: false },
   },
   {
     path: "/short-audio",
+    name: "Short-audio",
     children: [
       {
         path: "quiz", //!!Deberia ser phrase o short o words algo referente al contenido
@@ -80,11 +88,46 @@ const routes = [
         path: "join-master",
         name: "MasterRequest",
         component: JoinAsMasterColab,
+        meta: { showBottomBar: false },
       },
       {
         path: "join-casual",
         name: "CasualRequest",
         component: JoinAsCasualColab,
+        meta: { showBottomBar: false },
+      },
+    ],
+  },
+  {
+    path: "/quiz",
+    name: "Quiz",
+    children: [
+      {
+        path: "",
+        name: "",
+        component: NavBarLayout, //Esta solamente de ejemplo para un path index
+      },
+    ],
+  },
+  {
+    path: "/studio",
+    name: "Studio",
+    children: [
+      {
+        path: "",
+        name: "",
+        component: NavBarLayout, //Esta solamente de ejemplo para un path index
+      },
+    ],
+  },
+  {
+    path: "/user",
+    name: "User",
+    children: [
+      {
+        path: "",
+        name: "",
+        component: NavBarLayout, //Esta solamente de ejemplo para un path index
       },
     ],
   },

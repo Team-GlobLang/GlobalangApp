@@ -1,19 +1,24 @@
 <script setup lang="ts">
-import { ref, provide } from "vue";
 import { Toaster } from "vue3-hot-toast";
-import type { User } from "./Stores/user";
-const user = ref<User | null>(null)
+import { useRoute } from "vue-router";
+import { computed } from "vue";
+import NavBarLayout from "./layouts/NavBarLayout.vue";
+const route = useRoute()
+const showBottomBar = computed(() => route.meta.showBottomBar !== false)
 
-provide('user', user)
 </script>
 
 <template>
   <Toaster />
+
   <router-view v-slot="{ Component }">
     <Transition>
-      <component :is="Component" />
+      <div :class="{ 'pb-14': showBottomBar }">
+        <component :is="Component" />
+      </div>
     </Transition>
   </router-view>
+  <NavBarLayout v-if="showBottomBar" />
 </template>
 
 <style lang="css">

@@ -10,8 +10,9 @@
         </div>
 </template>
 <script setup lang="ts">
+import BreadCrumb from '../../../layouts/BreadCrumb.vue';
 import CasualColabForm from '../Components/CasualColabForm.vue';
-import BreadCrumb from '../../../lyouts/BreadCrumb.vue';
+
 
 
 const breadcrumbItems = [
