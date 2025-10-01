@@ -56,36 +56,47 @@
 import { FwbButton, FwbInput, FwbTextarea } from 'flowbite-vue';
 import { rules } from '../../../Core/validators/rules';
 import { useField, useForm } from 'vee-validate';
-import type { CasualRequestData } from '../Interfaces/send-casual-request.interface';
-import { UseSendCasualColabRequest } from '../Hooks/UseSendCasualColabRequest';
 import AudioRecorder from './Microcomponents/AudioRecorder.vue';
+import type { SendRequestData } from '../Interfaces/send-join-request.interface';
+import { UseSendJoinRequest } from '../Hooks/UseSendJoinRequest';
 const { required, email: emailRule, min } = rules;
 [required, emailRule, min].forEach(fn => fn());
 
 
-const { handleSubmit } = useForm<CasualRequestData>();
+const { handleSubmit } = useForm<SendRequestData>();
 
 const { value: fullName, errorMessage: nameError } =
-    useField<CasualRequestData['fullName']>('fullName', 'required');
+    useField<SendRequestData['fullName']>('fullName', 'required');
 const { value: email, errorMessage: emailError } =
-    useField<CasualRequestData['email']>('email', 'required|email');
+    useField<SendRequestData['email']>('email', 'required|email');
 const { value: languages, errorMessage: languagesError } =
-    useField<CasualRequestData['languages']>('languages', 'required');
+    useField<SendRequestData['languages']>('languages', 'required');
 const { value: phoneNumber, errorMessage: numberError } =
-    useField<CasualRequestData['phoneNumber']>('phoneNumber', 'required');
+    useField<SendRequestData['phoneNumber']>('phoneNumber', 'required');
 const { value: aboutColaborator } =
-    useField<CasualRequestData['aboutColaborator']>('aboutColaborator')
-const { value: record, errorMessage: recordError } = useField<CasualRequestData['record']>(
-    'record',
+    useField<SendRequestData['aboutColaborator']>('aboutColaborator')
+const { value: record, errorMessage: recordError } = useField<SendRequestData['files']>(
+    'files',
     'required'
 )
 
 
-const { mutate, isPending } = UseSendCasualColabRequest()
+const { mutate, isPending } = UseSendJoinRequest()
 
 const submitForm = handleSubmit((values) => {
+    const { files, ...rest } = values;
 
-    mutate(values)
+    const filesArray: File[] = Array.isArray(files)
+        ? files
+        : files
+            ? [files]
+            : [];
+
+    mutate({
+        ...rest,
+        files: filesArray,
+        category: "COLLABORATOR"
+    });
 });
 
 

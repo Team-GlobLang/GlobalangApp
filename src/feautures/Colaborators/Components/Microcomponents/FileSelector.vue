@@ -40,7 +40,7 @@ import { FwbButton } from 'flowbite-vue';
 const files = ref<FilePreview[]>([])
 const fileInput = ref<HTMLInputElement | null>(null)
 
-const allowedTypes = ["application/pdf", "image/png", "image/jpeg"]
+const allowedTypes = ["application/pdf", "image/png", "image/jpeg", "audio/mpeg"]
 const maxFiles = 5
 
 const emit = defineEmits<{ (e: "update:files", files: File[]): void }>()

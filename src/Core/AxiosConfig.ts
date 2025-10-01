@@ -3,9 +3,6 @@ import { envs } from "../config/env";
 
 const axiosInstance = axios.create({
   baseURL: envs.APIURL,
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 const getAccessToken = (): string | null => {

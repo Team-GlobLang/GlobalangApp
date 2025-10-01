@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed bottom-0 left-0 w-full bg-white shadow-md border-t border-gray-200">
+    <div class="fixed bottom-0 left-0 z-50 w-full bg-white shadow-md border-t border-gray-200">
         <FwbButtonGroup class="flex justify-around w-full h-14">
 
             <FwbButton v-if="userRole === 'BASIC' || userRole === 'COLABORATOR'"
