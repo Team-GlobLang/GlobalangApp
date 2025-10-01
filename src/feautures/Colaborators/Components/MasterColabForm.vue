@@ -55,40 +55,45 @@
 import { FwbButton, FwbInput, FwbTextarea } from 'flowbite-vue';
 import { ref } from 'vue';
 import { rules } from '../../../Core/validators/rules';
-import type { MasterRequestData } from '../Interfaces/send-master-request.interface';
 import { useField, useForm } from 'vee-validate';
 import FileSelector from './Microcomponents/FileSelector.vue';
-import { UseSendMasterRequest } from '../Hooks/UseSendMasterRequest';
+import type { SendRequestData } from '../Interfaces/send-join-request.interface';
+import { UseSendJoinRequest } from '../Hooks/UseSendJoinRequest';
+import { useRouter } from 'vue-router';
 const { required, email: emailRule, min } = rules;
 [required, emailRule, min].forEach(fn => fn());
 
+const router = useRouter()
 
-const { handleSubmit } = useForm<MasterRequestData>();
+const { handleSubmit } = useForm<SendRequestData>();
 
 
 const { value: fullName, errorMessage: nameError } =
-    useField<MasterRequestData['fullName']>('fullName', 'required');
+    useField<SendRequestData['fullName']>('fullName', 'required');
 const { value: email, errorMessage: emailError } =
-    useField<MasterRequestData['email']>('email', 'required|email');
+    useField<SendRequestData['email']>('email', 'required|email');
 const { value: languages, errorMessage: languagesError } =
-    useField<MasterRequestData['languages']>('languages', 'required');
+    useField<SendRequestData['languages']>('languages', 'required');
 const { value: phoneNumber, errorMessage: numberError } =
-    useField<MasterRequestData['phoneNumber']>('phoneNumber', 'required');
+    useField<SendRequestData['phoneNumber']>('phoneNumber', 'required');
 const { value: aboutColaborator } =
-    useField<MasterRequestData['aboutColaborator']>('aboutColaborator')
+    useField<SendRequestData['aboutColaborator']>('aboutColaborator')
 
 const formFiles = ref<File[]>([])
 
-const { mutate, isPending } = UseSendMasterRequest()
+const { mutate, isPending } = UseSendJoinRequest()
 
 const submitForm = handleSubmit((values) => {
 
     const paylodad = {
         ...values,
-        files: formFiles.value
+        files: formFiles.value,
+        category: "MASTER"
     }
 
-    mutate(paylodad)
+    mutate(paylodad, {
+        onSuccess: () => router.push({ name: "Home" })
+    })
 });
 
 
