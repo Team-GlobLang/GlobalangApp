@@ -92,7 +92,7 @@ const submitForm = handleSubmit((values) => {
     }
 
     mutate(paylodad, {
-        onSuccess: () => router.push({ name: "home" })
+        onSuccess: () => router.push({ name: "Home" })
     })
 });
 

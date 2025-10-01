@@ -59,6 +59,7 @@ import { useField, useForm } from 'vee-validate';
 import AudioRecorder from './Microcomponents/AudioRecorder.vue';
 import type { SendRequestData } from '../Interfaces/send-join-request.interface';
 import { UseSendJoinRequest } from '../Hooks/UseSendJoinRequest';
+import { useRouter } from 'vue-router';
 const { required, email: emailRule, min } = rules;
 [required, emailRule, min].forEach(fn => fn());
 
@@ -83,6 +84,8 @@ const { value: record, errorMessage: recordError } = useField<SendRequestData['f
 
 const { mutate, isPending } = UseSendJoinRequest()
 
+const router = useRouter()
+
 const submitForm = handleSubmit((values) => {
     const { files, ...rest } = values;
 
@@ -96,7 +99,10 @@ const submitForm = handleSubmit((values) => {
         ...rest,
         files: filesArray,
         category: "COLLABORATOR"
-    });
+    },
+        {
+            onSuccess: () => router.push({ name: "Home" })
+        });
 });
 
 
