@@ -63,9 +63,6 @@ const selectedPath = computed(() => {
     return segments[0] || ''
 })
 
-console.log(userRole.value)
-
-
 function goto(pathName: string) {
     router.push({ name: pathName })
 }

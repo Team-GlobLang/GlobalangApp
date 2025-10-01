@@ -11,12 +11,12 @@ const sendJoinRequest = async (data: SendRequestData) => {
         formData.append(key, value.toString());
       }
     });
-    const response = await axiosInstance.post(
+     await axiosInstance.post(
       "colaborator/register-request",
       formData
     );
+     return
 
-    console.log("URLs recibidas:", response.data.fileUrls);
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
