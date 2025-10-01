@@ -20,7 +20,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import type { ShortInterface } from '../../Interfaces/short-interface';
-import ShortCard from './shortCard.vue';
+import ShortCard from './ShortCard.vue';
+
 
 const props = defineProps<{
     data: ShortInterface[];
