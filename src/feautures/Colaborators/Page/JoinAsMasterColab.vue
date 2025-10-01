@@ -11,7 +11,7 @@
 
 </template>
 <script setup lang="ts">
-import BreadCrumb from '../../../lyouts/BreadCrumb.vue';
+import BreadCrumb from '../../../layouts/BreadCrumb.vue';
 import MasterColabForm from '../Components/MasterColabForm.vue';
 
 

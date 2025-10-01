@@ -1,30 +1,22 @@
 import axios from "axios";
 import axiosInstance from "../../../Core/AxiosConfig";
-import type { MasterRequestData } from "../Interfaces/send-master-request.interface";
-import type { CasualRequestData } from "../Interfaces/send-casual-request.interface";
+import type { SendRequestData } from "../Interfaces/send-join-request.interface";
 
-const sendMasterRequest = async (data: MasterRequestData) => {
+const sendJoinRequest = async (data: SendRequestData) => {
   try {
-    console.table(data)
-    return
-    const response = await axiosInstance.post("", data);
-    return response.data.message;
-  } catch (error: unknown) {
-    if (axios.isAxiosError(error)) {
-      console.error(error.response?.data || error.message);
-      throw new Error(error.response?.data.message);
-    } else {
-      console.error("Error desconocido:", error);
-      throw new Error("Error desconocido");
-    }
-  }
-};
-const sendCasualRequest = async (data: CasualRequestData) => {
-  try {
-    console.table(data)
-    return
-    const response = await axiosInstance.post("", data);
-    return response.data.message;
+    const formData = new FormData();
+    data.files.forEach((file) => formData.append("files", file));
+    Object.entries(data).forEach(([key, value]) => {
+      if (key !== "files" && value != null) {
+        formData.append(key, value.toString());
+      }
+    });
+     await axiosInstance.post(
+      "colaborator/register-request",
+      formData
+    );
+     return
+
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
@@ -36,4 +28,4 @@ const sendCasualRequest = async (data: CasualRequestData) => {
   }
 };
 
-export {sendMasterRequest, sendCasualRequest}
+export { sendJoinRequest };

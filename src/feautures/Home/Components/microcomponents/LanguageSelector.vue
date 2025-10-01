@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { FwbInput } from 'flowbite-vue';
 import { computed } from 'vue';
-import { countries } from '../../../Core/CountriesArray';
+import { countries } from '../../../../Core/CountriesArray';
 
 const props = defineProps<{ country: string }>();
 const emit = defineEmits<{ (e: 'update:country', value: string): void }>();

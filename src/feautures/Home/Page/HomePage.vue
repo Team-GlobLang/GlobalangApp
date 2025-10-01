@@ -11,6 +11,9 @@
                 <WorldMap v-model:country="country" />
             </div>
             <div>
+                <LatestPhrases :country="country"/>
+            </div>
+            <div>
                 <ColabsRedirections />
             </div>
         </div>
@@ -18,10 +21,11 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
-import LanguageSelector from '../Components/LanguageSelector.vue';
 import WorldMap from '../Components/WorldMap.vue';
 import MyInfo from '../Components/MyInfo.vue';
 import ColabsRedirections from '../Components/ColabsRedirections.vue';
+import LanguageSelector from '../Components/microcomponents/LanguageSelector.vue';
+import LatestPhrases from '../Components/LatestPhrases.vue';
 
 const country = ref('');
 
