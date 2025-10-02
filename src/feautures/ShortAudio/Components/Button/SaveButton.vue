@@ -8,7 +8,6 @@
            disabled:opacity-50 disabled:cursor-not-allowed"
     :class="[full ? 'w-full h-12' : 'px-5 h-11']"
     :aria-busy="loading ? 'true' : 'false'"
-    :aria-disabled="(disabled || loading) ? 'true' : 'false'"
     @click="handleClick"
   >
     <svg v-if="loading" class="h-5 w-5 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -21,16 +20,19 @@
 </template>
 
 <script setup lang="ts">
-const { label, loading, disabled, type, full } = withDefaults(
-  defineProps<{
-    label?: string
-    loading?: boolean
-    disabled?: boolean
-    type?: 'submit' | 'button' | 'reset'
-    full?: boolean
-  }>(),
-  { label: 'Guardar', loading: false, disabled: false, type: 'submit', full: true }
-)
+const {
+  label = 'Save',
+  loading = false,
+  disabled = false,
+  type = 'button',               
+  full = true
+} = defineProps<{
+  label?: string
+  loading?: boolean
+  disabled?: boolean
+  type?: 'submit' | 'button' | 'reset'
+  full?: boolean
+}>()
 
 const emit = defineEmits<{ (e: 'click', evt: MouseEvent): void }>()
 

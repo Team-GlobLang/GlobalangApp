@@ -1,12 +1,12 @@
 <template>
   <section class="min-h-screen bg-gray-50">
      <div class="w-full max-w-md mx-auto p-4 md:p-6 space-y-4">
-      <BackButton>Audios favoritos</BackButton>
+      <BackButton>Favorite audios</BackButton>
     <div class="bg-white rounded-2xl shadow p-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
       <div
         ref="scroller"
-        class="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory scroll-smooth no-scrollbar"
+          class="flex flex-col gap-4 overflow-y-auto max-h-[70vh] pb-2 scroll-smooth no-scrollbar"
       >
         <div
           v-for="a in favoriteItems"
@@ -27,7 +27,7 @@
 
       <!-- cuando no hay audio -->
        <p v-if="!favoriteItems.length" class="text-sm text-gray-500 mt-2">
-        No tienes audios favoritos aún.
+        You don't have any favorite audios yet. Go to the audio list and mark some as favorites to see them here.
       </p>
     </div>
 

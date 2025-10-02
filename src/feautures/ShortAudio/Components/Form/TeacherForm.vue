@@ -7,7 +7,7 @@
       :maxlength="LANGUAGE_MAX"
       :validation-status="languageError ? 'error' : undefined"
       label="Language"
-      placeholder="Ej: Español"
+      placeholder="E.g.: Spanish"
       @blur="languageTouched = true"
     >
       <template #validationMessage>
@@ -31,8 +31,8 @@
       type="text"
       :maxlength="LEVEL_MAX"
       :validation-status="levelError ? 'error' : undefined"
-      label="Nivel"
-      placeholder="Ej: B2 o Intermedio"
+      label="Level"
+      placeholder="E.g.: B2 or Intermediate"
       @blur="levelTouched = true"
     >
       <template #validationMessage>
@@ -99,25 +99,25 @@ const filteredLanguages = computed(() => {
 const levelOptions = [
   'A1','A2','B1','B2','C1','C2',
   'Beginner','Elementary','Pre-Intermediate','Intermediate','Upper-Intermediate','Advanced',
-  'Básico','Intermedio','Avanzado'
+  'Basic','Intermediate','Advanced'
 ] as const
 
 const languageError = computed(() => {
   if (!languageTouched.value) return ''
-  if (!language.value.trim()) return 'El idioma es requerido'
-  if (language.value.length > LANGUAGE_MAX) return `Máximo ${LANGUAGE_MAX} caracteres`
+  if (!language.value.trim()) return 'Language is required'
+  if (language.value.length > LANGUAGE_MAX) return `Maximum ${LANGUAGE_MAX} characters`
   const exists = languagePairs.value.some(
     lp => lp.language.toLowerCase() === language.value.toLowerCase()
   )
-  return exists ? '' : 'Selecciona un idioma válido de la lista'
+  return exists ? '' : 'Select a valid language from the list'
 })
 
 const levelError = computed(() => {
   if (!levelTouched.value) return ''
-  if (!level.value.trim()) return 'El nivel es requerido'
-  if (level.value.length > LEVEL_MAX) return `Máximo ${LEVEL_MAX} caracteres`
+  if (!level.value.trim()) return 'Level is required'
+  if (level.value.length > LEVEL_MAX) return `Maximum ${LEVEL_MAX} characters`
   const ok = levelOptions.map(v => v.toLowerCase()).includes(level.value.toLowerCase())
-  return ok ? '' : 'Usa niveles como A1–C2 o (Básico/Intermedio/Avanzado)'
+  return ok ? '' : 'Use levels such as A1–C2 or (Basic/Intermediate/Advanced)'
 })
 
 watch([language, level], () => {

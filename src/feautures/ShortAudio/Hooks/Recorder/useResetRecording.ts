@@ -8,7 +8,7 @@ import {
 import { getRecorder, clearTick } from './core';
 
 export function useResetRecording() {
-  function resetInternal(): 'Reiniciado' {
+  function resetInternal(): 'Reset' {
     clearTick();
     const mr = getRecorder();
     try { mr?.stop(); } catch {}
@@ -25,15 +25,15 @@ export function useResetRecording() {
       URL.revokeObjectURL(audioUrl.value);
       audioUrl.value = null;
     }
-    return 'Reiniciado';
+    return 'Reset';
   }
 
   const mutation = useMutation({
     mutationFn: async () =>
       toast.promise(Promise.resolve(resetInternal()), {
-        loading: 'Limpiando…',
+        loading: 'Cleaning…',
         success: (m: string) => h('span', m),
-        error: (e: any) => h('span', e?.message ?? 'No se pudo reiniciar'),
+        error: (e: any) => h('span', e?.message ?? 'Unable to reset'),
       }),
   });
 
