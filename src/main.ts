@@ -8,6 +8,8 @@ import { localize } from "@vee-validate/i18n";
 import axios from "axios";
 import { VueQueryPlugin } from "@tanstack/vue-query";
 
+import PrimeVue from "primevue/config";
+
 const userLang = navigator.language || navigator.languages[0] || "en";
 const langCode = userLang.split("-")[0]; //=> Agarra el lang ejemplo "es-ES" y lo transforma a es
 
@@ -33,4 +35,8 @@ async function setVeeValidateLocale(locale: string) {
 
 await setVeeValidateLocale(langCode);
 
-createApp(App).use(router).use(VueQueryPlugin).mount("#app");
+createApp(App)
+  .use(PrimeVue)
+  .use(router)
+  .use(VueQueryPlugin)
+  .mount("#app");

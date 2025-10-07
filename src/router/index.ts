@@ -1,14 +1,18 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Login from "../feautures/Auth/Page/Login.vue";
-import Register from "../feautures/Auth/Page/Register.vue";
-import ForgetPassword from "../feautures/Auth/Page/ForgetPassword.vue";
-import StartPage from "../feautures/Auth/Page/StartPage.vue";
-import AudioRecorderPage from "../feautures/ShortAudio/Page/AudioRecorderPage.vue";
-import ChangePassword from "../feautures/Auth/Page/ChangePassword.vue";
 import HomePage from "../feautures/Home/Page/HomePage.vue";
-import JoinAsMasterColab from "../feautures/Colaborators/Page/JoinAsMasterColab.vue";
-import JoinAsCasualColab from "../feautures/Colaborators/Page/JoinAsCasualColab.vue";
 import NavBarLayout from "../layouts/NavBarLayout.vue";
+import {
+  ChangePassword,
+  ForgetPassword,
+  Login,
+  Register,
+  StartPage,
+} from "../feautures/Auth/Page";
+import { QuizStudio, CreateQuiz } from "../feautures/Quiz/page";
+import {
+  JoinAsMasterColab,
+  JoinAsCasualColab,
+} from "../feautures/Colaborators/Page";
 
 const routes = [
   {
@@ -77,7 +81,23 @@ const routes = [
   {
     path: "/studio",
     name: "Studio",
-    component: AudioRecorderPage
+    children: [
+      {
+        path: "quiz",
+        name: "QuizStudio",
+        component: QuizStudio,
+      },
+      {
+        path: "create-quiz",
+        name: "NewQuiz",
+        component: CreateQuiz,
+      },
+      {
+        path: "my-quiz",
+        name: "MyQuiz",
+        component: CreateQuiz,
+      },
+    ],
   },
   {
     path: "/user",
