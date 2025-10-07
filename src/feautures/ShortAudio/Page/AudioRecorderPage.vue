@@ -1,45 +1,23 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
-    <div class="w-full max-w-5xl mx-auto p-4 md:p-6 space-y-3">
-      <BackButton class="mb-1" />
-
-      <div class="bg-white rounded-2xl shadow p-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-          <div class="h-full">
-            <QuizForm v-model="quizData" />
-          </div>
-
-          <div class="h-full">
-            <AudioCaptureCard :persist="false" :bare="true" @use="onUse" />
-          </div>
-
-          <button
-            type="button"
-            class="px-4 py-2 bg-blue-500 text-white rounded-lg"
-          >
-             Guardar
-          </button>
+        <div class=" w-full flex flex-col gap-2 justify-center items-center">
+            <div class=" w-full p-2">
+                <BreadCrumb :items="breadcrumbItems" />
+            </div>
+            <div class="w-11/12 bg-white shadow-lg rounded-xl p-6 ">
+                <h2 class="text-xl font-bold mb-4">Create Short</h2>
+                <CreateShort/>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
 </template>
-
 <script setup lang="ts">
-import { ref } from 'vue'
-import AudioCaptureCard from '../Components/Recorder/AudioCaptureCard.vue'
-import QuizForm from '../Components/Form/QuizForm.vue'
-import BackButton from '../Components/Button/BackButton.vue'
+import BreadCrumb from '../../../layouts/BreadCrumb.vue';
+import CreateShort from '../Components/Form/CreateShort.vue';
 
-const quizData = ref({
-  title: '',
-  language: '',
-  country: '',
-  meaning: ''
-})
 
-async function onUse(file: File) {
-  console.log('Usar/subir:', file)
-  console.log('Datos del quiz:', quizData.value)
-}
+
+const breadcrumbItems = [
+    { label: "Home", route: "/home", isHome: true },
+    { label: "Create Short" }
+];
+
 </script>

@@ -41,7 +41,7 @@ export function useStartRecording() {
       blobRef.value = b;
 
       if (b.size > maxBytes) {
-        errorMsg.value = `El audio supera ${Math.round(maxBytes / (1024 * 1024))} MB`;
+        errorMsg.value = `The audio exceeds  ${Math.round(maxBytes / (1024 * 1024))} MB`;
         mr.stream.getTracks().forEach(t => t.stop());
         setRecorder(null);
         isRecording.value = false;
@@ -78,15 +78,15 @@ export function useStartRecording() {
       }
     });
 
-    return 'Grabando…';
+    return 'Recording…';
   }
 
   const mutation = useMutation({
     mutationFn: async () =>
       toast.promise(startInternal(), {
-        loading: 'Iniciando grabación…',
-        success: () => h('span', 'Grabando…'),
-        error: (e: any) => h('span', e?.message ?? 'No se pudo iniciar'),
+        loading: 'Starting recording…',
+        success: () => h('span', 'Recording…'),
+        error: (e: any) => h('span', e?.message ?? 'Could not start recording'),
       }),
   });
 

@@ -25,9 +25,6 @@
         </div>
 
         <audio ref="audioRef"></audio>
-        <small>Record a 1-2 minute audio speaking in a language you are fluent in and would like to
-            teach.</small> <br>
-        <small>Note: This can be a short introduction about yourself.</small>
     </div>
 </template>
 

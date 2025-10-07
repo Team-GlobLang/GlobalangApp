@@ -18,10 +18,10 @@
       class="px-3 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-gray-300"
       :disabled="isPending"
       @click="reset"
-      title="Reiniciar grabación"
+      title="Reset recording"
       aria-label="Reset"
     >
-      <span v-if="isPending">Limpiando…</span>
+      <span v-if="isPending">Clearing…</span>
       <span v-else>Reset</span>
     </button>
 
@@ -55,7 +55,7 @@ async function togglePlay() {
       isPlaying.value = true
     }
   } catch (err) {
-    console.error('No se pudo reproducir:', err)
+    console.error('Could not play:', err)
     isPlaying.value = false
   }
 }

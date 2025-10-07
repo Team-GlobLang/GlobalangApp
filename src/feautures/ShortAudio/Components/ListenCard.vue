@@ -16,7 +16,7 @@
     </p>
 
     <div class="text-center font-semibold mb-1 p-1" v-show="localPlaying">
-      Reproduciendo...
+      Playing...
     </div>
 
     <div class="flex items-center justify-center p-7">
@@ -24,7 +24,7 @@
         class="rounded-full w-28 h-28 flex items-center justify-center shadow transition active:scale-95
                bg-blue-500 hover:bg-blue-600 text-white"
         :aria-pressed="localPlaying"
-        :title="localPlaying ? 'Pausar' : 'Reproducir'"
+        :title="localPlaying ? 'Pause' : 'Play'"
         @click="toggle"
       >
         <i class="pi text-4xl" :class="localPlaying ? 'pi-pause' : 'pi-volume-up'"></i>
@@ -51,7 +51,7 @@ const props = withDefaults(defineProps<{
   maxWidthClass?: string
   minHeightClass?: string
 }>(), {
-  title: 'Grabación',
+  title: 'Recording',
   showReset: true,
   duration: undefined,
   maxWidthClass: 'max-w-sm',

@@ -12,10 +12,10 @@ export function useMicPermission(){
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
         stream.getTracks().forEach(t => t.stop())
         permission.value = 'granted'
-        return 'Permiso otorgado'
+        return 'Permission granted'
       })(),
-      { loading: 'Solicitando permiso…', success: (m:string)=>m, error: (e:Error)=> e.message || 'Permiso denegado' }
-    ).catch(() => { permission.value = 'denied'; throw new Error('Micrófono denegado') })
+      { loading: 'Requesting permission…', success: (m:string)=>m, error: (e:Error)=> e.message || 'Permission denied' }
+    ).catch(() => { permission.value = 'denied'; throw new Error('Microphone access denied') })
   }
   return {
     permission,

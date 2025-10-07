@@ -2,7 +2,7 @@
 import { Toaster } from "vue3-hot-toast";
 import { useRoute } from "vue-router";
 import { computed } from "vue";
-import NavBarLayout from "./layouts/NavBarLayout.vue";
+import NavBarLayout from "@layouts/NavBarLayout.vue";
 const route = useRoute()
 const showBottomBar = computed(() => route.meta.showBottomBar !== false)
 

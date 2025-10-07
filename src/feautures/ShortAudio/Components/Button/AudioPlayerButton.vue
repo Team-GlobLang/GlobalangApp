@@ -4,7 +4,7 @@
            bg-blue-500 hover:bg-blue-600 text-white"
     @click="$emit('toggle')"
     :aria-pressed="isPlaying"
-    :title="isPlaying ? 'Pausar' : 'Reproducir'"
+    :title="isPlaying ? 'Pause' : 'Play'"
   >
     <i class="pi text-3xl" :class="isPlaying ? 'pi-pause' : 'pi-volume-up'"></i>
   </button>

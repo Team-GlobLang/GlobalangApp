@@ -4,9 +4,9 @@
     class="px-3 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:opacity-60 disabled:cursor-not-allowed"
     :disabled="isPending"
     @click="onReset"
-    title="Reiniciar grabación"
+    title="Reset recording"
   >
-    <span v-if="isPending">Limpiando…</span>
+    <span v-if="isPending">Clearing…</span>
     <span v-else>Reset</span>
   </button>
 </template>

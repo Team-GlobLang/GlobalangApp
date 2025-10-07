@@ -6,9 +6,9 @@ import { isRecording, isPaused } from './state';
 import { getRecorder, clearTick } from './core';
 
 export function useStopRecording() {
-  function stopInternal(): 'Audio listo' {
+  function stopInternal(): 'Audio ready' {
     const mr = getRecorder();
-    if (!mr || !isRecording.value) throw new Error('No hay grabación en curso');
+    if (!mr || !isRecording.value) throw new Error('No recording in progress');
 
     clearTick();
     try { mr.stop(); } catch {}
@@ -16,15 +16,15 @@ export function useStopRecording() {
     isRecording.value = false;
     isPaused.value = false;
 
-    return 'Audio listo';
+    return 'Audio ready';
   }
 
   const mutation = useMutation({
     mutationFn: async () =>
       toast.promise(Promise.resolve(stopInternal()), {
-        loading: 'Finalizando…',
+        loading: 'Finalizing…',
         success: (msg: string) => h('span', msg),
-        error: (e: any) => h('span', e?.message ?? 'No se pudo finalizar'),
+        error: (e: any) => h('span', e?.message ?? 'Unable to finalize recording'),
       }),
   });
 
