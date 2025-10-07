@@ -24,6 +24,7 @@ export interface Quiz {
   name: string;
   description: string;
   configuration: QuizConfiguration;
+  country: string
 }
 
 export interface QuizPayload {

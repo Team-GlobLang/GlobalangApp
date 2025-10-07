@@ -34,7 +34,7 @@
         </div>
 
         <!-- Explore Quizzes -->
-        <div @click="goto('QuizList')"
+        <div @click="goto('Quizzes')"
           class="p-6 bg-purple-100 rounded-2xl hover:bg-purple-200 cursor-pointer transition flex flex-col items-center justify-center">
           <span class="text-4xl mb-4">🌐</span>
           <h2 class="text-xl font-semibold">Explore Quizzes</h2>

@@ -14,6 +14,7 @@
     "paths": {
       "@layouts/*": ["src/layouts/*"],
       "@core/*": ["src/Core/*"],
+      "@components/*": ["src/components/*"],
 
     },
     "types": ["vite/client"]

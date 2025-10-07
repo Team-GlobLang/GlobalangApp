@@ -33,8 +33,5 @@ const { mutate, data: audios } = useAudios()
 
 onMounted(() => mutate())
 
-function toggleFavorite(id: string | number, fav: boolean) {
-  console.log('toggle fav', id, fav)
-  //favoritos no lo encontre en el backend
-}
+
 </script>

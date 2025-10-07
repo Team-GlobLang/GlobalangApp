@@ -8,7 +8,11 @@ import {
   Register,
   StartPage,
 } from "../feautures/Auth/Page";
-import { QuizStudio, CreateQuiz } from "../feautures/Quiz/page";
+import {
+  QuizStudio,
+  CreateQuiz,
+  AvailablesQuizzes,
+} from "../feautures/Quiz/page";
 import {
   JoinAsMasterColab,
   JoinAsCasualColab,
@@ -72,9 +76,9 @@ const routes = [
     name: "Quiz",
     children: [
       {
-        path: "",
-        name: "",
-        component: NavBarLayout, //Esta solamente de ejemplo para un path index
+        path: "availables",
+        name: "Quizzes",
+        component: AvailablesQuizzes,
       },
     ],
   },
