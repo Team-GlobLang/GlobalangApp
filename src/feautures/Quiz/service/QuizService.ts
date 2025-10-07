@@ -1,7 +1,7 @@
-
 import axiosInstance from "@core/AxiosConfig";
-import type { QuizPayload } from "../types/quizTypes";
+import type { QuizPayload, QuizzesFilters } from "../types/quizTypes";
 import axios from "axios";
+
 
 const sendQuiz = async (data: QuizPayload) => {
   try {
@@ -34,4 +34,53 @@ const sendQuiz = async (data: QuizPayload) => {
   }
 };
 
-export { sendQuiz };
+const getQuizzes = async (data: QuizzesFilters) => {
+  try {
+    const params: Record<string, any> = {};
+    if (data.country) params.country = data.country;
+    if (typeof data.isApproved !== "undefined")
+      params.isApproved = data.isApproved;
+    if (data.page) params.page = data.page;
+    if (data.limit) params.limit = data.limit;
+
+    const response = await axiosInstance.get("/Full-Quiz", { params });
+
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.response?.data || error.message);
+      throw new Error(error.response?.data.message);
+    } else {
+      console.error("Error desconocido:", error);
+      throw new Error("Error desconocido");
+    }
+  }
+};
+
+const getMyQuizzes = async (data: QuizzesFilters) => {
+  try {
+    const params: Record<string, any> = {};
+
+    if (data.country) params.country = data.country;
+    if (typeof data.isApproved !== "undefined")
+      params.isApproved = data.isApproved;
+    if (data.page) params.page = data.page;
+    if (data.limit) params.limit = data.limit;
+
+    const response = await axiosInstance.get("/Full-Quiz/MyQuizzes", {
+      params,
+    });
+
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.response?.data || error.message);
+      throw new Error(error.response?.data.message);
+    } else {
+      console.error("Error desconocido:", error);
+      throw new Error("Error desconocido");
+    }
+  }
+};
+
+export { sendQuiz, getQuizzes, getMyQuizzes };

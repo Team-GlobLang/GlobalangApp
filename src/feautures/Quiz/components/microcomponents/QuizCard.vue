@@ -1,11 +1,12 @@
 <template>
     <div
-        class="bg-white shadow p-4 mb-1 rounded-xl flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-4">
+        class="bg-white shadow p-4 mb-1 rounded-xl flex items-end sm:flex-row sm:justify-between sm:items-center gap-4">
         <div class="flex-1">
             <h3 class="text-lg font-semibold">{{ quiz.name }}</h3>
             <p class="text-gray-600">{{ quiz.description }}</p>
-            <div class="mt-2 text-sm text-gray-500 flex justify-between w-full sm:w-auto gap-4">
+            <div class=" mt-2 text-sm flex-col text-gray-500 flex justify-between w-full sm:w-auto">
                 <span>By: {{ quiz.creator }}</span>
+                <span>From: {{ quiz.country }}</span>
                 <span>Questions: {{ quiz.numberOfQuestions }}</span>
             </div>
         </div>
@@ -19,17 +20,11 @@
 
 <script setup lang="ts">
 import { FwbButton } from 'flowbite-vue';
+import type { QuizData } from '../../types/quizTypes';
 
-interface Quiz {
-    id: string;
-    name: string;
-    description: string;
-    creator: string;
-    numberOfQuestions: number;
-}
 
 const props = defineProps<{
-    quiz: Quiz
+    quiz: QuizData
 }>();
 
 const emit = defineEmits<{

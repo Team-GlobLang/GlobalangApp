@@ -35,8 +35,11 @@ const filteredCountries = computed(() => {
     if (!countryModel.value) {
         return countries.slice(0, MAX_INITIAL);
     }
-    return countries.filter(c =>
-        c.name.toLowerCase().includes(countryModel.value.toLowerCase())
-    );
+
+    return countries
+        .filter(c =>
+            c.name.toLowerCase().includes(countryModel.value.toLowerCase())
+        )
+        .slice(0, MAX_INITIAL);
 });
 </script>
