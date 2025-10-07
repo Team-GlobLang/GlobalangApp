@@ -13,6 +13,8 @@ import {
   CreateQuiz,
   AvailablesQuizzes,
   MyQuizzes,
+  ResolveQuiz,
+  QuizInfo,
 } from "../feautures/Quiz/page";
 import {
   JoinAsMasterColab,
@@ -80,6 +82,17 @@ const routes = [
         path: "availables",
         name: "Quizzes",
         component: AvailablesQuizzes,
+      },
+      {
+        path: "info/:id",
+        name: "QuizInfo",
+        component: QuizInfo,
+      },
+      {
+        path: "resolve/:id",
+        name: "ResolveQuiz",
+        component: ResolveQuiz,
+        meta: { showBottomBar: false },
       },
     ],
   },

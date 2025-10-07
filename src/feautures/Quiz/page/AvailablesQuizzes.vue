@@ -34,6 +34,7 @@ import GoToStart from '../components/microcomponents/GoToStart.vue'
 import type { QuizData } from '../types/quizTypes'
 import { getQuizzes } from '../service/QuizService'
 import type { PaginatedResponse } from 'src/feautures/shared/Interfaces/interfaces'
+import { useRouter } from 'vue-router'
 
 const breadCumbs = [
     { label: 'Home', route: '/home', isHome: true },
@@ -84,7 +85,7 @@ const onScroll = async () => {
 }
 
 watch(country, async () => {
-    await refetch() 
+    await refetch()
 })
 
 const scrollToTop = () => {
@@ -98,7 +99,9 @@ onUnmounted(() => {
     window.removeEventListener('scroll', onScroll)
 })
 
+const router = useRouter()
+
 const attemptQuiz = (id: string) => {
-    console.log('Attempt quiz with id:', id)
+    router.push({ name: 'QuizInfo', params: { id } });
 }
 </script>
