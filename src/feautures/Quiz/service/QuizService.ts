@@ -2,7 +2,6 @@ import axiosInstance from "@core/AxiosConfig";
 import type { QuizPayload, QuizzesFilters } from "../types/quizTypes";
 import axios from "axios";
 
-
 const sendQuiz = async (data: QuizPayload) => {
   try {
     const formData = new FormData();
@@ -61,7 +60,7 @@ const getMyQuizzes = async (data: QuizzesFilters) => {
   try {
     const params: Record<string, any> = {};
 
-    if (data.country) params.country = data.country;
+    if (data.search) params.search = data.search;
     if (typeof data.isApproved !== "undefined")
       params.isApproved = data.isApproved;
     if (data.page) params.page = data.page;

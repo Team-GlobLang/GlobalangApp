@@ -34,7 +34,6 @@ import GoToStart from '../components/microcomponents/GoToStart.vue'
 import type { QuizData } from '../types/quizTypes'
 import { getQuizzes } from '../service/QuizService'
 import type { PaginatedResponse } from 'src/feautures/shared/Interfaces/interfaces'
-import toast from 'vue3-hot-toast'
 
 const breadCumbs = [
     { label: 'Home', route: '/home', isHome: true },

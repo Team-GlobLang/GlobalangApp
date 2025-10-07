@@ -35,12 +35,14 @@ export interface QuizPayload {
 }
 
 export interface QuizData extends Quiz {
-    id: string;
+  id: string;
   numberOfQuestions: number;
   creator: string;
+  isApproved: boolean | null;
 }
 
 export interface QuizzesFilters extends PaginationDto {
   country?: string;
-  isApproved: boolean | null;
+  isApproved?: boolean | null;
+  search?: string;
 }

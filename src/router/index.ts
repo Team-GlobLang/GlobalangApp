@@ -12,6 +12,7 @@ import {
   QuizStudio,
   CreateQuiz,
   AvailablesQuizzes,
+  MyQuizzes,
 } from "../feautures/Quiz/page";
 import {
   JoinAsMasterColab,
@@ -99,7 +100,7 @@ const routes = [
       {
         path: "my-quiz",
         name: "MyQuiz",
-        component: CreateQuiz,
+        component: MyQuizzes,
       },
     ],
   },

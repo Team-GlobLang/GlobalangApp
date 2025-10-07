@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Carousel :value="quizzes" :numVisible="3" :numScroll="1" :responsiveOptions="responsiveOptions" :circular="true"
-      :showNavigators="false" :autoplayInterval="4200">
+    <Carousel v-if="!isLoading" :value="quizzes" :numVisible="3" :numScroll="1" :responsiveOptions="responsiveOptions"
+      :circular="true" :showNavigators="false" :autoplayInterval="4200">
       <template #item="slotProps">
         <div class="shadow bg-white rounded-2xl p-4 transition flex flex-col justify-between h-full">
           <div class="flex justify-between items-center mb-2">
@@ -13,52 +13,39 @@
           <p class="text-gray-500 text-sm mb-4">{{ slotProps.data.description }}</p>
           <div class="flex flex-col text-sm text-gray-700">
             <span><strong>Time limit:</strong> {{ slotProps.data.configuration.timeLimit }}</span>
-            <span><strong># Questions:</strong> {{ slotProps.data.questions?.length ?? 0 }}</span>
+            <span><strong># Questions:</strong> {{ slotProps.data.numberOfQuestions ?? 0 }}</span>
           </div>
         </div>
       </template>
     </Carousel>
+
+    <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="animate-pulse shadow bg-gray-200 rounded-2xl p-4 h-52"></div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed } from "vue";
+import { useQuery } from "@tanstack/vue-query";
 import Carousel from "primevue/carousel";
 import { FwbBadge } from "flowbite-vue";
+import { getMyQuizzes } from "../../service/QuizService";
 
-const quizzes = ref([
-  {
-    id: "1",
-    name: "Math Quiz",
-    description: "Test your knowledge of algebra and geometry.",
-    configuration: { timeLimit: "5M", shuffleQuestions: true },
-    isApproved: null,
-    questions: [1, 2, 3, 4, 5],
-  },
-  {
-    id: "2",
-    name: "World History",
-    description: "Review important events from around the world.",
-    configuration: { timeLimit: "10M", shuffleQuestions: false },
-    isApproved: true,
-    questions: [1, 2, 3, 4, 5, 6],
-  },
-  {
-    id: "3",
-    name: "Basic English",
-    description: "Practice your vocabulary and grammar.",
-    configuration: { timeLimit: "7M", shuffleQuestions: true },
-    isApproved: false,
-    questions: [1, 2, 3],
-  }
-]);
-
-const responsiveOptions = ref([
+const responsiveOptions = [
   { breakpoint: "1400px", numVisible: 3, numScroll: 1 },
   { breakpoint: "1199px", numVisible: 3, numScroll: 1 },
   { breakpoint: "767px", numVisible: 2, numScroll: 1 },
   { breakpoint: "575px", numVisible: 1, numScroll: 1 },
-]);
+];
+
+const { data, isLoading } = useQuery({
+  queryKey: ["quizzes", { limit: 5 }],
+  queryFn: async () => await getMyQuizzes({ limit: 5 }),
+  staleTime: 1000 * 60 * 5,
+});
+
+const quizzes = computed(() => data.value?.data ?? []);
 
 const getBadgeType = (isApproved: boolean | null) => {
   if (isApproved === null) return "yellow"; // pending
