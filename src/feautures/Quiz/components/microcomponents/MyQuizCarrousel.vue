@@ -12,8 +12,8 @@
           </div>
           <p class="text-gray-500 text-sm mb-4">{{ slotProps.data.description }}</p>
           <div class="flex flex-col text-sm text-gray-700">
-            <span><strong>Time limit:</strong> {{ slotProps.data.configuration.timeLimit }}</span>
             <span><strong># Questions:</strong> {{ slotProps.data.numberOfQuestions ?? 0 }}</span>
+            <span><strong>Time limit:</strong> {{ formatTimeLimit(slotProps.data.configuration.timeLimit) }}</span>
           </div>
         </div>
       </template>
@@ -57,5 +57,14 @@ const getApprovalText = (isApproved: boolean | null) => {
   if (isApproved === null) return "Pending";
   if (isApproved === false) return "Rejected";
   return "Approved";
+};
+
+const formatTimeLimit = (time: string) => {
+  if (!time) return "";
+  const value = parseInt(time.slice(0, -1)); // toma todo menos la última letra
+  const unit = time.slice(-1).toUpperCase(); // toma la última letra
+  if (unit === "M") return `${value} minute${value > 1 ? "s" : ""}`;
+  if (unit === "H") return `${value} hour${value > 1 ? "s" : ""}`;
+  return time; // fallback
 };
 </script>

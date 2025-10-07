@@ -11,8 +11,8 @@
             <div class="flex flex-col text-sm text-gray-700 mb-4">
                 <span><strong>By:</strong> {{ quiz.creator }}</span>
                 <span><strong>From:</strong> {{ quiz.country }}</span>
-                <span><strong>Time limit:</strong> {{ quiz.configuration.timeLimit }}</span>
                 <span><strong># Questions:</strong> {{ quiz.numberOfQuestions }}</span>
+                <span><strong>Time limit:</strong> {{ formatTimeLimit(quiz.configuration.timeLimit) }}</span>
             </div>
             <FwbButton color="green" @click="onReviewQuiz">
                 Review
@@ -42,5 +42,14 @@ const getApprovalText = (isApproved: boolean | null) => {
     if (isApproved === null) return "Pending";
     if (isApproved === false) return "Rejected";
     return "Approved";
+};
+
+const formatTimeLimit = (time: string) => {
+    if (!time) return "";
+    const value = parseInt(time.slice(0, -1));
+    const unit = time.slice(-1).toUpperCase();
+    if (unit === "M") return `${value} minute${value > 1 ? "s" : ""}`;
+    if (unit === "H") return `${value} hour${value > 1 ? "s" : ""}`;
+    return time;
 };
 </script>

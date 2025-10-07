@@ -5,9 +5,10 @@
             <h3 class="text-lg font-semibold">{{ quiz.name }}</h3>
             <p class="text-gray-600">{{ quiz.description }}</p>
             <div class=" mt-2 text-sm flex-col text-gray-500 flex justify-between w-full sm:w-auto">
-                <span>By: {{ quiz.creator }}</span>
-                <span>From: {{ quiz.country }}</span>
-                <span>Questions: {{ quiz.numberOfQuestions }}</span>
+                <span><strong>By:</strong> {{ quiz.creator }}</span>
+                <span><strong>From:</strong> {{ quiz.country }}</span>
+                <span><strong>Questions:</strong> {{ quiz.numberOfQuestions }}</span>
+                <span><strong>Time limit:</strong> {{ formatTimeLimit(quiz.configuration.timeLimit) }}</span>
             </div>
         </div>
         <div>
@@ -33,5 +34,13 @@ const emit = defineEmits<{
 
 const onAttemptQuiz = () => {
     emit('attempt', props.quiz.id);
+};
+const formatTimeLimit = (time: string) => {
+    if (!time) return "";
+    const value = parseInt(time.slice(0, -1));
+    const unit = time.slice(-1).toUpperCase();
+    if (unit === "M") return `${value} minute${value > 1 ? "s" : ""}`;
+    if (unit === "H") return `${value} hour${value > 1 ? "s" : ""}`;
+    return time;
 };
 </script>

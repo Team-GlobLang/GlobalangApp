@@ -14,7 +14,7 @@
             </FwbButton>
 
             <FwbButton class="relative w-full !rounded-none outline-none focus:ring-0 py-3"
-                :class="selectedPath === 'quiz' ? 'text-black' : 'text-white'" @click="goto('Quiz')">
+                :class="selectedPath === 'quiz' ? 'text-black' : 'text-white'" @click="goto('Quizzes')">
                 <span v-if="selectedPath === 'quiz'"
                     class="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-black rounded-full"></span>
                 <i style="font-size: 1.7rem" class="pi pi-clipboard text-2xl transition-transform duration-500 ease-in-out"
