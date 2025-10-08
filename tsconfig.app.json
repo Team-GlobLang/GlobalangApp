@@ -15,6 +15,7 @@
       "@layouts/*": ["src/layouts/*"],
       "@core/*": ["src/Core/*"],
       "@components/*": ["src/components/*"],
+      "@UserStore": ["src/Stores/user.ts"],
 
     },
     "types": ["vite/client"]

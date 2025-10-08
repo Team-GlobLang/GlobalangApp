@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../feautures/Home/Page/HomePage.vue";
-import NavBarLayout from "../layouts/NavBarLayout.vue";
 import {
   ChangePassword,
   ForgetPassword,
@@ -20,6 +19,7 @@ import {
   JoinAsMasterColab,
   JoinAsCasualColab,
 } from "../feautures/Colaborators/Page";
+import { UserInfo, ChangeInfo } from "../feautures/User/Pages";
 
 const routes = [
   {
@@ -119,12 +119,16 @@ const routes = [
   },
   {
     path: "/user",
-    name: "User",
     children: [
       {
         path: "",
-        name: "",
-        component: NavBarLayout, //Esta solamente de ejemplo para un path index
+        name: "User",
+        component: UserInfo,
+      },
+      {
+        path: "edit-info",
+        name: "EditUserInfo",
+        component: ChangeInfo,
       },
     ],
   },
