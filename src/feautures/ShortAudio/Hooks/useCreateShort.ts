@@ -1,18 +1,18 @@
 import { useMutation } from "@tanstack/vue-query";
-import { h } from "vue";
 import toast from "vue3-hot-toast";
+import { h } from "vue";
+import { createShort } from "../Services/shortService";
 import type { ApiError } from "../../../Core/types/ApiError";
-import { sendShort } from "../Services/shortService";
 
-export const UseCreteShort = () => {
-  const mutation = useMutation({
-    mutationFn: (data: any) =>
-      toast.promise(sendShort(data), {
-        loading: "Please wait...",
-        success: "Your application has been submitted successfully.",
-        error: (error: ApiError) => h("span", `${error.message}`),
-      }),
-  });
+export const useCreateShort = () => {
+    const mutation = useMutation({
+        mutationFn: (data: any) => 
+            toast.promise(createShort(data), {
+                loading: "Please wait...",
+                success: "Short created successfully!",
+                error: (error: ApiError) => h("span", `${error.message ?? "Creation failed"}`),
+            }),
+    });
 
   return mutation;
 };

@@ -20,6 +20,9 @@ import {
   JoinAsMasterColab,
   JoinAsCasualColab,
 } from "../feautures/Colaborators/Page";
+import AudioHomePage from "../feautures/ShortAudio/Page/AudioHomePage.vue";
+import AudioRecorderPage from "../feautures/ShortAudio/Page/AudioRecorderPage.vue";
+import ListPage from "../feautures/ShortAudio/Page/ListPage.vue";
 
 const routes = [
   {
@@ -114,6 +117,27 @@ const routes = [
         path: "my-quiz",
         name: "MyQuiz",
         component: MyQuizzes,
+      },
+    ],
+  },
+  {
+    path: "/short",
+    name: "shor_audio",
+    children: [
+      {
+        path: "audio",
+        name: "AudioHomePage",
+        component: AudioHomePage,
+      },
+      {
+        path: "phrase",
+        name: "AudioRecorderPage",
+        component: AudioRecorderPage,
+      },
+      {
+        path: "explore",
+        name: "ListPage",
+        component: ListPage,
       },
     ],
   },

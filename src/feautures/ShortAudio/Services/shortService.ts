@@ -1,7 +1,8 @@
+import axiosInstance from "@core/AxiosConfig";
 import axios from "axios";
-import axiosInstance from "../../../Core/AxiosConfig";
+import type { FavoriteCreated, FilterShorts } from "../Interfaces/file";
 
-const sendShort = async (data:any) => {
+const createShort = async (data:any) => {
   try {
     const formData = new FormData();
     data.files.forEach((file:File) => formData.append("file", file));
@@ -10,9 +11,7 @@ const sendShort = async (data:any) => {
         formData.append(key, value.toString());
       }
     });
-     await axiosInstance.post(
-      "shorts",
-      formData
+     await axiosInstance.post( "shorts", formData
     );
      return
 
@@ -26,88 +25,39 @@ const sendShort = async (data:any) => {
     }
   }
 };
-const uploadAudio = async (audioFile: File, userId?: string | number) => {
-  try {
-    const form = new FormData();
-    form.append("file", audioFile);
-    if (userId !== undefined && userId !== null) {
-      form.append("userId", String(userId));
-    }
 
-    const response = await axiosInstance.post("files/upload", form, {
-      headers: { "Content-Type": "multipart/form-data" },
+const GetAllAudios = async ( Data: FilterShorts )=> {
+  try {
+    const response = await axiosInstance.get('shorts', {
+      params: Data,
     });
-
-    return response.data; 
-  } catch (error: unknown) {
-    if (axios.isAxiosError(error)) {
-      console.error(error.response?.data || error.message);
-      throw new Error(error.response?.data?.message || "Upload failed");
-    } else {
-      console.error("Error desconocido:", error);
-      throw new Error("Error desconocido");
-    }
-  }
-};
-
-const createShort = async (data: {
-  text: string;
-  country: string;
-  description: string;
-  file: File |null;
-  userId?: string;
-  createBy?: string;
-}) => {
-  try {
-
-    const formData = new FormData();
-    formData.append("text", data.text);
-    formData.append("country", data.country);
-    formData.append("description", data.description);
-    formData.append("file", data.file as Blob);
-
-    const response = await axiosInstance.post("shorts", data);
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
-      throw new Error(error.response?.data?.message || "Creation failed");
+      throw new Error(error.response?.data?.message || 'Failed to fetch audios');
     } else {
-      console.error("Error desconocido:", error);
-      throw new Error("Error desconocido");
+      console.error('Error desconocido: ', error);
+      throw new Error('Error desconocido');
     }
   }
 };
 
-
-const getShorts = async (params?: Record<string, any>) => {
+const addShortsToFavorites = async (ids: string[]): Promise<FavoriteCreated[] | any> => {
   try {
-    const response = await axiosInstance.get("shorts", { params });
-    return response.data;
+    const { data } = await axiosInstance.post('/shorts/favorites', ids, {
+      headers: { 'Content-Type': 'application/json' },
+    })
+    return data
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
-      console.error(error.response?.data || error.message);
-      throw new Error(error.response?.data?.message || "Fetch failed");
+      console.error(error.response?.data || error.message)
+      throw new Error(error.response?.data?.message || 'Failed to add favorites')
     } else {
-      console.error("Error desconocido:", error);
-      throw new Error("Error desconocido");
+      console.error('Unknown error: ', error)
+      throw new Error('Unknown error')
     }
   }
-};
+}
 
-const getShortById = async (id: string | number) => {
-  try {
-    const response = await axiosInstance.get(`shorts/${id}`);
-    return response.data;
-  } catch (error: unknown) {
-    if (axios.isAxiosError(error)) {
-      console.error(error.response?.data || error.message);
-      throw new Error(error.response?.data?.message || "Fetch failed");
-    } else {
-      console.error("Error desconocido:", error);
-      throw new Error("Error desconocido");
-    }
-  }
-};
-
-export { uploadAudio, createShort, getShorts, getShortById,sendShort };
+export { createShort, GetAllAudios, addShortsToFavorites };
