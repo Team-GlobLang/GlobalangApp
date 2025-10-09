@@ -1,13 +1,16 @@
 import axiosInstance from "@core/AxiosConfig";
-import type { ChangePasswordData, updateUserInfo } from "../Interfaces/UserInterfaces";
+import type {
+  ChangePasswordData,
+  updateUserInfo,
+} from "../Interfaces/UserInterfaces";
 import axios from "axios";
 import { userStore } from "@UserStore";
 
 const updateUser = async (data: updateUserInfo) => {
   try {
-    const response = await axiosInstance.patch("/auth", data);
+    const response = await axiosInstance.patch("/auth/user", data);
 
-    if (response.data.succes == true) {
+    if (response.data.success == true) {
       if (userStore.user) {
         userStore.setUser({
           ...userStore.user,
@@ -33,10 +36,12 @@ const changePassword = async (data: ChangePasswordData) => {
   }
 
   try {
-    const response = await axiosInstance.patch("/auth/password", {
+    const response = await axiosInstance.patch("/auth/change-password", {
       currentPassword: data.currentPassword,
       newPassword: data.newPassword,
     });
+
+    console.log(response.data.succes);
 
     if (response.data.success !== true) {
       throw new Error(response.data.message || "Unknown error");
