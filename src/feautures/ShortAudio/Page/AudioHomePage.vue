@@ -25,6 +25,6 @@ import BreadCrumb from '@layouts/BreadCrumb.vue'
 
 const breadcrumbItems = [
   { label: "Home", route: "/home", isHome: true },
-  { label: 'Audio Studio', route: '/short/audio' },
+  { label: 'Shorts Studio', route: '/studio/short' },
 ];
 </script>

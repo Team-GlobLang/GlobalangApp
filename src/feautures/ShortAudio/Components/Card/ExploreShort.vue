@@ -1,6 +1,6 @@
 <template>
   <RouterLink
-    :to="{ name: 'ListPage' }"
+    :to="{ name: 'shorts-list' }"
     class="block rounded-2xl bg-purple-50 hover:bg-purple-100 transition p-6 text-center shadow-sm"
   >
     <span class="text-4xl mb-4">🌐</span>

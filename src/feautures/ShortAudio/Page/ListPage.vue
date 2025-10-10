@@ -24,29 +24,29 @@
         />
       </div>
     </div>
-    <ScrollTopButton/>
+    <ScrollTopButton />
   </main>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import ListAudiosCard from '../Components/Card/ListAudiosCard.vue'
-import FavoriteButton from '../Components/Button/FavoriteButton.vue'
-import FilterAudio from '../Components/FilterAudio.vue'
-import BreadCrumb from '@layouts/BreadCrumb.vue'
-import ScrollTopButton from '../Components/Button/ScrollTopButton.vue'
+import { ref } from "vue";
+import ListAudiosCard from "../Components/Card/ListAudiosCard.vue";
+import FavoriteButton from "../Components/Button/FavoriteButton.vue";
+import FilterAudio from "../Components/FilterAudio.vue";
+import BreadCrumb from "@layouts/BreadCrumb.vue";
+import ScrollTopButton from "../Components/Button/ScrollTopButton.vue";
 
-const country = ref<string>('')
+const country = ref<string>("");
 
 function onFilter(val: string) {
-  country.value = val
+  country.value = val;
 }
 
-const selectedIds = ref<string[]>([])
+const selectedIds = ref<string[]>([]);
 
 const breadcrumbItems = [
-  { label: 'Home', route: '/home', isHome: true },
-  { label: 'Audio studio', route: '/short/audio' },
-  { label: 'List audio'},
-]
+  { label: "Home", route: "/home", isHome: true },
+  { label: "Shorts Studio", route: "/studio/short" },
+  { label: "Available Shorts" },
+];
 </script>

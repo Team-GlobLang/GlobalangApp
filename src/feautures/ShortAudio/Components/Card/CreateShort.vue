@@ -1,6 +1,6 @@
 <template>
   <RouterLink
-    :to="{ name: 'AudioRecorderPage' }"
+    :to="{ name: 'CreateShort' }"
     class="block rounded-2xl bg-blue-50 hover:bg-blue-100 transition p-6 text-center shadow-sm"
   >
     <span class="text-4xl mb-4">✏️</span>
