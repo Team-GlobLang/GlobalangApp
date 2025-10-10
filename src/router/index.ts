@@ -100,6 +100,11 @@ const routes = [
     ],
   },
   {
+    path: "/short",
+    name: "Short-audio",
+    component: ListPage,
+  },
+  {
     path: "/studio",
     name: "Studio",
     children: [

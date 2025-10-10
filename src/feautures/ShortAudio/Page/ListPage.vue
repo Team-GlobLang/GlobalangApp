@@ -46,7 +46,6 @@ const selectedIds = ref<string[]>([]);
 
 const breadcrumbItems = [
   { label: "Home", route: "/home", isHome: true },
-  { label: "Shorts Studio", route: "/studio/short" },
-  { label: "Available Shorts" },
+  { label: "Available Shorts" }
 ];
 </script>

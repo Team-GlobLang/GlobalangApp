@@ -31,10 +31,10 @@
 
             <FwbButton class="relative w-full !rounded-none outline-none focus:ring-0 py-3"
                 :class="selectedPath === 'short-audio' ? 'text-black' : 'text-white'" @click="goto('Short-audio')">
-                <span v-if="selectedPath === 'short-audio'"
+                <span v-if="selectedPath === 'short'"
                     class="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-black rounded-full"></span>
                 <i style="font-size: 1.7rem" class="pi pi-headphones text-2xl transition-transform duration-500 ease-in-out"
-                    :class="selectedPath === 'short-audio' ? ' rotate-6' : 'rotate-0'"></i>
+                    :class="selectedPath === 'short' ? ' rotate-6' : 'rotate-0'"></i>
             </FwbButton>
 
             <FwbButton class="relative w-full !rounded-none outline-none focus:ring-0 py-3"
