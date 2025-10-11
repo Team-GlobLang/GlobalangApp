@@ -14,7 +14,7 @@ export interface FilterShorts {
   country?: string;
   page?: number;
   limit?: number;
-}
+} //Falta approved
 
 export interface ShortAudio {
   id: string

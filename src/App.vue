@@ -5,15 +5,22 @@ import { computed } from "vue";
 import NavBarLayout from "@layouts/NavBarLayout.vue";
 const route = useRoute()
 const showBottomBar = computed(() => route.meta.showBottomBar !== false)
+import { Capacitor } from '@capacitor/core';
+
+const isNative = Capacitor.isNativePlatform();
+
+const containerPadingop = computed(() =>
+  isNative ? 'pt-[5dvh]' : 'pt-0'
+);
 
 </script>
 
 <template>
   <Toaster />
-
+  <div v-if="isNative" class=" bg-black w-full h-[5dvh] fixed z-50 "></div>
   <router-view v-slot="{ Component }">
     <Transition>
-      <div :class="{ 'pb-14': showBottomBar }">
+      <div :class="[ { 'pb-14': showBottomBar }, containerPadingop ]">
         <component :is="Component" />
       </div>
     </Transition>

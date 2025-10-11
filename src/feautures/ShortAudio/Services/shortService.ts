@@ -29,7 +29,7 @@ const createShort = async (data:any) => {
 const GetAllAudios = async ( Data: FilterShorts )=> {
   try {
     const response = await axiosInstance.get('shorts', {
-      params: Data,
+      params: Data, //los filtros son dinamicos no siempre quemados
     });
     return response.data;
   } catch (error: unknown) {

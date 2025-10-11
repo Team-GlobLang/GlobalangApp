@@ -21,7 +21,7 @@
           :country="country"
           :pageSize="24"
           v-model:selectedIds="selectedIds"
-        />
+        />  
       </div>
     </div>
     <ScrollTopButton />

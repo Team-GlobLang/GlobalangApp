@@ -33,7 +33,7 @@ const props = withDefaults(defineProps<{
   pageSize?: number
   selectedIds?: string[]
 }>(), {
-  pageSize: 24,
+  pageSize: 24, //El page size jamas puede ser tan grande ademas no concuerda el nombre limit y page por lo cual se hacen asignaciones ignesesarias
   selectedIds: () => [],
 })
 
@@ -64,8 +64,10 @@ function onToggleSelect(payload: { id: string; selected: boolean }) {
 }
 
 // cambiar luego por lo que hay en Copia
+
+//Esto no es infinite scroll aqui llamas bajo un limite de 24 y hacer chunks para hacer una paginacion falsa
 const FORCED_PARAM = 'approved'
-const FORCED_VALUE = false   
+const FORCED_VALUE = true  
 
 async function fetchAll() {
   isPending.value = true

@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="submitForm" class="flex-col flex gap-3 w-3/4">
+    <form @submit.prevent="submitForm" class="flex-col flex w-11/12">
         <FwbInput v-model="fullName" type="text" :validation-status="fullNameError ? 'error' : undefined"
             label="Full name" placeholder="Full name">
             <template #suffix>
@@ -53,7 +53,7 @@
                 <span class="font-medium"> {{ passwordError }} </span>
             </template>
         </FwbInput>
-        <FwbInput label="Repet Password" :type="showPassword ? 'text' : 'password'" placeholder="Repeat password"
+        <FwbInput class=" mb-4" label="Repet Password" :type="showPassword ? 'text' : 'password'" placeholder="Repeat password"
             v-model="repeatPwdValue" :validation-status="repeatPwdError ? 'error' : undefined">
             <template #suffix>
                 <span v-if="!showPassword" @click="changeShowPassword(true)"

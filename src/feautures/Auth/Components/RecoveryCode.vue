@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="sendCode" v-if="!codeSend" class=" flex-col flex gap-5 w-3/4">
+    <form @submit.prevent="sendCode" v-if="!codeSend" class=" flex-col flex gap-5 w-11/12">
         <p>Password Reset</p>
         <p>Enter your email, and we will send you a recovery code.</p>
         <FwbInput placeholder="your@email.com" v-model="email" label="Email"
@@ -14,7 +14,7 @@
         <FwbButton type="submit" :disabled="isPending">Send Code</FwbButton>
     </form>
 
-    <form @submit.prevent="validateCode" v-if="codeSend" class="flex-col flex gap-5 w-3/4">
+    <form @submit.prevent="validateCode" v-if="codeSend" class="flex-col flex gap-5 w-11/12">
         <p>If you don’t receive it, check your spam folder or request a new code.</p>
         <button type="button"
             class="self-end hover:cursor-pointer text-blue-600 hover:text-blue-800 underline text-sm disabled:text-gray-400"

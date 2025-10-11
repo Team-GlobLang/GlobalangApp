@@ -1,5 +1,5 @@
 <template>
-  <div class="p-5 h-screen w-full flex flex-col">
+  <div :class="containerHeight" class="p-5 w-full flex flex-col">
 
     <div class=" flex">
       <div class="w-full">
@@ -44,6 +44,13 @@ import type { QuizQuestion, QuizOption } from '../types/QuestionTypes'
 import QuestionCard from '../components/microcomponents/QuestionCard.vue'
 import BreadCrumb from '@layouts/BreadCrumb.vue'
 import Results from '../components/microcomponents/Results.vue'
+import { Capacitor } from '@capacitor/core';
+
+const isNative = Capacitor.isNativePlatform();
+
+const containerHeight = computed(() =>
+   isNative ? 'min-h-[95dvh]' : 'min-h-screen'
+);
 
 const route = useRoute()
 const quizId = computed(() => route.params.id as string)
