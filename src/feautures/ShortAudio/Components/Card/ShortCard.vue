@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full p-4 flex items-center gap-4 shadow-sm hover:shadow-md transition relative"
+    class="w-full bg-white rounded-2xl shadow-2xl p-4 flex items-center gap-4 hover:shadow-md transition relative"
   >
     <button
       class="flex-shrink-0 rounded-full w-14 h-14 flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white shadow active:scale-95 transition"
@@ -40,6 +40,9 @@
       <p v-if="description" class="text-gray-600 text-sm line-clamp-2 mt-1">
         {{ description }}
       </p>
+      <p v-if="createBy" class="text-gray-600 text-sm mt-1">
+        By: {{ createBy }}
+      </p>
 
       <div class="text-gray-700 text-sm font-medium mt-2">
         {{ durationLabel }}
@@ -58,9 +61,9 @@
 
 <script setup lang="ts">
 import { ref, computed, watchEffect } from "vue";
-import type { ShortInterface } from "../../Interfaces/short-interface";
+import type { AvailableShortsInterface } from "../../Interfaces/Shorts.interface";
 
-const props = defineProps<ShortInterface>();
+const props = defineProps<AvailableShortsInterface>();
 
 const audioRef = ref<HTMLAudioElement | null>(null);
 const localPlaying = ref(false);

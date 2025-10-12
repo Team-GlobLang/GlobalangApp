@@ -12,6 +12,7 @@ export default defineConfig({
       "@core": path.resolve(__dirname, "src/Core"),
       "@components": path.resolve(__dirname, "src/components"),
       "@UserStore": path.resolve(__dirname, "src/Stores/user.ts"),
+      "@RecordHooks": path.resolve(__dirname, "src/Hooks/Record.Hook.ts"),
     },
   },
 });

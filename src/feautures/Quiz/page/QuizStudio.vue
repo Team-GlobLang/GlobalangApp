@@ -60,6 +60,7 @@ import { useRouter } from "vue-router";
 
 const breadcrumbItems = [
   { label: "Home", route: "/home", isHome: true },
+  { label: "Studio", route: "/studio" },
   { label: "Quiz Studio", route: "/studio/quiz" },
 ];
 

@@ -16,6 +16,7 @@
       "@core/*": ["src/Core/*"],
       "@components/*": ["src/components/*"],
       "@UserStore": ["src/Stores/user.ts"],
+      "@RecordHooks": ["src/Hooks/Record.Hook.ts"],
 
     },
     "types": ["vite/client"]

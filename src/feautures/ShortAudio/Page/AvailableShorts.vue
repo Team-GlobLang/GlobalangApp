@@ -13,11 +13,15 @@
 
     <div class="w-full relative flex flex-col items-center">
       <div class="w-11/12 flex flex-col gap-3">
-        <QuizCard
-          v-for="quiz in quizzes"
-          :quiz="quiz"
-          :key="quiz.id"
-          @attempt="attemptQuiz"
+        <ShortCard
+          v-for="short in shorts"
+          :key="short.id"
+          :country="short.country"
+          :description="short.description"
+          :create-by="short.createBy"
+          :file-url="short.fileUrl"
+          :text="short.text"
+          :id="short.id"
         />
 
         <div
@@ -36,17 +40,14 @@
             aria-live="polite"
           >
             <div class="shadow-2xl rounded-2xl bg-white">
-              <img src="/NoResults.png" alt="No quizzes found" />
+              <img src="/NoResults.png" alt="No shorts found" />
             </div>
           </div>
         </div>
 
         <div
           v-if="
-            !isPending &&
-            !isFetchingNextPage &&
-            quizzes.length === 0 &&
-            !isError
+            !isPending && !isFetchingNextPage && shorts.length === 0 && !isError
           "
         >
           <div
@@ -55,21 +56,22 @@
             aria-live="polite"
           >
             <div class="shadow-2xl rounded-2xl bg-white">
-              <img src="/NoResults.png" alt="No quizzes found" />
+              <img src="/NoResults.png" alt="No shorts found" />
             </div>
           </div>
         </div>
 
         <div
-          v-if="!hasNextPage && quizzes.length > 0"
+          v-if="!hasNextPage && shorts.length > 0"
           class="text-center py-4 text-gray-500"
           role="status"
           aria-live="polite"
         >
-          No more quizzes
+          No more shorts
         </div>
       </div>
     </div>
+
     <GoToStart
       v-show="showScrollTop"
       @click="scrollToTop"
@@ -83,16 +85,15 @@ import { ref, computed, onMounted, onUnmounted, watch } from "vue";
 import { useInfiniteQuery } from "@tanstack/vue-query";
 import BreadCrumb from "@layouts/BreadCrumb.vue";
 import CountrySearch from "@components/CountrySearch.vue";
-import QuizCard from "../components/microcomponents/QuizCard.vue";
-import GoToStart from "../components/microcomponents/GoToStart.vue";
-import type { QuizData } from "../types/quizTypes";
-import { getQuizzes } from "../service/QuizService";
 import type { PaginatedResponse } from "src/feautures/shared/Interfaces/interfaces";
-import { useRouter } from "vue-router";
+import GoToStart from "@components/GoToStart.vue";
+import { getShorts } from "../Services/shortService";
+import ShortCard from "../Components/Card/ShortCard.vue";
+import type { AvailableShortsInterface } from "../Interfaces/Shorts.interface";
 
 const breadCumbs = [
   { label: "Home", route: "/home", isHome: true },
-  { label: "Available Quizzes", route: "/quiz/availables" },
+  { label: "Available shorts", route: "/short/availables" },
 ];
 
 const country = ref("");
@@ -106,13 +107,13 @@ const {
   isPending,
   refetch,
   isError,
-} = useInfiniteQuery<PaginatedResponse<QuizData>, Error>({
-  queryKey: computed(() => ["quizzes", { country: country.value }]),
+} = useInfiniteQuery<PaginatedResponse<AvailableShortsInterface>, Error>({
+  queryKey: computed(() => ["shorts", { country: country.value }]),
   queryFn: async ({ pageParam = 1 }) => {
-    return await getQuizzes({
+    return await getShorts({
       page: pageParam,
       limit: 5,
-      isApproved: null,
+      approved: true,
       country: country.value,
     });
   },
@@ -125,7 +126,7 @@ const {
   },
 });
 
-const quizzes = computed(
+const shorts = computed(
   () => data.value?.pages.flatMap((page) => page.data) ?? []
 );
 
@@ -169,10 +170,4 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", throttledOnScroll);
 });
-
-const router = useRouter();
-
-const attemptQuiz = (id: string) => {
-  router.push({ name: "QuizInfo", params: { id } });
-};
 </script>

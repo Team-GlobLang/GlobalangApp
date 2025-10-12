@@ -1,3 +1,5 @@
+import type { PaginationDto } from "src/feautures/shared/Interfaces/interfaces";
+
 export interface CreateShort {
   text: string;
   description: string;
@@ -10,11 +12,10 @@ export type FavoriteCreated = {
   shortId: string
 };
 
-export interface FilterShorts {
+export interface FilterShorts extends PaginationDto {
   country?: string;
-  page?: number;
-  limit?: number;
-} //Falta approved
+  approved?: boolean | null
+} 
 
 export interface ShortAudio {
   id: string

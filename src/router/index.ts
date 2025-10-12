@@ -20,9 +20,13 @@ import {
   JoinAsCasualColab,
 } from "../feautures/Colaborators/Page";
 import { UserInfo, ChangeInfo } from "../feautures/User/Pages";
-import AudioHomePage from "../feautures/ShortAudio/Page/AudioHomePage.vue";
-import AudioRecorderPage from "../feautures/ShortAudio/Page/AudioRecorderPage.vue";
-import ListPage from "../feautures/ShortAudio/Page/ListPage.vue";
+import {
+  AvailableShorts,
+  AudioHomePage,
+  CreateShort,
+  MyShorts,
+} from "../feautures/ShortAudio/Page";
+import Studio from "../feautures/Studio/Page/Studio.vue";
 
 const routes = [
   {
@@ -102,12 +106,16 @@ const routes = [
   {
     path: "/short",
     name: "Short-audio",
-    component: ListPage,
+    component: AvailableShorts,
   },
   {
     path: "/studio",
-    name: "Studio",
     children: [
+      {
+        path: "",
+        name: "Studio",
+        component: Studio,
+      },
       {
         path: "quiz",
         children: [
@@ -139,12 +147,12 @@ const routes = [
           {
             path: "create-short",
             name: "CreateShort",
-            component: AudioRecorderPage,
+            component: CreateShort,
           },
           {
-            path: "explore",
-            name: "shorts-list",
-            component: ListPage,
+            path: "my-shorts",
+            name: "my-shorts",
+            component: MyShorts,
           },
         ],
       },
