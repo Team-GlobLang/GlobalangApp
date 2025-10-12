@@ -24,7 +24,7 @@
 
     <div
       v-else
-      class="w-[18rem] h-[4rem] bg-gray-100 rounded-full px-3 py-4 flex items-center justify-between"
+      class="w-full h-[4rem] bg-gray-100 rounded-full px-3 py-4 flex items-center justify-between"
     >
       <FwbButton
         type="button"

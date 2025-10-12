@@ -1,7 +1,8 @@
 import axios from "axios";
+import { envs } from "../config/env";
 
 const axiosInstance = axios.create({
-  baseURL: "https://globalang.dianprojects.online",
+  baseURL: envs.APIURL,
 });
 
 const getAccessToken = (): string | null => {
