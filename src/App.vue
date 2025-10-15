@@ -13,7 +13,11 @@ const containerPadingop = computed(() => (isNative ? "pt-[5dvh]" : "pt-0"));
 </script>
 
 <template>
-  <Toaster />
+  <Toaster :toast-options="{
+    style:{
+      marginTop: isNative? '5dvh':''
+    }
+  }" />
   <div v-if="isNative" class="bg-[#193cb8] w-full h-[5dvh] fixed z-50"></div>
   <router-view v-slot="{ Component }">
     <Transition>
