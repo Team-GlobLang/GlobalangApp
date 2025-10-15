@@ -1,5 +1,5 @@
 <template>
-    <form v-if="!expired" @submit.prevent="submitForm" class="flex-col flex gap-5 w-3/4">
+    <form v-if="!expired" @submit.prevent="submitForm" class="flex-col flex gap-5 w-11/12">
         <FwbInput label="New Password" :type="showPassword ? 'text' : 'password'" placeholder="Your password"
             v-model="newPassword" :validation-status="passwordError ? 'error' : undefined">
             <template #suffix>

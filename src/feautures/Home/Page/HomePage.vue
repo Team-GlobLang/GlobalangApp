@@ -7,7 +7,7 @@
                     <LanguageSelector v-model:country="country" />
                 </div>
             </div>
-            <div class="flex-1 flex items-center justify-center">
+            <div class="flex-1 z-0 flex items-center justify-center">
                 <WorldMap v-model:country="country" />
             </div>
             <div>
@@ -28,6 +28,5 @@ import LanguageSelector from '../Components/microcomponents/LanguageSelector.vue
 import LatestPhrases from '../Components/LatestPhrases.vue';
 
 const country = ref('');
-
 
 </script>

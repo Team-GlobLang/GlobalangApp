@@ -1,113 +1,122 @@
 <template>
-    <div class="  min-w-full bg-white rounded-2xl p-6 relative flex flex-col">
+  <div
+    class="w-full p-4 flex items-center gap-4 shadow-sm hover:shadow-md transition relative"
+  >
+    <button
+      class="flex-shrink-0 rounded-full w-14 h-14 flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white shadow active:scale-95 transition"
+      :aria-pressed="localPlaying"
+      :title="localPlaying ? 'Pausar' : 'Reproducir'"
+      @click="toggle"
+    >
+      <i class="pi text-2xl" :class="localPlaying ? 'pi-pause' : 'pi-play'"></i>
+    </button>
 
-        <div class="absolute top-7 right-4">
-            <button :aria-pressed="favorite" class="transition"
-                :class="favorite ? 'text-blue-600' : 'text-gray-400 hover:text-blue-500'"
-                :title="favorite ? 'Quitar de favoritos' : 'Agregar a favoritos'" @click="toggleFavorite">
-                <i class="pi text-xl" :class="favorite ? 'pi-heart-fill' : 'pi-heart'"></i>
-            </button>
-        </div>
+    <div class="flex-1 min-w-0">
+      <div class="flex items-start justify-between">
+        <h3 class="font-semibold text-gray-800 text-base truncate">
+          {{ text }}
+        </h3>
 
-        <div class="text-gray-800 font-semibold truncate">
-            {{ text }}
-        </div>
+        <button
+          :aria-pressed="favorite"
+          class="transition ml-3"
+          :class="
+            favorite ? 'text-blue-600' : 'text-gray-400 hover:text-blue-500'
+          "
+          :title="favorite ? 'Quitar de favoritos' : 'Agregar a favoritos'"
+          @click.stop="toggleFavorite"
+        >
+          <i
+            class="pi text-lg"
+            :class="favorite ? 'pi-heart-fill' : 'pi-heart'"
+          ></i>
+        </button>
+      </div>
 
-        <div class="text-gray-500 text-sm truncate">
-            {{ country ? `From ${country}` : '' }}
-        </div>
+      <p v-if="country" class="text-gray-500 text-sm mt-0.5">
+        From {{ country }}
+      </p>
 
-        <p v-if="description" class="text-sm text-gray-600 desc-clamp">
-            {{ description }}
-        </p>
+      <p v-if="description" class="text-gray-600 text-sm line-clamp-2 mt-1">
+        {{ description }}
+      </p>
 
-        <div>
-            <div class="flex items-center justify-center">
-                <button class="rounded-full w-20 h-20 flex items-center justify-center shadow transition active:scale-95
-            bg-blue-500 hover:bg-blue-600 text-white" :aria-pressed="localPlaying"
-                    :title="localPlaying ? 'Pausar' : 'Reproducir'" @click="toggle">
-                    <i class="pi text-3xl" :class="localPlaying ? 'pi-pause' : 'pi-play'"></i>
-                </button>
-            </div>
-            <div class="mt-2 text-center text-gray-700 font-medium">
-                {{ timeLabel }}
-            </div>
-
-        </div>
-        <audio ref="audioRef" :src="fileUrl" preload="metadata" @loadedmetadata="onLoadedMetadata"
-            @timeupdate="updateTime" @ended="onEnded"></audio>
+      <div class="text-gray-700 text-sm font-medium mt-2">
+        {{ durationLabel }}
+      </div>
     </div>
+
+    <audio
+      ref="audioRef"
+      :src="fileUrl"
+      preload="metadata"
+      @loadedmetadata="onLoadedMetadata"
+      @ended="onEnded"
+    ></audio>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, watchEffect } from "vue";
 import type { ShortInterface } from "../../Interfaces/short-interface";
 
-
-
 const props = defineProps<ShortInterface>();
 
 const audioRef = ref<HTMLAudioElement | null>(null);
 const localPlaying = ref(false);
 const favorite = ref(false);
-const currentTime = ref(0);
 const duration = ref(0);
 
 watchEffect(() => {
-    const favs = JSON.parse(localStorage.getItem("favorites") || "[]");
-    favorite.value = favs.includes(props.id);
+  const favs = JSON.parse(localStorage.getItem("favorites") || "[]");
+  favorite.value = favs.includes(props.id);
 });
 
 function toggle() {
-    if (!audioRef.value) return;
-    if (localPlaying.value) {
-        audioRef.value.pause();
-    } else {
-        audioRef.value.play();
-    }
-    localPlaying.value = !localPlaying.value;
-}
-
-function updateTime() {
-    if (audioRef.value) {
-        currentTime.value = Math.floor(audioRef.value.currentTime);
-    }
+  if (!audioRef.value) return;
+  if (localPlaying.value) {
+    audioRef.value.pause();
+  } else {
+    audioRef.value.play();
+  }
+  localPlaying.value = !localPlaying.value;
 }
 
 function onEnded() {
-    localPlaying.value = false;
+  localPlaying.value = false;
 }
 
 function toggleFavorite() {
-    const favs: string[] = JSON.parse(localStorage.getItem("favorites") || "[]");
-    if (favorite.value) {
-        favorite.value = false;
-        const index = favs.indexOf(props.id);
-        if (index !== -1) favs.splice(index, 1);
-    } else {
-        favorite.value = true;
-        favs.push(props.id);
-    }
-    localStorage.setItem("favorites", JSON.stringify(favs));
+  const favs: string[] = JSON.parse(localStorage.getItem("favorites") || "[]");
+  if (favorite.value) {
+    favorite.value = false;
+    const index = favs.indexOf(props.id);
+    if (index !== -1) favs.splice(index, 1);
+  } else {
+    favorite.value = true;
+    favs.push(props.id);
+  }
+  localStorage.setItem("favorites", JSON.stringify(favs));
 }
 
 function onLoadedMetadata() {
-    if (audioRef.value) {
-        duration.value = Math.floor(audioRef.value.duration);
-    }
+  if (audioRef.value) {
+    duration.value = Math.floor(audioRef.value.duration);
+  }
 }
 
-const timeLabel = computed(() => {
-    const format = (t: number) =>
-        `${Math.floor(t / 60).toString().padStart(2, "0")}:${(t % 60).toString().padStart(2, "0")}`;
-    return `${format(currentTime.value)} / ${duration.value ? format(duration.value) : "--:--"}`;
+const durationLabel = computed(() => {
+  if (!duration.value) return "--:--";
+  const m = Math.floor(duration.value / 60);
+  const s = duration.value % 60;
+  return `${m}:${s.toString().padStart(2, "0")}`;
 });
 </script>
 
 <style scoped>
-.desc-clamp {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 </style>

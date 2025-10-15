@@ -6,7 +6,6 @@
     <div class=" w-11/12 flex flex-col gap-3 ">
 
       <!-- Title -->
-      <h1 class="text-3xl font-bold">Quiz Studio</h1>
       <p class="text-gray-500 text-base">
         Welcome to your quiz control center. Create, explore, or manage your quizzes easily.
       </p>
@@ -61,6 +60,7 @@ import { useRouter } from "vue-router";
 
 const breadcrumbItems = [
   { label: "Home", route: "/home", isHome: true },
+  { label: "Studio", route: "/studio" },
   { label: "Quiz Studio", route: "/studio/quiz" },
 ];
 

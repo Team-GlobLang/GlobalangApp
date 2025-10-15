@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from "../feautures/Home/Page/HomePage.vue";
-import NavBarLayout from "../layouts/NavBarLayout.vue";
 import {
   ChangePassword,
   ForgetPassword,
@@ -20,9 +19,14 @@ import {
   JoinAsMasterColab,
   JoinAsCasualColab,
 } from "../feautures/Colaborators/Page";
-import AudioHomePage from "../feautures/ShortAudio/Page/AudioHomePage.vue";
-import AudioRecorderPage from "../feautures/ShortAudio/Page/AudioRecorderPage.vue";
-import ListPage from "../feautures/ShortAudio/Page/ListPage.vue";
+import { UserInfo, ChangeInfo } from "../feautures/User/Pages";
+import {
+  AvailableShorts,
+  AudioHomePage,
+  CreateShort,
+  MyShorts,
+} from "../feautures/ShortAudio/Page";
+import Studio from "../feautures/Studio/Page/Studio.vue";
 
 const routes = [
   {
@@ -100,55 +104,72 @@ const routes = [
     ],
   },
   {
-    path: "/studio",
-    name: "Studio",
-    children: [
-      {
-        path: "quiz",
-        name: "QuizStudio",
-        component: QuizStudio,
-      },
-      {
-        path: "create-quiz",
-        name: "NewQuiz",
-        component: CreateQuiz,
-      },
-      {
-        path: "my-quiz",
-        name: "MyQuiz",
-        component: MyQuizzes,
-      },
-    ],
+    path: "/short",
+    name: "Short-audio",
+    component: AvailableShorts,
   },
   {
-    path: "/short",
-    name: "shor_audio",
+    path: "/studio",
     children: [
       {
-        path: "audio",
-        name: "AudioHomePage",
-        component: AudioHomePage,
+        path: "",
+        name: "Studio",
+        component: Studio,
       },
       {
-        path: "phrase",
-        name: "AudioRecorderPage",
-        component: AudioRecorderPage,
+        path: "quiz",
+        children: [
+          {
+            path: "",
+            name: "QuizStudio",
+            component: QuizStudio,
+          },
+          {
+            path: "create-quiz",
+            name: "NewQuiz",
+            component: CreateQuiz,
+          },
+          {
+            path: "my-quiz",
+            name: "MyQuiz",
+            component: MyQuizzes,
+          },
+        ],
       },
       {
-        path: "explore",
-        name: "ListPage",
-        component: ListPage,
+        path: "short",
+        children: [
+          {
+            path: "",
+            name: "shorts-home",
+            component: AudioHomePage,
+          },
+          {
+            path: "create-short",
+            name: "CreateShort",
+            component: CreateShort,
+          },
+          {
+            path: "my-shorts",
+            name: "my-shorts",
+            component: MyShorts,
+          },
+        ],
       },
     ],
   },
   {
     path: "/user",
-    name: "User",
     children: [
       {
         path: "",
-        name: "",
-        component: NavBarLayout, //Esta solamente de ejemplo para un path index
+        name: "User",
+        component: UserInfo,
+      },
+      {
+        path: "edit-info",
+        name: "EditUserInfo",
+        component: ChangeInfo,
       },
     ],
   },

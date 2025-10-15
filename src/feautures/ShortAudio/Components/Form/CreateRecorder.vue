@@ -93,7 +93,7 @@ const submitForm = handleSubmit((values) => {
         files: filesArray,
     },
         {
-            onSuccess: () => router.push({ name: "Home" })
+            onSuccess: () => router.push({ name: "shorts-home" })
         });
 });
 

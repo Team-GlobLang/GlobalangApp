@@ -29,7 +29,7 @@ const countryModel = computed({
     set: (val: string) => emit('update:country', val),
 });
 
-const MAX_INITIAL = 10;
+const MAX_INITIAL = 5;
 
 const filteredCountries = computed(() => {
     if (!countryModel.value) {

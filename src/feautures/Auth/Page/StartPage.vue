@@ -1,5 +1,6 @@
 <template>
-  <div class="w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-white">
+  <div  :class="containerHeight"
+  class="w-full  flex items-center justify-center bg-gradient-to-b from-blue-50 to-white">
     <div
       class="flex flex-col items-center justify-center w-11/12 max-w-md px-6 py-10 gap-8 bg-white rounded-xl shadow-lg">
       <img src="/Glob.png" alt="globIcon" class="h-24 w-auto mb-2" />
@@ -15,5 +16,12 @@
 </template>
 <script lang="ts" setup>
 import { FwbButton } from 'flowbite-vue';
+ import { Capacitor } from '@capacitor/core';
+import { computed } from 'vue';
 
+const isNative = Capacitor.isNativePlatform();
+
+const containerHeight = computed(() =>
+  isNative ? 'min-h-[95dvh]' : 'min-h-screen'
+);
 </script>

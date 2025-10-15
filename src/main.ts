@@ -9,6 +9,7 @@ import axios from "axios";
 import { VueQueryPlugin } from "@tanstack/vue-query";
 
 import PrimeVue from "primevue/config";
+import { registerPush } from "./PushNotifications/Service";
 
 const userLang = navigator.language || navigator.languages[0] || "en";
 const langCode = userLang.split("-")[0]; //=> Agarra el lang ejemplo "es-ES" y lo transforma a es
@@ -34,9 +35,11 @@ async function setVeeValidateLocale(locale: string) {
 }
 
 await setVeeValidateLocale(langCode);
-
-createApp(App)
-  .use(PrimeVue)
+const app = createApp(App)
   .use(router)
-  .use(VueQueryPlugin)
-  .mount("#app");
+  .use(PrimeVue)
+  .use(VueQueryPlugin);
+
+await registerPush(router);
+
+app.mount("#app");

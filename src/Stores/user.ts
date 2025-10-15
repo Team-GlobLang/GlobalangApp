@@ -4,7 +4,7 @@ export interface User {
   id: string;
   fullName: string;
   country: string;
-  birthDate: string;
+  birthDate: Date;
   email: string;
   membership: string;
   role: string;

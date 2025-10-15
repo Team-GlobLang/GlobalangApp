@@ -1,6 +1,6 @@
 <template>
-    <div
-        class="w-full min-h-screen flex items-center justify-center relative bg-gradient-to-br from-blue-100 via-white to-blue-300 overflow-hidden">
+    <div :class="containerHeight"
+        class="w-full  flex items-center justify-center relative bg-gradient-to-br from-blue-100 via-white to-blue-300 overflow-hidden">
         <DecorativeBg />
         <div
             class="flex flex-col md:flex-row items-center justify-center w-full max-w-4xl px-4 py-10 gap-0 md:gap-0 bg-transparent relative z-10">
@@ -23,10 +23,17 @@
         </div>
     </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import DecorativeBg from '../../../components/ui/DecorativeBg.vue';
 import LoginForm from '../Components/LoginForm.vue';
+import { computed } from 'vue';
+import { Capacitor } from '@capacitor/core';
 
+const isNative = Capacitor.isNativePlatform();
+
+const containerHeight = computed(() =>
+ isNative ? 'min-h-[95dvh]' : 'min-h-screen'
+);
 
 </script>
