@@ -1,7 +1,8 @@
 <template>
   <div class="flex flex-col">
     <div
-      class="w-full flex flex-col items-center sticky top-0 z-40 bg-[#F1F4FB] pb-3"
+      :class="stickyTopPading"
+      class="w-full flex flex-col items-center sticky z-40 bg-[#F1F4FB] pb-3"
     >
       <div class="w-full p-2">
         <BreadCrumb :items="breadCumbs" />
@@ -66,7 +67,7 @@
           role="status"
           aria-live="polite"
         >
-          No more quizzes
+          That’s all for now — more coming soon! 👏
         </div>
       </div>
     </div>
@@ -89,6 +90,7 @@ import type { QuizData } from "../types/quizTypes";
 import { getQuizzes } from "../service/QuizService";
 import type { PaginatedResponse } from "src/feautures/shared/Interfaces/interfaces";
 import { useRouter } from "vue-router";
+import { Capacitor } from "@capacitor/core";
 
 const breadCumbs = [
   { label: "Home", route: "/home", isHome: true },
@@ -175,4 +177,8 @@ const router = useRouter();
 const attemptQuiz = (id: string) => {
   router.push({ name: "QuizInfo", params: { id } });
 };
+
+const isNative = Capacitor.isNativePlatform();
+
+const stickyTopPading = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
 </script>

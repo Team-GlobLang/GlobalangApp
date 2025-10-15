@@ -8,7 +8,7 @@
       :responsiveOptions="responsiveOptions"
       :circular="true"
       :showNavigators="false"
-      :autoplayInterval="4200"
+      :autoplayInterval="6200"
     >
       <template #item="slotProps">
         <MyShortsCard
@@ -50,9 +50,8 @@ const responsiveOptions = [
 ];
 
 const { data, isLoading } = useQuery<ShortsListResponse, Error>({
-  queryKey: ["shorts", { approved: true }],
-  queryFn: async () =>
-    await getMyShorts({ approved: true, page: 1, limit: 20 }),
+  queryKey: ["shorts"],
+  queryFn: async () => await getMyShorts({ page: 1, limit: 6 }),
   staleTime: 1000 * 60 * 5,
 });
 

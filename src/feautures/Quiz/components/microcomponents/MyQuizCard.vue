@@ -9,14 +9,18 @@
         <p class="text-gray-500 text-sm mb-4">{{ quiz.description }}</p>
         <div class=" flex justify-between items-end w-full">
             <div class="flex flex-col text-sm text-gray-700 mb-4">
-                <span><strong>By:</strong> {{ quiz.creator }}</span>
                 <span><strong>From:</strong> {{ quiz.country }}</span>
                 <span><strong># Questions:</strong> {{ quiz.numberOfQuestions }}</span>
                 <span><strong>Time limit:</strong> {{ formatTimeLimit(quiz.configuration.timeLimit) }}</span>
             </div>
-            <FwbButton color="green" @click="onReviewQuiz">
-                Review
-            </FwbButton>
+            <div class=" flex gap-3">
+                <FwbButton outline color="red" @click="onReviewQuiz">
+                    Delete
+                </FwbButton>
+                <FwbButton color="green" @click="onReviewQuiz">
+                    Review
+                </FwbButton>
+            </div>
         </div>
     </div>
 </template>

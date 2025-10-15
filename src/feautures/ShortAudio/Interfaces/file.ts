@@ -16,6 +16,10 @@ export interface FilterShorts extends PaginationDto {
   country?: string;
   approved?: boolean | null
 } 
+export interface FilterMyShorts extends PaginationDto {
+  text?: string;
+  approved?: boolean | null
+} 
 
 export interface ShortAudio {
   id: string

@@ -1,7 +1,8 @@
 <template>
   <div class="flex flex-col">
     <div
-      class="w-full flex flex-col items-center sticky top-0 z-40 bg-[#F1F4FB] pb-3"
+    :class="stickyTopPading"
+      class="w-full flex flex-col items-center sticky z-40 bg-[#F1F4FB] pb-3"
     >
       <div class="w-full p-2">
         <BreadCrumb :items="breadCumbs" />
@@ -67,7 +68,7 @@
           role="status"
           aria-live="polite"
         >
-          No more shorts
+          That’s all for now — more coming soon! 👏
         </div>
       </div>
     </div>
@@ -90,6 +91,7 @@ import GoToStart from "@components/GoToStart.vue";
 import { getShorts } from "../Services/shortService";
 import ShortCard from "../Components/Card/ShortCard.vue";
 import type { AvailableShortsInterface } from "../Interfaces/Shorts.interface";
+import { Capacitor } from "@capacitor/core";
 
 const breadCumbs = [
   { label: "Home", route: "/home", isHome: true },
@@ -170,4 +172,11 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", throttledOnScroll);
 });
+
+
+const isNative = Capacitor.isNativePlatform();
+
+const stickyTopPading = computed(() =>
+    isNative ? 'top-[5dvh]' : 'top-0'
+);
 </script>

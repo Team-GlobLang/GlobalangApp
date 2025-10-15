@@ -23,7 +23,7 @@ import { ref, computed, watch } from 'vue';
 const props = defineProps<{ country: string }>();
 const emit = defineEmits<{ (e: 'update:country', value: string): void }>();
 
-const MAX_INITIAL = 10;
+const MAX_INITIAL = 5;
 
 const localCountry = ref(props.country);
 

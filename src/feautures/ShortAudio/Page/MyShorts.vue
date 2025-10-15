@@ -1,13 +1,18 @@
 <template>
   <div class="flex flex-col">
     <div
-      class="w-full flex flex-col items-center sticky top-0 z-40 bg-[#F1F4FB] pb-3"
+      :class="stickyTopPading"
+      class="w-full flex flex-col items-center sticky z-40 bg-[#F1F4FB] pb-3"
     >
       <div class="w-full p-2">
         <BreadCrumb :items="breadCumbs" />
       </div>
       <div class="w-11/12">
-        <CountrySearch v-model:country="country" />
+        <FwbInput v-model="text" placeholder="Search shorts by name">
+          <template #suffix>
+            <span class="pi pi-search"></span>
+          </template>
+        </FwbInput>
       </div>
     </div>
 
@@ -23,7 +28,8 @@
           :text="short.text"
           :id="short.id"
           :approved="short.approved"
-          :review-comment="short.reviewComment"
+          :review-comment="short.reviewComment ?? ''"
+          @refresh="refetch()"
         />
 
         <div
@@ -69,7 +75,7 @@
           role="status"
           aria-live="polite"
         >
-          No more shorts
+          That’s it for now!
         </div>
       </div>
     </div>
@@ -86,19 +92,20 @@
 import { ref, computed, onMounted, onUnmounted, watch } from "vue";
 import { useInfiniteQuery } from "@tanstack/vue-query";
 import BreadCrumb from "@layouts/BreadCrumb.vue";
-import CountrySearch from "@components/CountrySearch.vue";
 import type { PaginatedResponse } from "src/feautures/shared/Interfaces/interfaces";
 import GoToStart from "@components/GoToStart.vue";
 import { getMyShorts } from "../Services/shortService";
 import type { MyShortsInterface } from "../Interfaces/Shorts.interface";
 import MyShortsCard from "../Components/Card/MyShortsCard.vue";
+import { Capacitor } from "@capacitor/core";
+import { FwbInput } from "flowbite-vue";
 
 const breadCumbs = [
   { label: "Home", route: "/home", isHome: true },
-  { label: "Available shorts", route: "/short/availables" },
+  { label: "My shorts" },
 ];
 
-const country = ref("");
+const text = ref("");
 const showScrollTop = ref(false);
 
 const {
@@ -110,13 +117,13 @@ const {
   refetch,
   isError,
 } = useInfiniteQuery<PaginatedResponse<MyShortsInterface>, Error>({
-  queryKey: computed(() => ["shorts", { country: country.value }]),
+  queryKey: computed(() => ["shorts", { country: text.value }]),
   queryFn: async ({ pageParam = 1 }) => {
     return await getMyShorts({
       page: pageParam,
       limit: 5,
       approved: true,
-      country: country.value,
+      text: text.value,
     });
   },
   initialPageParam: 1,
@@ -157,7 +164,7 @@ const throttledOnScroll = () => {
   }, 200);
 };
 
-watch(country, async () => {
+watch(text, async () => {
   await refetch();
   window.scrollTo({ top: 0 });
 });
@@ -172,4 +179,8 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", throttledOnScroll);
 });
+
+const isNative = Capacitor.isNativePlatform();
+
+const stickyTopPading = computed(() => (isNative ? "top-[5dvh]" : "top-0"));
 </script>

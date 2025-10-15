@@ -84,12 +84,15 @@ const router = useRouter();
 const MAX_INITIAL = 10;
 
 const filteredCountries = computed(() => {
-    if (!country.value) {
-        return countries.slice(0, MAX_INITIAL);
-    }
-    return countries.filter(c =>
-        c.name.toLowerCase().includes(country.value.toLowerCase())
-    );
+  if (!country.value) {
+    return countries.slice(0, MAX_INITIAL);
+  }
+
+  return countries
+    .filter(c =>
+      c.name.toLowerCase().includes(country.value.toLowerCase())
+    )
+    .slice(0, MAX_INITIAL);
 });
 
 const showPassword = ref<boolean>(false)
