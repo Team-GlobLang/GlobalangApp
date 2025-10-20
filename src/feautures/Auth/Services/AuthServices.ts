@@ -125,6 +125,21 @@ const canUserAcces = async (to: string) => {
   }
 };
 
+const startTrial = async () => {
+  try {
+    const response = await axiosInstance.post("auth/start-trial");
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.response?.data || error.message);
+      throw new Error(error.response?.data.message);
+    } else {
+      console.error("Error desconocido:", error);
+      throw new Error("Error desconocido");
+    }
+  }
+};
+
 const loginWithToken = async () => {
   try {
     const response = await axiosInstance.get("auth/verify");
@@ -153,4 +168,5 @@ export {
   verifyRecoveryCode,
   changePassword,
   canUserAcces,
+  startTrial,
 };

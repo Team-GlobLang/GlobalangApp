@@ -25,7 +25,24 @@ export const userStore = reactive({
     localStorage.setItem("user", JSON.stringify(userData));
   },
 
+  setTrialResponse(response: string) {
+    if (this.user?.id) {
+      localStorage.setItem(`FreeTrialResponse_${this.user.id}`, response);
+    }
+  },
+
+  getTrialResponse(): string | null {
+    if (this.user?.id) {
+      return localStorage.getItem(`FreeTrialResponse_${this.user.id}`);
+    }
+    return null;
+  },
+
   logout() {
+    if (this.user?.id) {
+      localStorage.removeItem(`FreeTrialResponse_${this.user.id}`);
+    }
+
     this.user = null;
     localStorage.removeItem("user");
     localStorage.removeItem("uuid");
