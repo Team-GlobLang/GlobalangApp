@@ -5,22 +5,22 @@
     class="bg-white! w-11/12 rounded-2xl! p-5"
     dismissableMask
     :pt="{
-      mask: { class: 'backdrop-brightness-70 bg-black/40' }
+      mask: { class: 'backdrop-brightness-70 bg-black/40' },
     }"
   >
     <template #header>
       <div class="flex items-center justify-between w-full">
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-          Try Globalang Free for 15 Days!
+          Try Globalang Premiun Free for 15 Days!
         </h3>
       </div>
     </template>
 
-    <div class="space-y-4">
+    <div class="space-y-4 py-7">
       <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-        Stop memorizing boring phrases and start living the language.
-        Globalang gives you access to authentic slang, cultural tips, and
-        fun lessons designed to make you think, laugh, and talk like a native.
+        Stop memorizing boring phrases and start living the language. Globalang
+        gives you access to authentic slang, cultural tips, and fun lessons
+        designed to make you think, laugh, and talk like a native.
       </p>
       <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
         For the next 15 days, you'll have full access totally free.
@@ -74,7 +74,11 @@ function closeModal() {
 
 function showModalOncePerSession() {
   const hasShown = sessionStorage.getItem("trialModalShown");
-  if (!hasShown && activeTrial.value == null && trialResponse.value !== "rejected") {
+  if (
+    !hasShown &&
+    activeTrial.value == null &&
+    trialResponse.value !== "rejected"
+  ) {
     isShowModal.value = true;
     sessionStorage.setItem("trialModalShown", "true");
   }
