@@ -44,37 +44,33 @@
 import { computed, ref } from "vue";
 import { FwbButton, FwbModal } from "flowbite-vue";
 import { userStore } from "@UserStore";
+import { useStartTrial } from "../../../Auth/Hooks/useStartTrial";
 
-const membership = computed(() => userStore.user?.membership);
-
+const activeTrial = computed(() => userStore.user?.activeTrial);
 const isShowModal = ref(false);
+const mutation = useStartTrial();
+const trialResponse = computed(() => userStore.getTrialResponse());
 
 function closeModal() {
   isShowModal.value = false;
 }
-function showModal() {
+
+if (activeTrial.value == null && trialResponse.value !== "rejected") {
   isShowModal.value = true;
 }
 
-const trialResponse = localStorage.getItem("FreeTrialResponse");
-
-if (membership.value == null && !trialResponse) {
-  isShowModal.value = true;
-}
-///////MANEJOS DEA LA ACEPTACOIN /////
-
-function setResponse(response: string) {
-  localStorage.setItem("FreeTrialResponse", response);
-}
-
-function acceptFreeTrial() {
-  setResponse("accepted");
-  // LOGICA DE ENDPOINT
-  closeModal();
+async function acceptFreeTrial() {
+  try {
+    await mutation.mutateAsync();
+    closeModal();
+  } catch (err) {
+    console.error("Error to start free trial:", err);
+  }
 }
 
 function rejectFreeTrial() {
-  setResponse("rejected");
+  userStore.setTrialResponse("rejected");
+  console.log(trialResponse);
   closeModal();
 }
 </script>
