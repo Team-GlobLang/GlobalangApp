@@ -2,7 +2,7 @@
     <div class="fixed bottom-0 left-0 z-50 w-full bg-white shadow-md border-t border-gray-200">
         <FwbButtonGroup class="flex justify-around w-full h-14">
 
-            <FwbButton v-if="userRole === 'BASIC' || userRole === 'COLABORATOR'"
+            <FwbButton v-if="userRole === 'BASIC' || userRole === 'COLABORATOR' || userRole === 'MASTER'"
                 class="relative w-full !rounded-none outline-none focus:ring-0 py-3"
                 :class="selectedPath === 'studio' ? 'text-black' : 'text-white'" @click="goto('Studio')">
                 <RouterLink to="/studio">

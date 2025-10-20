@@ -8,7 +8,11 @@ export interface User {
   email: string;
   membership: string;
   role: string;
-  isActived: boolean;
+  isActived: boolean; 
+  membershipStartDate: Date | null;
+  membershipExpiration: Date | null;
+  membershipRenewDate: Date | null;
+  activeTrial: boolean | null;
 }
 
 const storedUser = localStorage.getItem("user");
@@ -24,5 +28,8 @@ export const userStore = reactive({
   logout() {
     this.user = null;
     localStorage.removeItem("user");
+    localStorage.removeItem('uuid')
+    localStorage.removeItem('refT')
+    localStorage.removeItem('accessToken')
   },
 });
