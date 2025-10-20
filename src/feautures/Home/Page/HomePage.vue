@@ -1,32 +1,37 @@
 <template>
-    <div class="w-full min-h-screen flex justify-center items-center bg-gradient-to-br from-white to-blue-100">
-        <div class="flex flex-col md:flex-row gap-3 w-full max-w-5xl p-4 md:p-8">
-            <div class="flex-1">
-                <MyInfo />
-                <div class="mt-3">
-                    <LanguageSelector v-model:country="country" />
-                </div>
-            </div>
-            <div class="flex-1 z-0 flex items-center justify-center">
-                <WorldMap v-model:country="country" />
-            </div>
-            <div>
-                <LatestPhrases :country="country"/>
-            </div>
-            <div>
-                <ColabsRedirections />
-            </div>
+  <div
+    class="w-full min-h-screen flex justify-center items-center bg-gradient-to-br from-white to-blue-100"
+  >
+    <div class="flex flex-col md:flex-row gap-3 w-full max-w-5xl p-4 md:p-8">
+      <div class="flex-1">
+        <MyInfo />
+        <div class="mt-3">
+          <LanguageSelector v-model:country="country" />
         </div>
+      </div>
+      <div class="flex-1 z-0 flex items-center justify-center">
+        <WorldMap v-model:country="country" />
+      </div>
+      <div>
+        <LatestPhrases :country="country" />
+      </div>
+      <div>
+        <ColabsRedirections />
+      </div>
+      <div>
+        <FreeTrialModal />
+      </div>
     </div>
+  </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
-import WorldMap from '../Components/WorldMap.vue';
-import MyInfo from '../Components/MyInfo.vue';
-import ColabsRedirections from '../Components/ColabsRedirections.vue';
-import LanguageSelector from '../Components/microcomponents/LanguageSelector.vue';
-import LatestPhrases from '../Components/LatestPhrases.vue';
+import { ref } from "vue";
+import WorldMap from "../Components/WorldMap.vue";
+import MyInfo from "../Components/MyInfo.vue";
+import ColabsRedirections from "../Components/ColabsRedirections.vue";
+import LanguageSelector from "../Components/microcomponents/LanguageSelector.vue";
+import LatestPhrases from "../Components/LatestPhrases.vue";
+import FreeTrialModal from "../Components/modals/FreeTrialModal.vue";
 
-const country = ref('');
-
+const country = ref("");
 </script>
