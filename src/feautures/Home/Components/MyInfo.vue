@@ -1,5 +1,5 @@
 <template>
-    <div v-if="fullName"
+    <div v-if="fullName" @click="goTo"
         class="w-full rounded-2xl p-4 flex items-center gap-4 bg-white shadow transition-all md:max-w-md md:mx-auto xl:max-w-lg">
         <img :src="'https://ui-avatars.com/api/?name=' + encodeURIComponent(fullName) + '&background=0D8ABC&color=fff'"
             alt="User avatar" class="w-16 h-16 rounded-full border-2 border-blue-400 object-cover shadow" />
@@ -13,7 +13,12 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { userStore } from '../../../Stores/user';
+import { useRouter } from 'vue-router';
 
 const fullName = computed(() => userStore.user?.fullName)
+const router = useRouter()
+const goTo=()=>{
+ router.push({name:'User'})
+}
 
 </script>

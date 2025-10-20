@@ -22,15 +22,15 @@
             </FwbButton>
 
             <FwbButton class="relative w-full !rounded-none outline-none focus:ring-0 py-3"
-                :class="selectedPath === 'home' ? 'text-black' : 'text-white'" @click="goto('Home')">
-                <span v-if="selectedPath === 'home'"
+                :class="selectedPath === 'home' || selectedPath === 'user' ? 'text-black' : 'text-white'" @click="goto('Home')">
+                <span v-if="selectedPath === 'home' || selectedPath === 'user'"
                     class="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-black rounded-full"></span>
                 <i style="font-size: 1.7rem" class="pi pi-th-large text-2xl transition-transform duration-500 ease-in-out"
-                    :class="selectedPath === 'home' ? ' rotate-6' : 'rotate-0'"></i>
+                    :class="selectedPath === 'home' || selectedPath === 'user' ? ' rotate-6' : 'rotate-0'"></i>
             </FwbButton>
 
             <FwbButton class="relative w-full !rounded-none outline-none focus:ring-0 py-3"
-                :class="selectedPath === 'short-audio' ? 'text-black' : 'text-white'" @click="goto('Short-audio')">
+                :class="selectedPath === 'short' ? 'text-black' : 'text-white'" @click="goto('Short-audio')">
                 <span v-if="selectedPath === 'short'"
                     class="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-black rounded-full"></span>
                 <i style="font-size: 1.7rem" class="pi pi-headphones text-2xl transition-transform duration-500 ease-in-out"
@@ -38,10 +38,10 @@
             </FwbButton>
 
             <FwbButton class="relative w-full !rounded-none outline-none focus:ring-0 py-3"
-                :class="selectedPath === 'user' ? 'text-black' : 'text-white'" @click="goto('User')">
-                <span v-if="selectedPath === 'user'"
+                :class="selectedPath === 'ranking' ? 'text-black' : 'text-white'" @click="goto('RankinPage')">
+                <span v-if="selectedPath === 'ranking'"
                     class="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-black rounded-full"></span>
-                <i style="font-size: 1.7rem" class="pi pi-user text-2xl transition-transform duration-500 ease-in-out"
+                <i style="font-size: 1.7rem" class="pi pi-trophy text-2xl transition-transform duration-500 ease-in-out"
                     :class="selectedPath === 'user' ? ' rotate-6' : 'rotate-0'"></i>
             </FwbButton>
         </FwbButtonGroup>

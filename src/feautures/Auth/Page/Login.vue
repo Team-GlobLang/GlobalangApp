@@ -52,6 +52,7 @@ import DecorativeBg from "../../../components/ui/DecorativeBg.vue";
 import LoginForm from "../Components/LoginForm.vue";
 import { computed } from "vue";
 import { Capacitor } from "@capacitor/core";
+import { FwbA } from "flowbite-vue";
 
 const isNative = Capacitor.isNativePlatform();
 

@@ -32,9 +32,9 @@
     </form>
     <div v-if="expired" class="text-red-500 text-center font-medium">
         The time to change your password has expired.
-        <fwb-a @click="goTo()" class="text-blue-600 hover:underline">
+        <FwbA @click="goTo()" class="text-blue-600 hover:underline">
             Please click here to request a new recovery code.
-        </fwb-a>
+        </FwbA>
     </div>
 </template>
 <script setup lang="ts">
