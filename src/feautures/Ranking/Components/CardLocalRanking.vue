@@ -40,10 +40,10 @@
 
 <script setup lang="ts">
 import { useQuery } from "@tanstack/vue-query";
-import type { UsersStats } from "../Interfaces/StatsInterfaces";
-import { getTopLocal } from "../Service/StatsService";
+import type { UsersStats } from "../../User/Interfaces/StatsInterfaces";
 import { computed } from "vue";
 import { userStore } from "@UserStore";
+import { getTopLocal } from "../Service/Ranking";
 
 const country = computed(() => userStore.user!.country);
 

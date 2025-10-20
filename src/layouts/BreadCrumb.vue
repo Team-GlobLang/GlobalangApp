@@ -1,14 +1,14 @@
 <template>
-  <fwb-breadcrumb>
-    <fwb-breadcrumb-item
+  <FwbBreadcrumb>
+    <FwbBreadcrumbItem
       v-for="(item, index) in breadcrumbItems"
       :key="index"
       :home="item.isHome"
       @click="handleBreadcrumbClick(item)"
     >
       {{ item.label }}
-    </fwb-breadcrumb-item>
-  </fwb-breadcrumb>
+    </FwbBreadcrumbItem>
+  </FwbBreadcrumb>
 </template>
 
 <script setup lang="ts">

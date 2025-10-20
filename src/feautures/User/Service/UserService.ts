@@ -41,8 +41,6 @@ const changePassword = async (data: ChangePasswordData) => {
       newPassword: data.newPassword,
     });
 
-    console.log(response.data.succes);
-
     if (response.data.success !== true) {
       throw new Error(response.data.message || "Unknown error");
     }
