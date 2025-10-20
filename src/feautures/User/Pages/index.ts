@@ -1,3 +1,3 @@
 import ChangeInfo from "./ChangeInfo.vue";
-import UserInfo from "./UserInfo.vue";
-export { UserInfo, ChangeInfo };
+import User from "./User.vue";
+export { User, ChangeInfo };

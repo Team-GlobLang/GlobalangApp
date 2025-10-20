@@ -140,7 +140,28 @@ const startTrial = async () => {
   }
 };
 
+const loginWithToken = async () => {
+  try {
+    const response = await axiosInstance.get("auth/verify");
+    const token = response.data.token;
+    localStorage.setItem("accessToken", token);
+    const user = response.data.user;
+    userStore.setUser(user);
+
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.response?.data || error.message);
+      throw new Error(error.response?.data.message);
+    } else {
+      console.error("Error desconocido:", error);
+      throw new Error("Error desconocido");
+    }
+  }
+};
+
 export {
+  loginWithToken,
   singIn,
   singUp,
   requestRecoveryCode,
