@@ -5,12 +5,9 @@
   >
     <div class="h-19 bg-gray-200 rounded mb-2"></div>
     <div class="h-10 bg-gray-200 rounded mb-2"></div>
-    <div class="h-6 bg-gray-200 rounded"></div>
   </div>
 
   <div v-else-if="data" class="p-6 bg-white shadow rounded-xl w-11/12">
-    <h2 class="text-xl font-bold mb-4">User Statistics</h2>
-
     <div class="flex justify-between mb-2">
       <span>Total quizzes:</span>
       <span>{{ data.totalQuizzes }}</span>
@@ -21,7 +18,7 @@
       <span>{{ data.averageScore }}%</span>
     </div>
 
-    <div class="mt-4 p-3 bg-blue-50 rounded">
+    <div class="mt-2 p-2 bg-blue-50 rounded">
       <p>{{ message }}</p>
     </div>
   </div>

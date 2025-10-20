@@ -2,6 +2,7 @@ import * as Joi from "joi";
 
 const envSchema = Joi.object({
   VITE_API_URL: Joi.string().uri().required(),
+  VITE_PAY_URL: Joi.string().uri().required()
 }).unknown(true); 
 
 const { error, value } = envSchema.validate(import.meta.env, {
@@ -15,4 +16,5 @@ if (error) {
 
 export const envs = {
   APIURL: value.VITE_API_URL,
+  PaymentUrl: value.VITE_PAY_URL
 };
