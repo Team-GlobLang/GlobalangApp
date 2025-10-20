@@ -1,6 +1,8 @@
 import axios from "axios";
 import { envs } from "../config/env";
-
+import toast from "vue3-hot-toast";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const axiosInstance = axios.create({
   baseURL: envs.APIURL,
 });
@@ -57,9 +59,13 @@ axiosInstance.interceptors.response.use(
       localStorage.setItem("uuid", deviceUuid);
       localStorage.setItem("refT", refreshToken);
 
-      originalRequest.headers["Authorization"] = `Bearer ${data.accessToken}`;
+      originalRequest.headers["Authorization"] = `Bearer ${token}`;
       return axios(originalRequest);
     } catch (refreshError) {
+      toast.error(
+        "Session expired. You have been logged out for security reasons. Please log in again."
+      );
+      router.replace({ name: "Login" });
       return Promise.reject(refreshError);
     }
   }

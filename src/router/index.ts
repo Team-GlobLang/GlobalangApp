@@ -19,7 +19,7 @@ import {
   JoinAsMasterColab,
   JoinAsCasualColab,
 } from "../feautures/Colaborators/Page";
-import { UserInfo, ChangeInfo } from "../feautures/User/Pages";
+import { User, ChangeInfo } from "../feautures/User/Pages";
 import {
   AvailableShorts,
   AudioHomePage,
@@ -27,6 +27,8 @@ import {
   MyShorts,
 } from "../feautures/ShortAudio/Page";
 import Studio from "../feautures/Studio/Page/Studio.vue";
+import Ranking from "../feautures/Ranking/Page/Ranking.vue";
+import { userStore } from "@UserStore";
 
 const routes = [
   {
@@ -164,12 +166,22 @@ const routes = [
       {
         path: "",
         name: "User",
-        component: UserInfo,
+        component: User,
       },
       {
         path: "edit-info",
         name: "EditUserInfo",
         component: ChangeInfo,
+      },
+    ],
+  },
+  {
+    path: "/ranking",
+    children: [
+      {
+        path: "",
+        name: "RankinPage",
+        component: Ranking,
       },
     ],
   },
@@ -183,21 +195,30 @@ const router = createRouter({
   },
 });
 
-//const publicPages = [
-//  "/",
-//  "/login",
-//  "/register",
-//  "/forgetPassword",
-//  "/changePassword",
-//];
+const publicPages = [
+  '/',
+  '/login',
+  '/register',
+  '/forgetPassword',
+  '/changePassword',
+];
 
-//router.beforeEach(async (to) => {
-//  if (publicPages.includes(to.path)) return true;
-//
-//  const canAccess = await canUserAcces(to.path);
-//  if (!canAccess) return "/login";
-//
-//  return true;
-//});
+router.beforeEach(async (to) => {
+  // Rutas públicas
+  if (publicPages.includes(to.path)) return true;
+
+  // Revisar si hay token
+  const token = localStorage.getItem('accessToken');
+  if (!token || !userStore.user) {
+    // No hay token o no hay usuario: redirigir a start/login
+    return { name: 'start' };
+  }
+
+  // Si quieres, puedes validar token con API
+  // const canAccess = await canUserAccess(to.path, token);
+  // if (!canAccess) return { name: 'start' };
+
+  return true;
+});
 
 export default router;

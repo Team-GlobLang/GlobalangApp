@@ -45,5 +45,9 @@ export const userStore = reactive({
 
     this.user = null;
     localStorage.removeItem("user");
+    localStorage.removeItem("uuid");
+    localStorage.removeItem("refT");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("rememberMe");
   },
 });
