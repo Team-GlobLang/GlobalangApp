@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/vue-query";
-import type { singInResponse } from "../Interfaces";
 import toast from "vue3-hot-toast";
 import { h } from "vue";
 import type { ApiError } from "../../../Core/types/ApiError";
@@ -10,7 +9,7 @@ export const useStartTrial = () => {
     mutationFn: () =>
       toast.promise(startTrial(), {
         loading: "Please wait...",
-        success: (response: singInResponse) => h("span", `${response.message}`),
+        success: () => h("span", `Free trial claimed`),
         error: (error: ApiError) => h("span", `${error.message}`),
       }),
   });
