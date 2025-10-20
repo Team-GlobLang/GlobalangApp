@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { withDefaults, defineProps, defineEmits, watch } from "vue";
+import { watch } from "vue";
 import { FwbButton } from "flowbite-vue";
 import { useRecorder } from "@RecordHooks";
 

@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { withDefaults, defineProps, defineEmits, watchEffect } from "vue";
+import {  watchEffect } from "vue";
 import { FwbButton } from "flowbite-vue";
 import { useRecorder } from "@RecordHooks";
 
