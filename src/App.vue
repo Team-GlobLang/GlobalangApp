@@ -15,9 +15,9 @@ const containerPadingop = computed(() => (isNative ? "pt-[5dvh]" : "pt-0"));
 
 CapacitorApp.addListener("appUrlOpen", (data) => {
   console.log("Redirect URL:", data.url);
-  if (data.url.includes("globl://success")) {
+  if (data.url.includes("glob://success")) {
     router.replace({ name: "SuccesPay" });
-  } else if (data.url.includes("globl://cancel")) {
+  } else if (data.url.includes("glob://cancel")) {
     router.replace({ name: "ErrorPay" });
   }
 });
