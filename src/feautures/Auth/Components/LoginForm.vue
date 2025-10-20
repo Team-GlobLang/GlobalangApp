@@ -40,22 +40,18 @@
       </template>
     </FwbInput>
     <div class="flex items-center gap-2">
-      <input
+      <FwbCheckbox
         id="keepSignedIn"
-        type="checkbox"
         v-model="rememberMe"
-        class="accent-blue-600 cursor-pointer"
-        />
-        <label for="keepSignedIn" class="text-sm text-gray-700 cursor-pointer">
-          Keep me signed in
-        </label>
+        label="Keep me signed in"
+      />
     </div>
     <FwbButton :disabled="isPending"> Log In </FwbButton>
   </form>
 </template>
 
 <script lang="ts" setup>
-import { FwbButton, FwbInput } from "flowbite-vue";
+import { FwbButton, FwbCheckbox, FwbInput } from "flowbite-vue";
 import { ref } from "vue";
 import type { LoginForm } from "../Interfaces/LoginInterface";
 import { useField, useForm } from "vee-validate";
