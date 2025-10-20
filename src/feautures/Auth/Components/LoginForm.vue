@@ -95,7 +95,7 @@ const submitForm = handleSubmit((values) => {
       } else {
         localStorage.setItem("rememberMe", "false");
       }
-      router.push({ name: "Home" });
+      router.replace({ name: "Home" });
     },
   });
 });

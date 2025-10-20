@@ -101,7 +101,7 @@ const validateCode = handleSubmit((values: RecoveryCode) => {
 
     verifyCode(values, {
         onSuccess: () => {
-            router.push({ name: "ChangePassword" })
+            router.replace({ name: "ChangePassword" })
         }
     })
 
