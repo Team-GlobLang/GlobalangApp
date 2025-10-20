@@ -76,6 +76,6 @@ const resultMessage = computed(() => {
 })
 
 
-const repeatQuiz = () => router.push(`/quiz/info/${props.quizId}`)
-const exitQuiz = () => router.push('/quiz/availables')
+const repeatQuiz = () => router.replace(`/quiz/info/${props.quizId}`)
+const exitQuiz = () => router.replace('/quiz/availables')
 </script>

@@ -19,7 +19,7 @@
       "@RecordHooks": ["src/Hooks/Record.Hook.ts"],
 
     },
-    "types": ["vite/client"]
+     "types": ["vite/client"], 
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
 }

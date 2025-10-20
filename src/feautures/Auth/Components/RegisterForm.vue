@@ -134,7 +134,7 @@ const submitForm = handleSubmit((values) => {
 
     mutate(payload,
         {
-            onSuccess: () => { router.push({ name: "Login" }) }
+            onSuccess: () => { router.replace({ name: "Login" }) }
         }
     )
 

@@ -7,9 +7,12 @@
 
     <CardUserStats />
 
-    <div class=" w-11/12 flex">
-      <LogOutBtn/>
-    </div>
+    <CardEditProfile/>
+    
+    <CardUpgrateToPremiun/>
+
+    <LogOutBtn/>
+
     
   </div>
 </template>
@@ -18,6 +21,8 @@ import BreadCrumb from "@layouts/BreadCrumb.vue";
 import CardUserInfo from "../Components/CardUserInfo.vue";
 import CardUserStats from "../Components/CardUserStats.vue";
 import LogOutBtn from "../Components/LogOutBtn.vue";
+import CardEditProfile from "../Components/CardEditProfile.vue";
+import CardUpgrateToPremiun from "../Components/CardUpgrateToPremiun.vue";
 
 
 const breadcrumbItems = [

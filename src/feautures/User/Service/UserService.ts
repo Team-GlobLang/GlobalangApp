@@ -5,6 +5,9 @@ import type {
 } from "../Interfaces/UserInterfaces";
 import axios from "axios";
 import { userStore } from "@UserStore";
+import paymenInstance from "@core/AxiosPaymentConfig";
+import { Capacitor } from "@capacitor/core";
+import { Browser } from "@capacitor/browser";
 
 const updateUser = async (data: updateUserInfo) => {
   try {
@@ -57,4 +60,39 @@ const changePassword = async (data: ChangePasswordData) => {
   }
 };
 
-export { updateUser, changePassword };
+const isNative = Capacitor.isNativePlatform();
+const openStripeCheckout = async (url: string) => {
+  if (isNative) {
+    await Browser.open({ url });
+  } else {
+    window.open(url, "_blank");
+  }
+};
+
+const generatePaymentLink = async () => {
+  try {
+    const response = await paymenInstance.post(
+      "/payment/create-checkout-session",
+      {
+        amount: "20",
+        //   product_name:"Premium Upgrade"
+        // product_description: "Unlock quizzes retries and premium resources"
+      }
+    );
+
+    if (response.data.url) {
+      const url = response.data.url;
+      openStripeCheckout(url);
+    } else return { success: true };
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.response?.data || error.message);
+      throw new Error(error.response?.data?.message || "Unknown error");
+    } else {
+      console.error("Unknown error:", error);
+      throw new Error("Unknown error");
+    }
+  }
+};
+
+export { updateUser, changePassword, generatePaymentLink };

@@ -185,6 +185,16 @@ const routes = [
       },
     ],
   },
+  {
+    path:"/succes",
+    name:"SuccesPay",
+    component:StartPage
+  },
+  {
+    path:"/error",
+    name:"ErrorPay",
+    component:StartPage
+  }
 ];
 
 const router = createRouter({
