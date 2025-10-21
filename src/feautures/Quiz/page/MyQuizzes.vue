@@ -25,7 +25,8 @@
           v-for="quiz in quizzes"
           :quiz="quiz"
           :key="quiz.id"
-          @attempt="attemptQuiz"
+          @review="reviewQuiz"
+          @remove="handleDeleteQuiz"
         />
 
         <div
@@ -92,16 +93,18 @@ import { useInfiniteQuery } from "@tanstack/vue-query";
 import BreadCrumb from "@layouts/BreadCrumb.vue";
 import GoToStart from "../components/microcomponents/GoToStart.vue";
 import type { QuizData } from "../types/quizTypes";
-import { getMyQuizzes } from "../service/QuizService";
+import { getMyQuizzes} from "../service/QuizService";
 import type { PaginatedResponse } from "src/feautures/shared/Interfaces/interfaces";
 import { FwbInput } from "flowbite-vue";
 import MyQuizCard from "../components/microcomponents/MyQuizCard.vue";
 import { Capacitor } from "@capacitor/core";
+import { useRouter } from "vue-router";
+import { UseDeleteMyQuiz } from "../hooks/UseDeleteMyQuiz";
 
 const breadCumbs = [
   { label: "Home", route: "/home", isHome: true },
   { label: "Quiz Studio", route: "/studio/quiz" },
-  { label: "My Quizzes", route: "/studio/my-quiz" },
+  { label: "My Quizzes", route: "" },
 ];
 
 const search = ref("");
@@ -166,9 +169,20 @@ onUnmounted(() => {
   window.removeEventListener("scroll", onScroll);
 });
 
-const attemptQuiz = (id: string) => {
-  console.log("Attempt quiz with id:", id);
+const router = useRouter();
+
+const reviewQuiz = (id: string) => {
+  console.log(id);
+  router.push({ name: "ReviewQuiz", params: { id: id } });
 };
+
+const { mutate } = UseDeleteMyQuiz();
+
+function handleDeleteQuiz(id: string) {
+  mutate(id, {
+    onSuccess: () => refetch(),
+  });
+}
 
 const isNative = Capacitor.isNativePlatform();
 

@@ -8,7 +8,7 @@
             <template #validationMessage>{{ nameError }}</template>
         </FwbInput>
 
-        <FwbInput v-model="countryModel" list="countries" type="text" label="Search by country"
+        <FwbInput v-model="countryModel" list="countries" type="text" label="Country"
             placeholder="E.g.: Costa Rica">
             <template #suffix>
                 <span class="pi pi-home"></span>
@@ -120,14 +120,16 @@ const countryModel = computed({
     },
 });
 
-
 const filteredCountries = computed(() => {
-    if (!countryModel.value) {
-        return countries.slice(0, MAX_INITIAL);
-    }
-    return countries.filter(c =>
-        c.name.toLowerCase().includes(countryModel.value.toLowerCase())
-    );
+  if (!countryModel.value) {
+    return countries.slice(0, MAX_INITIAL);
+  }
+
+  return countries
+    .filter(c =>
+      c.name.toLowerCase().includes(countryModel.value.toLowerCase())
+    )
+    .slice(0, MAX_INITIAL);
 });
 
 defineExpose({ validateConfig });
