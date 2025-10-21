@@ -14,6 +14,7 @@ import {
   MyQuizzes,
   ResolveQuiz,
   QuizInfo,
+  ReviewQuiz,
 } from "../feautures/Quiz/page";
 import {
   JoinAsMasterColab,
@@ -136,6 +137,12 @@ const routes = [
             name: "MyQuiz",
             component: MyQuizzes,
           },
+          {
+            path: "review-my-quiz/:id",
+            name: "ReviewQuiz",
+            component: ReviewQuiz,
+            props: true,
+          },
         ],
       },
       {
@@ -186,15 +193,15 @@ const routes = [
     ],
   },
   {
-    path:"/succes",
-    name:"SuccesPay",
-    component:StartPage
+    path: "/succes",
+    name: "SuccesPay",
+    component: StartPage,
   },
   {
-    path:"/error",
-    name:"ErrorPay",
-    component:StartPage
-  }
+    path: "/error",
+    name: "ErrorPay",
+    component: StartPage,
+  },
 ];
 
 const router = createRouter({
@@ -206,11 +213,11 @@ const router = createRouter({
 });
 
 const publicPages = [
-  '/',
-  '/login',
-  '/register',
-  '/forgetPassword',
-  '/changePassword',
+  "/",
+  "/login",
+  "/register",
+  "/forgetPassword",
+  "/changePassword",
 ];
 
 router.beforeEach(async (to) => {
@@ -218,10 +225,10 @@ router.beforeEach(async (to) => {
   if (publicPages.includes(to.path)) return true;
 
   // Revisar si hay token
-  const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem("accessToken");
   if (!token || !userStore.user) {
     // No hay token o no hay usuario: redirigir a start/login
-    return { name: 'start' };
+    return { name: "start" };
   }
 
   // Si quieres, puedes validar token con API

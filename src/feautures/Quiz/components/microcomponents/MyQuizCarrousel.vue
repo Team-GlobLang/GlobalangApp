@@ -10,7 +10,7 @@
               {{ getApprovalText(slotProps.data.isApproved) }}
             </FwbBadge>
           </div>
-          <p class="text-gray-500 text-sm mb-4">{{ slotProps.data.description }}</p>
+          <p class="text-gray-500 line-clamp-2 text-sm mb-4">{{ slotProps.data.description }}</p>
           <div class="flex flex-col text-sm text-gray-700">
             <span><strong># Questions:</strong> {{ slotProps.data.numberOfQuestions ?? 0 }}</span>
             <span><strong>Time limit:</strong> {{ formatTimeLimit(slotProps.data.configuration.timeLimit) }}</span>

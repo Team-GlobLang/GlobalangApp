@@ -25,7 +25,7 @@
           v-for="quiz in quizzes"
           :quiz="quiz"
           :key="quiz.id"
-          @attempt="attemptQuiz"
+          @review="reviewQuiz"
         />
 
         <div
@@ -97,11 +97,12 @@ import type { PaginatedResponse } from "src/feautures/shared/Interfaces/interfac
 import { FwbInput } from "flowbite-vue";
 import MyQuizCard from "../components/microcomponents/MyQuizCard.vue";
 import { Capacitor } from "@capacitor/core";
+import { useRouter } from "vue-router";
 
 const breadCumbs = [
   { label: "Home", route: "/home", isHome: true },
   { label: "Quiz Studio", route: "/studio/quiz" },
-  { label: "My Quizzes", route: "/studio/my-quiz" },
+  { label: "My Quizzes", route: "" },
 ];
 
 const search = ref("");
@@ -166,8 +167,11 @@ onUnmounted(() => {
   window.removeEventListener("scroll", onScroll);
 });
 
-const attemptQuiz = (id: string) => {
-  console.log("Attempt quiz with id:", id);
+const router = useRouter();
+
+const reviewQuiz = (id: string) => {
+  console.log(id);
+  router.push({ name: "ReviewQuiz", params: { id: id } });
 };
 
 const isNative = Capacitor.isNativePlatform();

@@ -6,7 +6,7 @@
                 {{ getApprovalText(quiz.isApproved) }}
             </FwbBadge>
         </div>
-        <p class="text-gray-500 text-sm mb-4">{{ quiz.description }}</p>
+        <p class="text-gray-500 line-clamp-2 text-sm mb-4">{{ quiz.description }}</p>
         <div class=" flex justify-between items-end w-full">
             <div class="flex flex-col text-sm text-gray-700 mb-4">
                 <span><strong>From:</strong> {{ quiz.country }}</span>
@@ -33,6 +33,7 @@ const props = defineProps<{ quiz: QuizData }>();
 const emit = defineEmits<{ (e: 'review', quizId: string): void }>();
 
 const onReviewQuiz = () => {
+    console.log('Emit')
     emit('review', props.quiz.id);
 };
 
