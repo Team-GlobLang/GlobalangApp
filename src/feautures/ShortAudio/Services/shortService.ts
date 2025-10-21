@@ -1,10 +1,6 @@
 import axiosInstance from "@core/AxiosConfig";
 import axios from "axios";
-import type {
-  FavoriteCreated,
-  FilterMyShorts,
-  FilterShorts,
-} from "../Interfaces/file";
+import type { FilterMyShorts, FilterShorts } from "../Interfaces/file";
 
 const createShort = async (data: any) => {
   try {
@@ -93,14 +89,19 @@ const getMyShorts = async (data: FilterMyShorts) => {
   }
 };
 
-const addShortsToFavorites = async (
-  ids: string[]
-): Promise<FavoriteCreated[] | any> => {
+const getShortsFavorites = async (filters: FilterShorts) => {
+  const storedFavorites = localStorage.getItem("favorites");
+  const ids: string[] = storedFavorites ? JSON.parse(storedFavorites) : [];
+  const params: Record<string, any> = {
+    ids,
+    ...(filters.country && { country: filters.country }),
+    ...(filters.page !== undefined && { page: filters.page }),
+    ...(filters.limit !== undefined && { limit: filters.limit }),
+  };
+
   try {
-    const { data } = await axiosInstance.post("/shorts/favorites", ids, {
-      headers: { "Content-Type": "application/json" },
-    });
-    return data;
+    const response = await axiosInstance.post("/shorts/favorites",  params );
+    return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       console.error(error.response?.data || error.message);
@@ -114,10 +115,4 @@ const addShortsToFavorites = async (
   }
 };
 
-export {
-  createShort,
-  getShorts,
-  addShortsToFavorites,
-  getMyShorts,
-  RemoveShort,
-};
+export { createShort, getShorts, getShortsFavorites, getMyShorts, RemoveShort };
