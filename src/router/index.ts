@@ -26,6 +26,7 @@ import {
   AudioHomePage,
   CreateShort,
   MyShorts,
+  MyFavoriteShorts,
 } from "../feautures/ShortAudio/Page";
 import Studio from "../feautures/Studio/Page/Studio.vue";
 import Ranking from "../feautures/Ranking/Page/Ranking.vue";
@@ -108,8 +109,18 @@ const routes = [
   },
   {
     path: "/short",
-    name: "Short-audio",
-    component: AvailableShorts,
+    children: [
+      {
+        path: "",
+        name: "Short-audio",
+        component: AvailableShorts,
+      },
+      {
+        path: "favorite-shorts",
+        name: "Favorite-Shorts",
+        component: MyFavoriteShorts,
+      },
+    ],
   },
   {
     path: "/studio",
