@@ -18,7 +18,7 @@
       </div>
     </div>
     <div>
-      <FwbButton color="green" @click="onAttemptQuiz"> Attempt Quiz </FwbButton>
+      <FwbButton color="green" @click="onAttemptQuiz"> Start Quiz </FwbButton>
     </div>
   </div>
 </template>
