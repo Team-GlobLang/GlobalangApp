@@ -74,9 +74,7 @@ const generatePaymentLink = async () => {
     const response = await paymenInstance.post(
       "/payment/create-checkout-session",
       {
-        amount: "20",
-        //   product_name:"Premium Upgrade"
-        // product_description: "Unlock quizzes retries and premium resources"
+        amount: "20"
       }
     );
 
