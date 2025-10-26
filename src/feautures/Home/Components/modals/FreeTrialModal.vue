@@ -18,19 +18,16 @@
 
     <div class="space-y-4 py-7">
       <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-        Stop memorizing boring phrases and start living the language. Globalang
-        gives you access to authentic slang, cultural tips, and fun lessons
-        designed to make you think, laugh, and talk like a native.
+        Stop memorizing boring phrases—start living the language. Globalang gives you authentic slang, cultural tips, and fun lessons that make you think, laugh, and speak like a native.
       </p>
       <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-        For the next 15 days, you'll have full access totally free.
+        Enjoy full access free for 15 days.
       </p>
       <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-        Try it out, discover new expressions, and fall in love with learning
-        languages again.
+        Discover new expressions and fall back in love with learning languages.
       </p>
       <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-        Your journey to sounding natural starts right here.
+        Your journey to sounding natural starts here.
       </p>
     </div>
 
