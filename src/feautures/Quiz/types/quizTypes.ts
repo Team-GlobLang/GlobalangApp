@@ -1,4 +1,3 @@
-import { string } from "joi";
 import { PaginationDto } from "src/feautures/shared/Interfaces/interfaces";
 
 export type QuestionType = "single_selection" | "multiple_selection";
