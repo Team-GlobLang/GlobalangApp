@@ -141,7 +141,7 @@ const startQuiz = () => {
     router.push({
         name: 'ResolveQuiz',
         params: { id: quiz.value.id },
-        query: { timeLimit: timeLimitInSeconds.value }
+        query: { timeLimit: timeLimitInSeconds.value, quizCountry: quiz.value.country}
     })
 }
 

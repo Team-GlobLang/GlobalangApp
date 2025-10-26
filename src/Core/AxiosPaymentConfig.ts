@@ -16,9 +16,10 @@ paymenInstance.interceptors.request.use((config) => {
 
   if (userId && config.method?.toLowerCase() === "post") {
     config.data = config.data || {};
-    config.data.productId = userId;
+    config.data.userId = userId;
     config.data.currency = "usd";
     config.data.quantity = 1;
+    config.data.newSucription = "PREMIUM"
   }
 
   return config;
