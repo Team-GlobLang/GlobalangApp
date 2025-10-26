@@ -28,7 +28,7 @@
       </div>
 
       <div v-else class="w-11/12 max-w-3xl">
-        <Results :questions="shuffledQuestions" :userAnswers="userAnswers" :quizId="quizId" />
+        <Results :questions="shuffledQuestions" :userAnswers="userAnswers" :quizId="quizId" :quizCountry="country" />
       </div>
     </div>
   </div>
@@ -55,6 +55,7 @@ const containerHeight = computed(() =>
 const route = useRoute()
 const quizId = computed(() => route.params.id as string)
 const timeLimit = Number(route.query.timeLimit) || 3600
+const country = String(route.query.quizCountry)
 
 const { data, isPending } = useQuery<{ questions: QuizQuestion[] }>({
   queryKey: [`quiz-${quizId.value}`],

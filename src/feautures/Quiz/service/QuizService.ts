@@ -1,5 +1,9 @@
 import axiosInstance from "@core/AxiosConfig";
-import type { QuizPayload, QuizzesFilters } from "../types/quizTypes";
+import type {
+  QuizPayload,
+  QuizzesFilters,
+  RegisterScore,
+} from "../types/quizTypes";
 import axios from "axios";
 
 const sendQuiz = async (data: QuizPayload) => {
@@ -36,6 +40,23 @@ const sendQuiz = async (data: QuizPayload) => {
 const removeQuiz = async (id: string) => {
   try {
     const response = await axiosInstance.delete(`Full-Quiz/${id}`);
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.response?.data || error.message);
+      throw new Error(error.response?.data?.message || "Error desconocido");
+    } else {
+      console.error("Error desconocido:", error);
+      throw new Error("Error desconocido");
+    }
+  }
+};
+
+const registerQuizScore = async (data: RegisterScore) => {
+  try {
+    const response = await axiosInstance.post(`ranking/register-score`,
+      data,
+    );
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
@@ -125,4 +146,12 @@ const getQuizQuestions = async (id: string) => {
   }
 };
 
-export { sendQuiz, getQuizzes, getMyQuizzes, getQuiz, getQuizQuestions, removeQuiz };
+export {
+  sendQuiz,
+  getQuizzes,
+  getMyQuizzes,
+  getQuiz,
+  getQuizQuestions,
+  removeQuiz,
+  registerQuizScore
+};

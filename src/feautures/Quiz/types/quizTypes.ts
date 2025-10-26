@@ -1,3 +1,4 @@
+import { string } from "joi";
 import { PaginationDto } from "src/feautures/shared/Interfaces/interfaces";
 
 export type QuestionType = "single_selection" | "multiple_selection";
@@ -46,3 +47,8 @@ export interface QuizzesFilters extends PaginationDto {
   isApproved?: boolean | null;
   search?: string;
 }
+
+export type RegisterScore = {
+  country: string;
+  score: number;
+};
