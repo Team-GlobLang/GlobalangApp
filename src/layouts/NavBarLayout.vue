@@ -85,7 +85,7 @@
       <FwbButton
         class="relative w-full !rounded-none outline-none focus:ring-0 py-3"
         :class="selectedPath === 'ranking' ? 'text-black' : 'text-white'"
-        @click="goto('RankingMP')"
+        @click="goto('Ranking')"
       >
         <span
           v-if="selectedPath === 'ranking'"
