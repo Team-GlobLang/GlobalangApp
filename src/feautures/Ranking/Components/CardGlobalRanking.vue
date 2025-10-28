@@ -53,6 +53,40 @@
         </div>
       </div>
 
+      <p class="text-center text-lg font-bold mb-4">Your current position</p>
+
+      <div
+        v-if="userRank"
+        :key="userRank.fullName"
+        class="flex justify-between items-center mb-2 p-3 rounded-xl shadow-sm hover:shadow-md transition-shadow bg-gray-50"
+      >
+        <div class="flex items-center gap-3">
+          <span class="text-lg">
+            {{
+              userRank.position > 3
+                ? userRank.position
+                : getMedal(userRank.position)
+            }}
+          </span>
+          <span class="font-medium">{{ userRank.fullName }}</span>
+        </div>
+        <div class="text-right">
+          <div class="text-sm text-gray-500">
+            {{ userRank.totalRecords }} quizzes
+          </div>
+          <div class="font-bold text-blue-600">
+            {{ userRank.totalPoints }} pts
+          </div>
+        </div>
+      </div>
+
+      <div
+        v-if="!isLoadingUser && !userRank"
+        class="p-3 text-gray-500 text-center"
+      >
+        You dont have score yet
+      </div>
+
       <div
         v-if="!isLoading && ranking.length === 0"
         class="p-3 text-gray-500 text-center"
@@ -64,10 +98,10 @@
 </template>
 
 <script setup lang="ts">
-import { useInfiniteQuery } from "@tanstack/vue-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/vue-query";
 
 import { computed } from "vue";
-import { GetRankin } from "../Service/Ranking";
+import { GetRankin, GetRankinUser } from "../Service/Ranking";
 import type { Rank } from "../Types/Rank";
 import type { PaginatedResponse } from "src/feautures/shared/Interfaces/interfaces";
 import { countries } from "@core/CountriesArray";
@@ -95,7 +129,7 @@ const { data, isLoading } = useInfiniteQuery<PaginatedResponse<Rank>, Error>({
     return await GetRankin({
       country: country.value,
       page,
-      limit: 5,
+      limit: 3,
     });
   },
   initialPageParam: 1,
@@ -108,8 +142,17 @@ const { data, isLoading } = useInfiniteQuery<PaginatedResponse<Rank>, Error>({
 });
 
 const ranking = computed(
-  () => data.value?.pages.flatMap((page) => page.data) ?? []
+  () => data.value?.pages.flatMap((page) => page.data).slice(0, 3) ?? []
 );
+
+const { data: userData, isLoading: isLoadingUser } = useQuery({
+  queryKey: computed(() => ["Global_User_Rank", country.value]),
+  queryFn: () => GetRankinUser({ country: country.value }),
+});
+
+const userRank = computed(() => {
+  return userData.value?.data || null;
+});
 
 function getMedal(index: number): string {
   switch (index) {

@@ -31,8 +31,6 @@ import {
 import Studio from "../feautures/Studio/Page/Studio.vue";
 import Ranking from "../feautures/Ranking/Page/Ranking.vue";
 import { userStore } from "@UserStore";
-import GlobalRanking from "../feautures/Ranking/Page/GlobalRanking.vue";
-import RankingMP from "../feautures/Ranking/Page/RankingMP.vue";
 
 const routes = [
   {
@@ -200,18 +198,8 @@ const routes = [
     children: [
       {
         path: "",
-        name: "RankingMP",
-        component: RankingMP,
-      },
-      {
-        path: "local",
-        name: "LocalRanking",
+        name: "Ranking",
         component: Ranking,
-      },
-      {
-        path: "global",
-        name: "GlobalRanking",
-        component: GlobalRanking,
       },
     ],
   },

@@ -36,7 +36,7 @@ const GetRankin = async (data: StatsFilterDto) => {
 
 const GetRankinUser = async (data: StatsFilterDto) => {
   try {
-    const response = await axiosInstance.get("stats/user-rankin", {
+    const response = await axiosInstance.get("ranking/user-ranking", {
       params: data,
     });
 
