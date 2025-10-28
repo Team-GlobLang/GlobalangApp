@@ -1,7 +1,32 @@
 <template>
   <div class="p-5 bg-white shadow-lg rounded-2xl w-11/12">
+    <FwbInput
+      list="countries"
+      v-model="country"
+      type="text"
+      :validation-status="countryError ? 'error' : undefined"
+      label="Country"
+      placeholder="Ej: Costa Rica"
+    >
+      <template #suffix>
+        <span class="pi pi-home"></span>
+      </template>
+      <template #validationMessage>
+        <span class="font-medium">{{ countryError }}</span>
+      </template>
+    </FwbInput>
+
+    <datalist id="countries">
+      <option
+        v-for="countryItem in filteredCountries"
+        :key="countryItem.code"
+        :value="countryItem.name"
+      >
+        {{ countryItem.name }}
+      </option>
+    </datalist>
     <h2 class="text-2xl font-bold mb-4 text-center">
-      🏆 Local Top - {{ country }}
+      🏆 Top of - {{ country }}
     </h2>
 
     <div v-if="isLoading" class="space-y-2 animate-pulse">
@@ -11,7 +36,7 @@
     <div v-else>
       <div
         v-for="rank in ranking"
-        :key="rank.fullName"
+        :key="rank.userId"
         class="flex justify-between items-center mb-2 p-3 rounded-xl shadow-sm hover:shadow-md transition-shadow bg-gray-50"
       >
         <div class="flex items-center gap-3">
@@ -42,12 +67,26 @@
 import { useInfiniteQuery } from "@tanstack/vue-query";
 
 import { computed } from "vue";
-import { userStore } from "@UserStore";
 import { GetRankin } from "../Service/Ranking";
 import type { Rank } from "../Types/Rank";
 import type { PaginatedResponse } from "src/feautures/shared/Interfaces/interfaces";
+import { countries } from "@core/CountriesArray";
+import { useField } from "vee-validate";
+import { FwbInput } from "flowbite-vue";
 
-const country = computed(() => userStore.user!.country);
+const MAX_INITIAL = 10;
+
+const filteredCountries = computed(() => {
+  if (!country.value) {
+    return countries.slice(0, MAX_INITIAL);
+  }
+  return countries.filter((c) =>
+    c.name.toLowerCase().includes(country.value.toLowerCase())
+  );
+});
+
+const { value: country, errorMessage: countryError } =
+  useField<{ country: string }["country"]>("country");
 
 const { data, isLoading } = useInfiniteQuery<PaginatedResponse<Rank>, Error>({
   queryKey: computed(() => ["Global_Rank", country.value]),
