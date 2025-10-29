@@ -31,6 +31,8 @@ import {
 import Studio from "../feautures/Studio/Page/Studio.vue";
 import Ranking from "../feautures/Ranking/Page/Ranking.vue";
 import { userStore } from "@UserStore";
+import SuccesPayment from "../feautures/Payment/Pages/SuccesPayment.vue";
+import ErrorPayment from "../feautures/Payment/Pages/ErrorPayment.vue";
 
 const routes = [
   {
@@ -206,12 +208,14 @@ const routes = [
   {
     path: "/succes",
     name: "SuccesPay",
-    component: StartPage,
+    component: SuccesPayment,
+    meta: { showBottomBar: false },
   },
   {
     path: "/error",
     name: "ErrorPay",
-    component: StartPage,
+    component: ErrorPayment,
+    meta: { showBottomBar: false },
   },
 ];
 
