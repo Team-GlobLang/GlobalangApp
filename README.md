@@ -7,15 +7,6 @@ Bienvenido al repositorio de Globalang. Este proyecto es una aplicación web mó
 ## Primeros pasos
 
 Requisitos:
-# Globalang — Aplicación de aprendizaje de idiomas
-
-Bienvenido al repositorio de Globalang. Esta aplicación está construida con Vue 3 y Vite y está enfocada en explorar expresiones y recursos por país.
-
----
-
-## Primeros pasos
-
-Requisitos:
 
 - Node.js >= 16
 - npm o yarn
@@ -162,7 +153,7 @@ Instaladas adicionales que puedes encontrar en `package.json`:
 
 ---
 
-## Tecnología y logos
+## Tecnologías
 
 Tecnologías principales utilizadas en el proyecto:
 
@@ -171,18 +162,8 @@ Tecnologías principales utilizadas en el proyecto:
 - Leaflet + GeoJSON para mapas interactivos
 - Capacitor para empaquetado nativo (Android)
 
-Logos (visual):
 
 ![Vite](https://vitejs.dev/logo.svg) _Vite_
-
-> Logo de Globalang: sustituye la ruta por la ubicación real del logo en `src/assets` o `public`.
-
-```markdown
-![Globalang](public/glob.png)
-```
-
-Si quieres, puedo añadir automáticamente un archivo de logo bajo `public/` o `src/assets/` y actualizar la ruta.
-
 ---
 
 ## Contribuir
