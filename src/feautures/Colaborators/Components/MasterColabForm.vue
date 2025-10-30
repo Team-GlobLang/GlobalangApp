@@ -41,12 +41,12 @@
         </FwbInput>
 
         <FileSelector v-model:files="formFiles" />
-        <FwbTextarea
+        <FwbTextarea v-model="aboutColaborator"
             placeholder="We’d love to know you better. Tell us about yourself and what motivates you to join the Globalang community."
             type="text" label="About you">
         </FwbTextarea>
 
-        <FwbButton :disabled="isPending" v-model="aboutColaborator" class="w-full">
+        <FwbButton :disabled="isPending" class="w-full">
             Send Instructor request
         </FwbButton>
     </form>
