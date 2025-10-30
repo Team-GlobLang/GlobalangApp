@@ -98,7 +98,7 @@ const submitForm = handleSubmit((values) => {
     mutate({
         ...rest,
         files: filesArray,
-        category: "COLABORATOR"
+        category: "COLLABORATOR"
     },
         {
             onSuccess: () => router.push({ name: "Home" })
