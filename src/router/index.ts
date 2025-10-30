@@ -100,6 +100,7 @@ const routes = [
         path: "info/:id",
         name: "QuizInfo",
         component: QuizInfo,
+        
       },
       {
         path: "resolve/:id",
@@ -131,6 +132,7 @@ const routes = [
         path: "",
         name: "Studio",
         component: Studio,
+        meta: {roles: [ "MASTER", "COLLABORATOR"] }
       },
       {
         path: "quiz",
@@ -139,22 +141,26 @@ const routes = [
             path: "",
             name: "QuizStudio",
             component: QuizStudio,
+            meta: {roles: ["MASTER"]}
           },
           {
             path: "create-quiz",
             name: "NewQuiz",
             component: CreateQuiz,
+            meta: {roles: ["MASTER"]}
           },
           {
             path: "my-quiz",
             name: "MyQuiz",
             component: MyQuizzes,
+            meta: {roles: ["MASTER"]}
           },
           {
             path: "review-my-quiz/:id",
             name: "ReviewQuiz",
             component: ReviewQuiz,
             props: true,
+            meta: {roles: ["MASTER"]}
           },
         ],
       },
@@ -165,11 +171,13 @@ const routes = [
             path: "",
             name: "shorts-home",
             component: AudioHomePage,
+            meta: {roles: ["MASTER", "COLLABORATOR"]}
           },
           {
             path: "create-short",
             name: "CreateShort",
             component: CreateShort,
+            meta: {roles: ["MASTER", "COLLABORATOR"]}
           },
           {
             path: "my-shorts",
@@ -235,17 +243,27 @@ const publicPages = [
   "/changePassword",
 ];
 
+//MASTER, MODERATOR, COLLAB, BASIC
 router.beforeEach(async (to) => {
   // Rutas públicas
   if (publicPages.includes(to.path)) return true;
 
   // Revisar si hay token
   const token = localStorage.getItem("accessToken");
+  const store = userStore;
+  const user = store.user;
+
   if (!token || !userStore.user) {
     // No hay token o no hay usuario: redirigir a start/login
     return { name: "start" };
   }
+   const allowedRoles = (to.meta?.roles as string[] | undefined) ?? undefined;
+   const userRole = user?.role ?? null;
 
+  if (allowedRoles && (!userRole || !allowedRoles.includes(userRole))) {
+    console.warn(`Acceso denegado a para rol ${userRole}, ${userStore.user?.membership}`);
+    return { name: "Home" };
+  }
   // Si quieres, puedes validar token con API
   // const canAccess = await canUserAccess(to.path, token);
   // if (!canAccess) return { name: 'start' };
