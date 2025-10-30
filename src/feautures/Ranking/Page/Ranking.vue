@@ -3,16 +3,14 @@
     <div class="w-full pt-2 pl-2">
       <BreadCrumb :items="breadcrumbItems" />
     </div>
-
-    <CardLocalRanking />
-
-    <CardGlobalRanking />
+    <CardLocalContainerRanking />
+    <CardGlobalContainerRanking />
   </div>
 </template>
 <script setup lang="ts">
 import BreadCrumb from "@layouts/BreadCrumb.vue";
-import CardLocalRanking from "../Components/CardLocalRanking.vue";
-import CardGlobalRanking from "../Components/CardGlobalRanking.vue";
+import CardLocalContainerRanking from "../Components/CardLocalContainerRanking.vue";
+import CardGlobalContainerRanking from "../Components/CardGlobalContainerRanking.vue";
 
 const breadcrumbItems = [
   { label: "Home", route: "/home", isHome: true },
