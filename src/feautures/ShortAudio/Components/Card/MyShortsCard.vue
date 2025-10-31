@@ -2,17 +2,9 @@
   <div
     class="w-full bg-white rounded-2xl p-4 flex gap-3 hover:shadow-md transition"
   >
-    <button
-      class="flex-shrink-0 self-center rounded-full w-14 h-14 flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white shadow active:scale-95 transition"
-      :aria-pressed="localPlaying"
-      :title="localPlaying ? 'Stop' : 'Play'"
-      @click="toggle"
-    >
-      <i class="pi text-2xl" :class="localPlaying ? 'pi-pause' : 'pi-play'"></i>
-    </button>
 
     <div class="flex-1 text-gray-600 text-sm flex flex-col gap-0.5">
-      <h3 class="font-semibold text-gray-800 text-base truncate">
+      <h3 class="font-semibold text-gray-800 text-base line-clamp-2 text-ellipsis overflow-hidden">
         {{ text }}
       </h3>
       <p v-if="country">From {{ country }}</p>
@@ -54,13 +46,6 @@ const props = defineProps<MyShortsInterface>();
 const audioRef = ref<HTMLAudioElement | null>(null);
 const localPlaying = ref(false);
 const duration = ref(0);
-
-function toggle() {
-  if (!audioRef.value) return;
-  if (localPlaying.value) audioRef.value.pause();
-  else audioRef.value.play();
-  localPlaying.value = !localPlaying.value;
-}
 
 function onEnded() {
   localPlaying.value = false;

@@ -13,7 +13,7 @@
 
     <div class="flex-1 min-w-0">
       <div class="flex items-start justify-between">
-        <h3 class="font-semibold text-gray-800 text-base truncate">
+        <h3 class="font-semibold text-gray-800 text-base line-clamp-2 text-ellipsis overflow-hidden">
           {{ text }}
         </h3>
 
