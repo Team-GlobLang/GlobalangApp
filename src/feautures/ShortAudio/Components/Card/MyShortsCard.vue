@@ -4,11 +4,17 @@
   >
 
     <div class="flex-1 text-gray-600 text-sm flex flex-col gap-0.5">
+<<<<<<< HEAD
         <h3
           class="font-semibold text-gray-800 text-base line-clamp-2 text-ellipsis overflow-hidden"
         >
           {{ text }}
         </h3>
+=======
+      <h3 class="font-semibold text-gray-800 text-base line-clamp-2 text-ellipsis overflow-hidden">
+        {{ text }}
+      </h3>
+>>>>>>> 2f576dd6d2241288a9115e99680fd62810db755d
       <p v-if="country">From {{ country }}</p>
       <p v-if="createBy">By: {{ createBy }}</p>
       <p v-if="description" class="line-clamp-2">{{ description }}</p>
