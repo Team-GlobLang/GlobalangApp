@@ -4,11 +4,7 @@
   >
     <FwbButtonGroup class="flex justify-around w-full h-14">
       <FwbButton
-        v-if="
-          userRole === 'BASIC' ||
-          userRole === 'COLABORATOR' ||
-          userRole === 'MASTER'
-        "
+        v-if="userRole !== 'BASIC'"
         class="relative w-full !rounded-none outline-none focus:ring-0 py-3"
         :class="selectedPath === 'studio' ? 'text-black' : 'text-white'"
         @click="goto('Studio')"

@@ -2,16 +2,19 @@
   <div>
     <Carousel
       v-if="!isLoading"
+      :key="carouselKey"
       :value="shorts"
       :numVisible="1"
       :numScroll="1"
       :responsiveOptions="responsiveOptions"
-      :circular="true"
+      :circular="shortsLen > 1"
       :showNavigators="false"
-      :autoplayInterval="6200"
+      :autoplayInterval="shortsLen > 1 ? 6200 : 0"
+      :showIndicators="false"
     >
       <template #item="slotProps">
-        <MyShortsCard
+        <div>
+          <MyShortsCard
           :id="slotProps.data.id"
           :text="slotProps.data.text"
           :fileUrl="slotProps.data.fileUrl"
@@ -21,6 +24,7 @@
           :approved="slotProps.data.approved"
           :reviewComment="slotProps.data.reviewComment"
         />
+        </div>
       </template>
     </Carousel>
 
@@ -40,7 +44,7 @@ import { useQuery } from "@tanstack/vue-query";
 import Carousel from "primevue/carousel";
 import MyShortsCard from "../Card/MyShortsCard.vue";
 import { getMyShorts } from "../../Services/shortService";
-import type { ShortsListResponse } from "../../Interfaces/Shorts.interface";
+import type { MyShortsInterface, ShortsListResponse } from "../../Interfaces/Shorts.interface";
 
 const responsiveOptions = [
   { breakpoint: "1400px", numVisible: 1, numScroll: 1 },
@@ -55,5 +59,9 @@ const { data, isLoading } = useQuery<ShortsListResponse, Error>({
   staleTime: 1000 * 60 * 5,
 });
 
-const shorts = computed(() => data.value?.data ?? []);
+const shorts = computed<MyShortsInterface[]>(
+  () => (data.value?.data ?? []) as MyShortsInterface[]
+);
+const shortsLen = computed(() => shorts.value.length);
+const carouselKey = computed(() => `carousel-${shortsLen.value}`);
 </script>

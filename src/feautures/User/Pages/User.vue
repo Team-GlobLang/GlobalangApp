@@ -9,7 +9,7 @@
 
     <CardEditProfile/>
     
-    <CardUpgrateToPremiun/>
+    <CardUpgrateToPremiun v-if="!isPremium"/>
 
     <LogOutBtn/>
 
@@ -23,11 +23,20 @@ import CardUserStats from "../Components/CardUserStats.vue";
 import LogOutBtn from "../Components/LogOutBtn.vue";
 import CardEditProfile from "../Components/CardEditProfile.vue";
 import CardUpgrateToPremiun from "../Components/CardUpgrateToPremiun.vue";
+import { userStore } from "@UserStore";
+import { computed } from "vue";
 
 
 const breadcrumbItems = [
   { label: "Home", route: "/home", isHome: true },
   { label: "User", route: "/user" },
 ];
+
+const store = userStore;
+const user = store.user;
+
+const isPremium = computed(() => {
+  return user?.membership === "PREMIUM";
+});
 
 </script>
