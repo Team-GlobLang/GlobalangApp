@@ -131,8 +131,7 @@ const routes = [
       {
         path: "",
         name: "Studio",
-        component: Studio,
-        meta: {roles: [ "MASTER", "COLLABORATOR"] }
+        component: Studio
       },
       {
         path: "quiz",
@@ -140,27 +139,23 @@ const routes = [
           {
             path: "",
             name: "QuizStudio",
-            component: QuizStudio,
-            meta: {roles: ["MASTER"]}
+            component: QuizStudio
           },
           {
             path: "create-quiz",
             name: "NewQuiz",
-            component: CreateQuiz,
-            meta: {roles: ["MASTER"]}
+            component: CreateQuiz
           },
           {
             path: "my-quiz",
             name: "MyQuiz",
-            component: MyQuizzes,
-            meta: {roles: ["MASTER"]}
+            component: MyQuizzes
           },
           {
             path: "review-my-quiz/:id",
             name: "ReviewQuiz",
             component: ReviewQuiz,
-            props: true,
-            meta: {roles: ["MASTER"]}
+            props: true
           },
         ],
       },
@@ -170,14 +165,12 @@ const routes = [
           {
             path: "",
             name: "shorts-home",
-            component: AudioHomePage,
-            meta: {roles: ["MASTER", "COLLABORATOR"]}
+            component: AudioHomePage
           },
           {
             path: "create-short",
             name: "CreateShort",
-            component: CreateShort,
-            meta: {roles: ["MASTER", "COLLABORATOR"]}
+            component: CreateShort
           },
           {
             path: "my-shorts",

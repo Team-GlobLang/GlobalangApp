@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full p-4 flex items-center gap-4 shadow-sm hover:shadow-md transition relative"
+    class="w-full p-4 flex items-center gap-4 hover:shadow-md transition relative"
   >
     <button
       class="flex-shrink-0 rounded-full w-14 h-14 flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white shadow active:scale-95 transition"
@@ -13,7 +13,9 @@
 
     <div class="flex-1 min-w-0">
       <div class="flex items-start justify-between">
-        <h3 class="font-semibold text-gray-800 text-base truncate">
+        <h3
+          class="font-semibold text-gray-800 text-base line-clamp-2 text-ellipsis overflow-hidden"
+        >
           {{ text }}
         </h3>
 
