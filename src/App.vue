@@ -11,7 +11,7 @@ import { App as CapacitorApp } from "@capacitor/app";
 
 const isNative = Capacitor.isNativePlatform();
 
-const containerPadingop = computed(() => (isNative ? "pt-[5dvh]" : "pt-0"));
+const containerPaddingTop = computed(() => (isNative ? "pt-[5dvh]" : "pt-0"));
 
 CapacitorApp.addListener("appUrlOpen", (data) => {
   console.log("Redirect URL:", data.url);
@@ -31,15 +31,22 @@ CapacitorApp.addListener("appUrlOpen", (data) => {
       },
     }"
   />
-  <div v-if="isNative" class="bg-[#193cb8] w-full h-[5dvh] fixed z-50"></div>
+  <div v-if="isNative" class="bg-blue-700 w-full h-[5dvh] fixed z-50"></div>
   <router-view v-slot="{ Component }">
     <Transition>
-      <div :class="[{ 'pb-14': showBottomBar }, containerPadingop]">
+      <div
+        :class="[containerPaddingTop]"
+        :style="
+          showBottomBar
+            ? `padding-bottom: calc(3.5rem + env(safe-area-inset-bottom))`
+            : ''
+        "
+      >
         <component :is="Component" />
       </div>
     </Transition>
   </router-view>
-  <NavBarLayout v-if="showBottomBar" />
+  <NavBarLayout v-if="showBottomBar" class="safe-bottom" />
 </template>
 
 <style lang="css">
@@ -57,5 +64,10 @@ CapacitorApp.addListener("appUrlOpen", (data) => {
 .page-leave-to {
   transform: rotateY(45deg) rotateX(-5deg);
   opacity: 0;
+}
+.safe-bottom {
+  background-color: var(--color-blue-700);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: constant(safe-area-inset-bottom);
 }
 </style>
