@@ -1,30 +1,41 @@
 <template>
   <div class="p-5 bg-white shadow-lg rounded-2xl w-11/12">
-    <FwbInput
-      list="countries"
-      v-model="country"
-      type="text"
-      :validation-status="countryError ? 'error' : undefined"
-      label="Country"
-      placeholder="Ej: Costa Rica"
-    >
-      <template #suffix>
-        <span class="pi pi-home"></span>
-      </template>
-      <template #validationMessage>
-        <span class="font-medium">{{ countryError }}</span>
-      </template>
-    </FwbInput>
-
-    <datalist id="countries">
-      <option
-        v-for="countryItem in filteredCountries"
-        :key="countryItem.code"
-        :value="countryItem.name"
+    <div ref="countryBoxRef" class="relative w-full">
+      <FwbInput
+        v-model="country"
+        type="text"
+        :validation-status="countryError ? 'error' : undefined"
+        label="Country"
+        placeholder="Ej: Costa Rica"
+        @focus="showList = true"
+        @input="showList = true"
+        @keydown.esc="showList = false"
       >
-        {{ countryItem.name }}
-      </option>
-    </datalist>
+        <template #suffix>
+          <span class="pi pi-home"></span>
+        </template>
+        <template #validationMessage>
+          <span class="font-medium">{{ countryError }}</span>
+        </template>
+      </FwbInput>
+
+      <!-- Lista desplegable -->
+      <ul
+        v-if="showList && filteredCountries.length"
+        class="absolute top-full left-0 right-0 z-50 w-full bg-white shadow-md border rounded-md mt-1 max-h-48 overflow-y-auto"
+        role="listbox"
+      >
+        <li
+          v-for="c in filteredCountries"
+          :key="c.code"
+          class="px-3 py-2 cursor-pointer hover:bg-amber-100"
+          @mousedown.prevent="selectCountry(c.name)"
+          role="option"
+        >
+          {{ c.name }}
+        </li>
+      </ul>
+    </div>
     <h2 class="text-2xl font-bold mb-4 text-center">
       🏆 Top of - {{ country }}
     </h2>
@@ -71,7 +82,7 @@
 
 <script setup lang="ts">
 import { useInfiniteQuery, useQuery } from "@tanstack/vue-query";
-import { computed } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { countries } from "@core/CountriesArray";
 import { useField } from "vee-validate";
 import { FwbInput } from "flowbite-vue";
@@ -80,19 +91,48 @@ import type { PaginatedResponse } from "src/feautures/shared/Interfaces/interfac
 import type { Rank } from "../Types/Rank";
 import CardRanking from "./CardRanking.vue";
 
-const MAX_INITIAL = 10;
+const MAX_INITIAL = 5;
+
+const showList = ref(false);
+const countryBoxRef = ref<HTMLElement | null>(null);
+
+const norm = (s: string) =>
+  (s || "")
+    .toLocaleLowerCase()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "");
 
 const filteredCountries = computed(() => {
-  if (!country.value) {
-    return countries.slice(0, MAX_INITIAL);
-  }
-  return countries.filter((c) =>
-    c.name.toLowerCase().includes(country.value.toLowerCase())
-  );
+  const q = norm(country.value || "");
+  const list = q
+    ? countries.filter(c => norm(c.name).includes(q))
+    : countries;
+  return list.slice(0, MAX_INITIAL);
 });
+
+function selectCountry(name: string) {
+  country.value = name;
+  showList.value = false;
+}
 
 const { value: country, errorMessage: countryError } =
   useField<{ country: string }["country"]>("country");
+
+watch(country, (val) => {
+  if (!val?.trim()) showList.value = false;
+});
+
+function handlePointerDown(e: PointerEvent) {
+  const root = countryBoxRef.value;
+  if (!root) return;
+  if (!root.contains(e.target as Node)) showList.value = false;
+}
+onMounted(() => {
+  window.addEventListener("pointerdown", handlePointerDown, { passive: true });
+});
+onBeforeUnmount(() => {
+  window.removeEventListener("pointerdown", handlePointerDown);
+});
 
 const { data, isLoading } = useInfiniteQuery<PaginatedResponse<Rank>, Error>({
   queryKey: computed(() => ["Global_Rank", country.value]),
