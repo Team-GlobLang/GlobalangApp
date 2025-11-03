@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col md:flex-row gap-6 w-full">
 
-        <div v-if="userRole === 'BASIC' || userRole === 'COLABORATOR'"
+        <div v-if="userRole === 'BASIC' || userRole === 'COLLABORATOR'"
             class="flex-1 bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-between transition-all">
             <h2 class="text-xl font-bold text-blue-700 mb-2">Become a Globalang Instructor</h2>
             <p class="text-gray-700 mb-4 text-center">

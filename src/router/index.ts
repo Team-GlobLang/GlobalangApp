@@ -33,6 +33,7 @@ import Ranking from "../feautures/Ranking/Page/Ranking.vue";
 import { userStore } from "@UserStore";
 import SuccesPayment from "../feautures/Payment/Pages/SuccesPayment.vue";
 import ErrorPayment from "../feautures/Payment/Pages/ErrorPayment.vue";
+import { canUserAcces } from "../feautures/Auth/Services/AuthServices";
 
 const routes = [
   {
@@ -100,7 +101,6 @@ const routes = [
         path: "info/:id",
         name: "QuizInfo",
         component: QuizInfo,
-        
       },
       {
         path: "resolve/:id",
@@ -131,7 +131,7 @@ const routes = [
       {
         path: "",
         name: "Studio",
-        component: Studio
+        component: Studio,
       },
       {
         path: "quiz",
@@ -139,23 +139,23 @@ const routes = [
           {
             path: "",
             name: "QuizStudio",
-            component: QuizStudio
+            component: QuizStudio,
           },
           {
             path: "create-quiz",
             name: "NewQuiz",
-            component: CreateQuiz
+            component: CreateQuiz,
           },
           {
             path: "my-quiz",
             name: "MyQuiz",
-            component: MyQuizzes
+            component: MyQuizzes,
           },
           {
             path: "review-my-quiz/:id",
             name: "ReviewQuiz",
             component: ReviewQuiz,
-            props: true
+            props: true,
           },
         ],
       },
@@ -165,12 +165,12 @@ const routes = [
           {
             path: "",
             name: "shorts-home",
-            component: AudioHomePage
+            component: AudioHomePage,
           },
           {
             path: "create-short",
             name: "CreateShort",
-            component: CreateShort
+            component: CreateShort,
           },
           {
             path: "my-shorts",
@@ -234,33 +234,40 @@ const publicPages = [
   "/register",
   "/forgetPassword",
   "/changePassword",
+  "/ranking",
+  "/succes",
+  "/error",
+  "/quiz/info/:id",
+  "/quiz/resolve/:id",
+  "/user/edit-info",
+  "/user",
 ];
+
+function isPublic(toPath: string) {
+  return publicPages.some((route) => {
+    if (route.includes(":id")) {
+      const regex = new RegExp(
+        "^" + route.replace(":id", "[a-zA-Z0-9_-]+") + "$"
+      );
+      return regex.test(toPath);
+    }
+    return route === toPath;
+  });
+}
 
 //MASTER, MODERATOR, COLLAB, BASIC
 router.beforeEach(async (to) => {
   // Rutas públicas
-  if (publicPages.includes(to.path)) return true;
+  if (isPublic(to.path)) return true;
 
   // Revisar si hay token
   const token = localStorage.getItem("accessToken");
-  const store = userStore;
-  const user = store.user;
 
   if (!token || !userStore.user) {
-    // No hay token o no hay usuario: redirigir a start/login
     return { name: "start" };
   }
-   const allowedRoles = (to.meta?.roles as string[] | undefined) ?? undefined;
-   const userRole = user?.role ?? null;
-
-  if (allowedRoles && (!userRole || !allowedRoles.includes(userRole))) {
-    console.warn(`Acceso denegado a para rol ${userRole}, ${userStore.user?.membership}`);
-    return { name: "Home" };
-  }
-  // Si quieres, puedes validar token con API
-  // const canAccess = await canUserAccess(to.path, token);
-  // if (!canAccess) return { name: 'start' };
-
+  const canAccess = await canUserAcces(to.path);
+  if (!canAccess) return { name: "start" };
   return true;
 });
 
