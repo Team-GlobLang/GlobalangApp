@@ -1,5 +1,5 @@
 <template>
-   <div class="w-full relative bg-white rounded-xl p-4 transition-all md:max-w-md md:mx-auto xl:max-w-lg">
+   <div class="w-full relative bg-white rounded-xl p-4 transition-all">
     <FwbInput
       v-model="localLanguage"
       type="text"

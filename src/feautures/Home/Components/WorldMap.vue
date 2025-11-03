@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full bg-white rounded-xl shadow-lg p-4 flex items-center justify-center h-[45vh] md:h-[60vh] xl:h-[70vh] transition-all">
+    <div class="w-full z-0 bg-white rounded-xl shadow-lg p-4 flex items-center justify-center h-[45vh] md:h-[60vh] xl:h-[70vh] transition-all">
         <div id="map" class="w-full h-full rounded-lg"></div>
     </div>
 </template>

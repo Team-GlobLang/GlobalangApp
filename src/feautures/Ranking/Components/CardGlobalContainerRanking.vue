@@ -1,30 +1,6 @@
 <template>
   <div class="p-5 bg-white shadow-lg rounded-2xl w-11/12">
-    <FwbInput
-      list="countries"
-      v-model="country"
-      type="text"
-      :validation-status="countryError ? 'error' : undefined"
-      label="Country"
-      placeholder="Ej: Costa Rica"
-    >
-      <template #suffix>
-        <span class="pi pi-home"></span>
-      </template>
-      <template #validationMessage>
-        <span class="font-medium">{{ countryError }}</span>
-      </template>
-    </FwbInput>
-
-    <datalist id="countries">
-      <option
-        v-for="countryItem in filteredCountries"
-        :key="countryItem.code"
-        :value="countryItem.name"
-      >
-        {{ countryItem.name }}
-      </option>
-    </datalist>
+    <CountrySearch v-model:country="country" />
     <h2 class="text-2xl font-bold mb-4 text-center">
       🏆 Top of - {{ country }}
     </h2>
@@ -72,26 +48,15 @@
 <script setup lang="ts">
 import { useInfiniteQuery, useQuery } from "@tanstack/vue-query";
 import { computed } from "vue";
-import { countries } from "@core/CountriesArray";
 import { useField } from "vee-validate";
-import { FwbInput } from "flowbite-vue";
 import { GetRankin, GetRankinUser } from "../Service/Ranking";
 import type { PaginatedResponse } from "src/feautures/shared/Interfaces/interfaces";
 import type { Rank } from "../Types/Rank";
 import CardRanking from "./CardRanking.vue";
+import CountrySearch from "@components/CountrySearch.vue";
 
-const MAX_INITIAL = 10;
 
-const filteredCountries = computed(() => {
-  if (!country.value) {
-    return countries.slice(0, MAX_INITIAL);
-  }
-  return countries.filter((c) =>
-    c.name.toLowerCase().includes(country.value.toLowerCase())
-  );
-});
-
-const { value: country, errorMessage: countryError } =
+const { value: country } =
   useField<{ country: string }["country"]>("country");
 
 const { data, isLoading } = useInfiniteQuery<PaginatedResponse<Rank>, Error>({

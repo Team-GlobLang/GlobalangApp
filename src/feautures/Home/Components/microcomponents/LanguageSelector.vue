@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full bg-white rounded-xl shadow-lg p-4 transition-all md:max-w-md md:mx-auto xl:max-w-lg">
+    <div class="w-full bg-white rounded-xl shadow-lg p-4 transition-all">
         <FwbInput v-model="countryModel" list="countries" type="text"
             label="Discover local sayings and expressions—choose a country to start exploring!"
             placeholder="E.g.: Costa Rica">
