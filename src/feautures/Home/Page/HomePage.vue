@@ -12,7 +12,7 @@
     <div class="w-full">
       <RouterLink :to="{ name: 'Favorite-Shorts' }">
         <div
-          class="bg-white shadow-lg rounded-2xl p-4 flex items-center gap-4 hover:shadow-2xl transition-transform transform hover:scale-105"
+          class="bg-white shadow-lg rounded-2xl p-4 flex items-center gap-4 hover:shadow-2xl transition-transform transform"
         >
           <div class="flex-shrink-0 bg-red-100 rounded-full p-3">
             <svg
