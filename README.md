@@ -163,8 +163,88 @@ Tecnologías principales utilizadas en el proyecto:
 - Capacitor para empaquetado nativo (Android)
 
 
-![Vite](https://vitejs.dev/logo.svg) _Vite_
+![Vite](https://vitejs.dev/logo.svg)
 ---
+
+
+## 🐳 Docker (opcional)
+
+Si prefieres construir y ejecutar la aplicación dentro de un contenedor Docker, aquí tienes una guía práctica.
+
+Nota: muchos Dockerfiles de frontend sirven la aplicación en un servidor estático (p. ej. `nginx`) o arrancan un servidor en `3000`. En desarrollo, podemos mapear el puerto interno `3000` al puerto de Vite `5173` en el host para mantener consistencia con `docker-compose.dev.yml` del launcher.
+
+1) Build de la imagen (con build-args):
+
+```powershell
+# Desde la carpeta `main-app`
+docker build -t main-globalang:latest \
+  --build-arg VITE_API_URL=https://api.local \
+  .
+```
+
+2) Ejecutar el contenedor (mapeando el puerto 3000 del contenedor al 5173 local):
+
+```powershell
+docker run -d \
+  --name main-globalang \
+  --env-file .env \
+  -p 5173:3000 \
+  main-globalang:latest
+```
+
+3) Ejemplo mínimo de `docker-compose.dev.yml` para desarrollo (volúmenes + mapeo de puertos):
+
+```yaml
+services:
+  globalang-main:
+    build:
+      context: ./main-app
+      args:
+        VITE_API_URL: http://api.local
+        VITE_PAY_URL: http://api.pay.local
+    volumes:
+      - ./main-app:/app
+      - /app/node_modules
+    ports:
+      - "5173:3000" # mapea el puerto interno 3000 del contenedor al 5173 local
+    env_file:
+      - ./main-app/.env
+    command: npm run dev
+
+networks:
+  default:
+    external: false
+```
+
+Buenas prácticas y notas:
+
+- Si necesitas que variables de build estén disponibles en tiempo de ejecución, en tu `Dockerfile` declara:
+
+```dockerfile
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+```
+
+- No comites archivos `.env` con secretos. Usa `--env-file` o `env_file:` en `docker-compose`.
+- En modo desarrollo con volúmenes y `npm run dev` tendrás HMR si Vite está configurado correctamente.
+- Para producción, típicamente se construye la app (`npm run build`) y se sirve con un servidor estático (nginx) en el contenedor; en ese caso mapea el puerto 80 del contenedor al puerto deseado en el host.
+
+Comandos útiles:
+
+```powershell
+# Levantar y reconstruir en segundo plano
+docker-compose -f docker-compose.dev.yml up --build -d
+
+# Ver logs de la app principal
+docker-compose -f docker-compose.dev.yml logs -f globalang-main
+
+# Parar y eliminar recursos
+docker-compose -f docker-compose.dev.yml down
+```
+
+Con esto tendrás instrucciones suficientes para construir y probar la imagen Docker de `main-app` tanto en desarrollo (con HMR) como para crear una imagen lista para producción.
+
+
 
 ## Contribuir
 
@@ -176,15 +256,5 @@ Si quieres contribuir:
 4. Abre un Pull Request describiendo tus cambios.
 
 Revisa las convenciones de commits y estilos en el proyecto (si existe configuración de lint o contribución).
-
----
-
-## Licencia & Contacto
-
-
-Contacto / Maintainers:
-
-- Equipo: Team-GlobLang
-- Repo: GlobalangApp
 
 ---
