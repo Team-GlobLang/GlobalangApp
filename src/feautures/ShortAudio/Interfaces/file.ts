@@ -14,6 +14,7 @@ export type FavoriteCreated = {
 
 export interface FilterShorts extends PaginationDto {
   country?: string;
+  writtenIn?: string;
   approved?: boolean | null
 } 
 export interface FilterMyShorts extends PaginationDto {

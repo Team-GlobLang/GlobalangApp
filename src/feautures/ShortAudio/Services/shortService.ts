@@ -45,6 +45,7 @@ const getShorts = async (data: FilterShorts) => {
     if (data.country) params.country = data.country;
     if (data.page !== undefined) params.page = data.page;
     if (data.limit !== undefined) params.limit = data.limit;
+    if (data.writtenIn) params.writtenIn = data.writtenIn;
     if (data.approved !== undefined && data.approved !== null)
       params.approved = data.approved;
 

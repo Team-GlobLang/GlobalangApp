@@ -46,6 +46,7 @@ export interface QuizzesFilters extends PaginationDto {
   country?: string;
   isApproved?: boolean | null;
   search?: string;
+  writtenIn?: string;
 }
 
 export type RegisterScore = {

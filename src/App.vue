@@ -3,11 +3,11 @@ import { Toaster } from "vue3-hot-toast";
 import { useRoute, useRouter } from "vue-router";
 import { computed } from "vue";
 import NavBarLayout from "@layouts/NavBarLayout.vue";
+import { Capacitor } from "@capacitor/core";
+import { App as CapacitorApp } from "@capacitor/app";
 const route = useRoute();
 const router = useRouter();
 const showBottomBar = computed(() => route.meta.showBottomBar !== false);
-import { Capacitor } from "@capacitor/core";
-import { App as CapacitorApp } from "@capacitor/app";
 
 const isNative = Capacitor.isNativePlatform();
 

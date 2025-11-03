@@ -116,13 +116,14 @@ const {
   refetch,
   isError,
 } = useInfiniteQuery<PaginatedResponse<AvailableShortsInterface>, Error>({
-  queryKey: computed(() => ["shorts", { country: country.value }]),
+  queryKey: computed(() => ["shorts", { country: country.value, language: language.value }]),
   queryFn: async ({ pageParam = 1 }) => {
     return await getShorts({
       page: pageParam,
       limit: 5,
       approved: true,
       country: country.value,
+      writtenIn: language.value,
     });
   },
   initialPageParam: 1,
@@ -164,6 +165,10 @@ const throttledOnScroll = () => {
 };
 
 watch(country, async () => {
+  await refetch();
+  window.scrollTo({ top: 0 });
+});
+watch(language, async () => {
   await refetch();
   window.scrollTo({ top: 0 });
 });

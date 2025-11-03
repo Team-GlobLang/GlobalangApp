@@ -115,13 +115,17 @@ const {
   refetch,
   isError,
 } = useInfiniteQuery<PaginatedResponse<QuizData>, Error>({
-  queryKey: computed(() => ["quizzes", { country: country.value }]),
+  queryKey: computed(() => [
+    "quizzes",
+    { country: country.value, writtenIn: language.value },
+  ]),
   queryFn: async ({ pageParam = 1 }) => {
     return await getQuizzes({
       page: pageParam,
       limit: 5,
-      isApproved: null,
+      isApproved: true,
       country: country.value,
+      writtenIn: language.value,
     });
   },
   initialPageParam: 1,

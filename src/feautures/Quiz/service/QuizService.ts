@@ -54,9 +54,7 @@ const removeQuiz = async (id: string) => {
 
 const registerQuizScore = async (data: RegisterScore) => {
   try {
-    const response = await axiosInstance.post(`ranking/register-score`,
-      data,
-    );
+    const response = await axiosInstance.post(`ranking/register-score`, data);
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
@@ -77,6 +75,7 @@ const getQuizzes = async (data: QuizzesFilters) => {
       params.isApproved = data.isApproved;
     if (data.page) params.page = data.page;
     if (data.limit) params.limit = data.limit;
+    if (data.writtenIn) params.writtenIn = data.writtenIn;
 
     const response = await axiosInstance.get("/Full-Quiz", { params });
 
@@ -153,5 +152,5 @@ export {
   getQuiz,
   getQuizQuestions,
   removeQuiz,
-  registerQuizScore
+  registerQuizScore,
 };
