@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full">
+    <div class="w-full flex justify-center">
         <div v-if="isPending">
             <div class="animate-pulse p-4  rounded-md mb-4 bg-white">
                 <div class="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
@@ -9,7 +9,7 @@
         </div>
 
         <div class=" bg-white shadow rounded-2xl w-full py-2" v-if="!isLoading && data && data.meta.total > 0">
-            <span class="text-lg font-bold text-blue-600 flex items-center px-2">
+            <span class="text-lg font-bold text-blue-600 flex items-center px-3">
                 🎵 {{ props.country ? `Listen to Audios from ${props.country}` : 'Listen to some recent audios' }}
             </span>
 

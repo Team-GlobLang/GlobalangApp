@@ -2,7 +2,7 @@
   <div class="w-full relative">
     <Carousel
       :value="props.data"
-      :numVisible="3"
+      :numVisible="1"
       :numScroll="1"
       :circular="true"
       :responsiveOptions="responsiveOptions"
