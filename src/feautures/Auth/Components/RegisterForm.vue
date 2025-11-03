@@ -81,7 +81,7 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-const MAX_INITIAL = 10;
+const MAX_INITIAL = 5;
 
 const filteredCountries = computed(() => {
   if (!country.value) {
@@ -144,3 +144,18 @@ const submitForm = handleSubmit((values) => {
 
 
 </script>
+<style scoped>
+input[list="countries"] {
+  background-color: #f1f4fb !important;
+  position: relative;
+  z-index: 1;
+}
+
+input[list="countries"]:focus::after {
+  content: "";
+  position: fixed;
+  inset: 0; 
+  background-color: #f1f4fb;
+  z-index: -1;
+}
+</style>

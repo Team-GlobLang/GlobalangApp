@@ -11,6 +11,7 @@
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div
+          v-if="userRole !== 'COLLABORATOR'"
           @click="goToQuiz"
           class="p-6 bg-gradient-to-br from-blue-200 to-blue-300 rounded-2xl shadow-lg hover:shadow-2xl cursor-pointer transition transform hover:-translate-y-1 flex flex-col items-center justify-center"
         >
@@ -49,7 +50,7 @@ const breadcrumbItems = [
 
 const router = useRouter();
 
-const userRole = computed(() => userStore.user!.role);
+const userRole = computed(() => userStore.user!.role || "COLLABORATOR");
 
 onMounted(() => {
   if (userRole.value === "colaborador") {

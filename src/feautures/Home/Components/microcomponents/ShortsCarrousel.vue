@@ -12,13 +12,15 @@
       
     >
       <template #item="slotProps">
-        <ShortCard
+        <div>
+          <ShortCard
           :id="slotProps.data.id"
           :country="slotProps.data.country"
           :text="slotProps.data.text"
           :description="slotProps.data.description"
           :file-url="slotProps.data.fileUrl"
-        />
+          />
+        </div>
       </template>
     </Carousel>
   </div>
