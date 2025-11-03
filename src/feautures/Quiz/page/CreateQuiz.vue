@@ -64,6 +64,7 @@ const quizData = ref<QuizPayload>({
     description: "",
     configuration: { timeLimit: "5M", shuffleQuestions: true },
     country: "",
+    writtenIn: "",
   },
   questions: [],
 });

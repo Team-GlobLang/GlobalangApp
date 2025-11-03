@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full bg-white rounded-xl shadow-lg p-4 transition-all md:max-w-md md:mx-auto xl:max-w-lg">
+    <div class="w-full bg-white rounded-xl shadow-lg p-4 transition-all">
          <div ref="boxRef" class="relative w-full">
       <FwbInput
         v-model="local"

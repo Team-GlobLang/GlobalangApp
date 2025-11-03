@@ -38,13 +38,13 @@ const props = defineProps<{
 
 const responsiveOptions = ref([
   {
-    breakpoint: "1400px",
-    numVisible: 3,
+    breakpoint: "1900px",
+    numVisible: 1,
     numScroll: 1,
   },
   {
     breakpoint: "1024px",
-    numVisible: 2,
+    numVisible: 1,
     numScroll: 1,
   },
   {

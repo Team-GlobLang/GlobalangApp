@@ -1,6 +1,6 @@
 <template>
     <div class="w-full flex justify-center">
-        <div v-if="isPending">
+        <div class="w-full" v-if="!isPending">
             <div class="animate-pulse p-4  rounded-md mb-4 bg-white">
                 <div class="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
                 <div class="h-3 bg-gray-300 rounded w-1/2 mb-1"></div>

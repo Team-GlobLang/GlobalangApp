@@ -7,8 +7,9 @@
       <div class="w-full p-2">
         <BreadCrumb :items="breadCumbs" />
       </div>
-      <div class="w-11/12">
+      <div class="w-11/12 bg-white rounded-2xl">
         <CountrySearch v-model:country="country" />
+        <LanguageSearch v-model:language="language" />
       </div>
     </div>
 
@@ -92,11 +93,16 @@ import { getShorts } from "../Services/shortService";
 import ShortCard from "../Components/Card/ShortCard.vue";
 import type { AvailableShortsInterface } from "../Interfaces/Shorts.interface";
 import { Capacitor } from "@capacitor/core";
+import LanguageSearch from "@components/LanguageSearch.vue";
+import { userStore } from "@UserStore";
 
 const breadCumbs = [
   { label: "Home", route: "/home", isHome: true },
   { label: "Available shorts", route: "/short/availables" },
 ];
+
+const userLanguage = userStore.getUserLanguage();
+const language = ref(userLanguage || "");
 
 const country = ref("");
 const showScrollTop = ref(false);
@@ -110,13 +116,14 @@ const {
   refetch,
   isError,
 } = useInfiniteQuery<PaginatedResponse<AvailableShortsInterface>, Error>({
-  queryKey: computed(() => ["shorts", { country: country.value }]),
+  queryKey: computed(() => ["shorts", { country: country.value, language: language.value }]),
   queryFn: async ({ pageParam = 1 }) => {
     return await getShorts({
       page: pageParam,
       limit: 5,
       approved: true,
       country: country.value,
+      writtenIn: language.value,
     });
   },
   initialPageParam: 1,
@@ -158,6 +165,10 @@ const throttledOnScroll = () => {
 };
 
 watch(country, async () => {
+  await refetch();
+  window.scrollTo({ top: 0 });
+});
+watch(language, async () => {
   await refetch();
   window.scrollTo({ top: 0 });
 });

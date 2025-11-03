@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "457149437885",
+    "project_id": "globalang-push-noty",
+    "storage_bucket": "globalang-push-noty.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457149437885:android:738e6ebcb76809b18064d4",
+        "android_client_info": {
+          "package_name": "com.globalang"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6bJON6QYYzruCbf690Wa0kHXGJujTzU4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
