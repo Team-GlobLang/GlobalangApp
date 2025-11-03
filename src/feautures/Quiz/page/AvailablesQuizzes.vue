@@ -7,8 +7,9 @@
       <div class="w-full p-2">
         <BreadCrumb :items="breadCumbs" />
       </div>
-      <div class="w-11/12">
+      <div class="w-11/12 bg-white rounded-2xl">
         <CountrySearch v-model:country="country" />
+        <LanguageSearch v-model:language="language" />
       </div>
     </div>
 
@@ -91,11 +92,16 @@ import { getQuizzes } from "../service/QuizService";
 import type { PaginatedResponse } from "src/feautures/shared/Interfaces/interfaces";
 import { useRouter } from "vue-router";
 import { Capacitor } from "@capacitor/core";
+import LanguageSearch from "@components/LanguageSearch.vue";
+import { userStore } from "@UserStore";
 
 const breadCumbs = [
   { label: "Home", route: "/home", isHome: true },
   { label: "Available Quizzes", route: "/quiz/availables" },
 ];
+
+const userLanguage = userStore.getUserLanguage();
+const language = ref(userLanguage || "");
 
 const country = ref("");
 const showScrollTop = ref(false);

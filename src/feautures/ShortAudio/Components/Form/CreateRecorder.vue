@@ -7,19 +7,15 @@
       </template>
     </FwbInput>
     
-    <FwbInput  list="countries" v-model="country" type="text" label="Country (origin)" placeholder="e.g., Costa Rica"
-    :validation-status="countryError ? 'error' : undefined"
-      class="mt-3"
-    >
-      <template #validationMessage>
-        <span class="font-medium">{{ countryError }}</span>
-      </template>
-    </FwbInput>
-    <datalist id="countries">
-            <option v-for="countryItem in filteredCountries" :key="countryItem.code" :value="countryItem.name">
-                {{ countryItem.name }}
-            </option>
-    </datalist>
+    <CountrySelector
+      v-model:country="country"
+      :error="countryError"
+    />
+
+    <LanguageSelector
+      v-model:language="writtenIn"
+      :error="languageError"
+    />
 
     <FwbInput :validation-status="descriptionError ? 'error' : undefined" v-model="description" 
       label="Description" placeholder="Enter a brief description" class="mt-2 mb-2">
@@ -39,12 +35,12 @@
 <script setup lang="ts">
 import { useField, useForm } from 'vee-validate';
 import { useRouter } from 'vue-router';
-import { computed } from 'vue';
-import { countries } from '../../../../Core/CountriesArray';
 import { FwbButton, FwbInput } from 'flowbite-vue';
 import RecordAudio from '../Recorder/RecordAudio.vue';
 import { useCreateShort } from '../../Hooks/useCreateShort';
 import { rules } from '../../../../Core/validators/rules';
+import CountrySelector from '@components/CountrySelector.vue';
+import LanguageSelector from '@components/LanguageSelector.vue';
 const { required, min } = rules;
 [required, min].forEach(fn => fn());
 
@@ -53,6 +49,7 @@ interface CreateShort{
     country: string;
     description: string;
     files: File;
+    writtenIn: string;
 }
 
 const { handleSubmit } = useForm<CreateShort>();
@@ -65,17 +62,9 @@ const { value: country, errorMessage: countryError } =
     useField<CreateShort['country']>('country', 'required');
 const { value: record, errorMessage: recordError } = 
     useField<CreateShort['files']>( 'files', 'required')
+const { value: writtenIn, errorMessage: languageError } =
+    useField<CreateShort['country']>('writtenIn', 'required');
 
-const MAX_INITIAL = 10;
-
-const filteredCountries = computed(() => {
-    if (!country.value) {
-        return countries.slice(0, MAX_INITIAL);
-    }
-    return countries.filter(c =>
-        c.name.toLowerCase().includes(country.value.toLowerCase())
-    );
-});
 
 const { mutate, isPending} = useCreateShort();
 

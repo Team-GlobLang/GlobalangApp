@@ -1,3 +1,4 @@
+import { countries } from "@core/CountriesArray";
 import { reactive } from "vue";
 
 export interface User {
@@ -49,5 +50,15 @@ export const userStore = reactive({
     localStorage.removeItem("refT");
     localStorage.removeItem("accessToken");
     localStorage.removeItem("rememberMe");
+  },
+
+  getUserLanguage(): string | null {
+    if (!this.user?.country) return null;
+
+    const countryInfo = countries.find(
+      (c) => c.name.toLowerCase() === this.user!.country.toLowerCase()
+    );
+
+    return countryInfo?.languages[0] || null;
   },
 });

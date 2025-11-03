@@ -1,15 +1,15 @@
 <template>
   <div class="w-full relative" ref="container">
     <FwbInput
-      v-model="localCountry"
+      v-model="localLanguage"
       type="text"
-      label="Specify the country where the content can be used"
-      placeholder="e.g., Costa Rica"
+      label="Specify the language in which the content is written"
+      placeholder="e.g., Spanish"
       :validation-status="error ? 'error' : undefined"
       @focus="showList = true"
     >
       <template #suffix>
-        <span class="pi pi-home"></span>
+        <span class="pi pi-globe"></span>
       </template>
       <template #validationMessage>
         {{ error }}
@@ -17,17 +17,17 @@
     </FwbInput>
 
     <ul
-      v-if="showList && filteredCountries.length"
+      v-if="showList && filteredLanguages.length"
       class="absolute z-50 w-full bg-white shadow-md border rounded-md mt-1 max-h-48 overflow-y-auto"
       @mousedown.prevent
     >
       <li
-        v-for="c in filteredCountries"
-        :key="c.code"
+        v-for="lang in filteredLanguages"
+        :key="lang"
         class="px-3 py-2 cursor-pointer hover:bg-amber-100"
-        @click="selectCountry(c.name)"
+        @click="selectLanguage(lang)"
       >
-        {{ c.name }}
+        {{ lang }}
       </li>
     </ul>
   </div>
@@ -38,27 +38,34 @@ import { countries } from "@core/CountriesArray";
 import { FwbInput } from "flowbite-vue";
 import { ref, computed, watch, onMounted, onUnmounted } from "vue";
 
-const props = defineProps<{ country: string; error?: string }>();
-const emit = defineEmits<{ (e: "update:country", value: string): void }>();
+const props = defineProps<{
+  language: string;
+  error?: string;
+}>();
+const emit = defineEmits<{ (e: "update:language", value: string): void }>();
 
-const localCountry = ref(props.country);
+const localLanguage = ref(props.language);
 const showList = ref(false);
 const container = ref<HTMLElement | null>(null);
 const error = ref(props.error);
 
-watch(localCountry, (val) => emit("update:country", val));
-watch(() => props.country, (val) => (localCountry.value = val));
+watch(localLanguage, (val) => emit("update:language", val));
+watch(() => props.language, (val) => (localLanguage.value = val));
 watch(() => props.error, (val) => (error.value = val));
 
-const filteredCountries = computed(() => {
-  const search = localCountry.value?.toLowerCase() ?? "";
-  return countries.filter((c) =>
-    c.name.toLowerCase().includes(search)
+const uniqueLanguages = Array.from(
+  new Set(countries.flatMap((c) => c.languages))
+);
+
+const filteredLanguages = computed(() => {
+  const search = localLanguage.value?.toLowerCase() ?? "";
+  return uniqueLanguages.filter((lang) =>
+    lang.toLowerCase().includes(search)
   );
 });
 
-function selectCountry(name: string) {
-  localCountry.value = name;
+function selectLanguage(lang: string) {
+  localLanguage.value = lang;
   showList.value = false;
 }
 

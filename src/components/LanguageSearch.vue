@@ -1,0 +1,60 @@
+<template>
+   <div class="w-full relative bg-white rounded-xl p-4 transition-all md:max-w-md md:mx-auto xl:max-w-lg">
+    <FwbInput
+      v-model="localLanguage"
+      type="text"
+      label="Filter by the language in which the content is written"
+      placeholder="Ej: Spanish"
+      @input="showList = true"
+    >
+      <template #suffix>
+        <span class="pi pi-globe"></span>
+      </template>
+    </FwbInput>
+
+    <ul
+      v-if="showList && filteredLanguages.length"
+      class="absolute z-50 w-full bg-white shadow-md border rounded-md mt-1 max-h-48 overflow-y-auto"
+    >
+      <li
+        v-for="lang in filteredLanguages"
+        :key="lang"
+        class="px-3 py-2 cursor-pointer hover:bg-amber-100"
+        @click="selectLanguage(lang)"
+      >
+        {{ lang }}
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { countries } from "@core/CountriesArray";
+import { FwbInput } from "flowbite-vue";
+import { ref, computed, watch } from "vue";
+
+const props = defineProps<{ language: string }>();
+const emit = defineEmits<{ (e: "update:language", value: string): void }>();
+
+const localLanguage = ref(props.language);
+const showList = ref(false);
+
+watch(localLanguage, (val) => emit("update:language", val));
+watch(() => props.language, (val) => (localLanguage.value = val));
+
+const uniqueLanguages = Array.from(
+  new Set(countries.flatMap((c) => c.languages))
+);
+
+const filteredLanguages = computed(() => {
+  const search = localLanguage.value?.toLowerCase() ?? "";
+  return uniqueLanguages.filter((lang) =>
+    lang.toLowerCase().includes(search)
+  );
+});
+
+function selectLanguage(lang: string) {
+  localLanguage.value = lang;
+  showList.value = false;
+}
+</script>
