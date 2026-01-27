@@ -19,6 +19,12 @@ const getRefreshData = () => {
   return { refreshToken, deviceUuid };
 };
 
+
+const refreshAxios = axios.create({
+  baseURL: envs.APIURL,
+});
+
+
 axiosInstance.interceptors.request.use((config) => {
   const token = getAccessToken();
   if (token) {
@@ -27,7 +33,6 @@ axiosInstance.interceptors.request.use((config) => {
   }
   return config;
 });
-
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -37,43 +42,40 @@ axiosInstance.interceptors.response.use(
       return Promise.reject(error);
     }
 
+    if (originalRequest.url?.includes("auth/refresh")) {
+      return Promise.reject(error);
+    }
+
     const refreshData = getRefreshData();
     if (!refreshData.refreshToken || !refreshData.deviceUuid) {
       router.replace({ name: "Login" });
-      toast.error(
-        "Session expired. You have been logged out for security reasons. Please log in again."
-      );
+      toast.error("Session expired. Please log in again.");
       return Promise.reject(error);
     }
 
     originalRequest._retry = true;
 
     try {
-      const { data } = await axiosInstance.post("auth/refresh", null, {
+      const { data } = await refreshAxios.post("auth/refresh", null, {
         headers: {
           "refresh-token": refreshData.refreshToken,
           "device-uuid": refreshData.deviceUuid,
         },
       });
 
-      const token = data.token;
-      const deviceUuid = data.deviceUuid;
-      const refreshToken = data.refresh_token;
+      localStorage.setItem("accessToken", data.token);
+      localStorage.setItem("uuid", data.deviceUuid);
+      localStorage.setItem("refT", data.refresh_token);
 
-      localStorage.setItem("accessToken", token);
-      localStorage.setItem("uuid", deviceUuid);
-      localStorage.setItem("refT", refreshToken);
-
-      originalRequest.headers["Authorization"] = `Bearer ${token}`;
-      return axios(originalRequest);
-    } catch (refreshError) {
-      toast.error(
-        "Session expired. You have been logged out for security reasons. Please log in again."
-      );
+      originalRequest.headers.Authorization = `Bearer ${data.token}`;
+      return axiosInstance(originalRequest);
+    } catch {
+      toast.error("Session expired. Please log in again.");
       router.replace({ name: "Login" });
-      return Promise.reject(refreshError);
+      return Promise.reject(error);
     }
   }
 );
+
 
 export default axiosInstance;
